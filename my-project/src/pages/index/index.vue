@@ -72,23 +72,23 @@ export default {
       }, {
         tabImgUrl: '/static/img/home/entry-icon-thing.png',
         name: '科技',
-        toPath: 'ItemInfo',
-        type: 'hero'
+        toPath: 'scienceTechnology',
+        type: 'material?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_food.png',
         name: '食谱',
         toPath: 'Recipe',
-        type: 'hero'
+        type: 'food?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_anim.png',
         name: '生物',
         toPath: 'AnimInfo',
-        type: 'hero'
+        type: 'anim?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_nature.png',
         name: '自然',
         toPath: 'NatureInfo',
-        type: 'hero'
+        type: 'nature?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_rule.png',
         name: '机制',
