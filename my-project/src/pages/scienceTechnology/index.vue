@@ -2,14 +2,11 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-13 15:46:10
+ * @Last Modified time: 2018-08-13 17:31:28
  */
 <template>
   <div class="science-technology">
-    <div class="top-imgs">
-      <img class="bg-img" mode="scaleToFill" src="https://images.weserv.nl/?url=stavebox.oss-cn-beijing.aliyuncs.com/SomeLabel/cool-background.png?x-oss-process=style/versionbg" alt="">
-      <img class="img" mode="widthFix" src="https://images.weserv.nl/?url=stavebox.oss-cn-beijing.aliyuncs.com/SomeLabel/C763C9B46AC4420F9F2107724A879221.png" alt="">
-    </div>
+    <topImgs></topImgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -19,24 +16,15 @@
       </div>
     </div>
     <div class="view">
-      <div class="common-good" v-for="good in currentGoods" :key="good._id">
-        <div class="good-img-container">
-          <!-- <img class="good-img" :src="good.src" alt="" mode="widthFix"> -->
-        </div>
-        <div class="desciption">
-          <div class="name">{{good.name}}</div>
-          <div class="alis">{{good.alis}}</div>
-          <div v-if="good.attr" class="attrs">
-            <div><span class="aggressivity">攻击力：</span>{{good.attr[0]}}</div>
-            <div><span class="durable">耐久：</span>{{good.attr[1]}}</div>
-          </div>
-        </div>
-      </div>
+      <common-good v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
     </div>
   </div>
 </template>
 
 <script>
+import topImgs from '@/components/topImgs.vue'
+import commonGood from '@/components/commonGood.vue'
+
 export default {
   data () {
     return {
@@ -106,8 +94,11 @@ export default {
       version: 'DST'
     }
   },
+  components: {
+    topImgs,
+    commonGood
+  },
   onLoad (options) {
-    console.info(options, 'mish options')
     this.technologyType = options.type
   },
   mounted () {
@@ -140,21 +131,6 @@ export default {
   .more-tab-selected {
     background-color: #2F4F4F !important;
     color: white !important;
-  }
-  .top-imgs {
-    position: relative;
-    height: 160px;
-    .bg-img {
-      width: 100vw;
-      height: 160px;
-    }
-    .img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 120px;
-    }
   }
   .tabs {
     height: 38px;
@@ -207,37 +183,6 @@ export default {
     height: calc(100% - 198px);
     width: 100%;
     overflow: scroll;
-    .common-good {
-      display: flex;
-      flex-flow: nowrap row;
-      padding: 10px;
-      border-bottom: 1px solid #DCDFE6;
-      .good-img-container {
-        width: 126px;
-        height: 106px;
-        background-image: url(../../../static/img/home/chacter2.png);
-        .good-img {
-          width: 48px;
-        }
-      }
-      .desciption {
-        margin-left: 15px;
-        .name {
-          font-size: 18px;
-        }
-        .alis {
-          padding-bottom: 10px;
-          font-size: 14px;
-          color: gray;
-        }
-        .attrs {
-          font-size: 15px;
-          .aggressivity, .durable {
-            color: gray
-          }
-        }
-      }
-    }
   }
 }
 </style>

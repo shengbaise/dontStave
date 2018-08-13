@@ -77,7 +77,7 @@ export default {
       }, {
         tabImgUrl: '/static/img/home/entry-icon_food.png',
         name: '食谱',
-        toPath: 'Recipe',
+        toPath: 'recipe',
         type: 'food?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_anim.png',
