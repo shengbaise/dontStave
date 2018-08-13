@@ -7,8 +7,14 @@
 <template>
   <div class="recipe">
     <topImgs></topImgs>
-    <div class="tabs">
-      <div class="tab"></div>
+    <div class="tabs-container">
+      <div class="food" @click="selectTab(food.type)">{{food.label}}</div>
+      <div class="tabs">
+        <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs">{{tab.label}}</div>
+      </div>
+    </div>
+    <div class="view">
+      <common-good v-for="item in currentItems" :good="item" :key="item._id"></common-good>
     </div>
   </div>
 </template>
@@ -23,29 +29,31 @@ export default {
       type: '',
       version: 'DST',
       items: [],
-      currentitems: [],
-      tabs: [{
+      currentItems: [],
+      food: {
         label: '料理',
         type: 7
-      }, {
+      },
+      tabs: [{
         label: '肉类',
-        type: 7
+        type: 4
       }, {
         label: '蔬菜',
-        type: 7
+        type: 6
       }, {
         label: '水果',
-        type: 7
+        type: 5
       }, {
         label: '蛋类',
-        type: 7
+        type: 8
       }, {
         label: '其他',
-        type: 7
+        type: 20
       }, {
         label: '非食材',
-        type: 7
-      }]
+        type: 21
+      }],
+      currentTabType: 7
     }
   },
   components: {
@@ -63,18 +71,56 @@ export default {
     async initData () {
       const result = await this.$http.get(`${this.inline}/${this.type}?version=${this.version}`)
       this.items = result.data
-      console.info(this.items, 'mish items')
-      // this.currentitems = this.items.filter(item => item.type === this.currentTabType)
+      this.currentItems = this.items.filter(item => item.type === this.currentTabType)
+    },
+    selectTab (type) {
+      this.currentTabType = type
+      this.currentItems = this.items.filter(item => item.type === this.currentTabType)
     }
-    // selectTab (type) {
-    //   if (type) {
-    //     this.currentTabType = type
-    //     this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
-    //     this.showMoreTab = false
-    //   } else {
-    //     this.showMoreTab = true
-    //   }
-    // }
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .recipe {
+    .selected-tab {
+      background-color: #2c3e50 !important;
+      color: #fff !important;
+    }
+    .tabs-container {
+      display: flex;
+      flex-flow: nowrap row;
+      background-color: #34495e;
+      .food {
+        width: 159px;
+        height: 80px;
+        background-color: #2c3e50;
+        color: white;
+        text-align: center;
+        line-height: 80px;
+        box-shadow: inset 0 0 4px #212121;
+        font-size: 16px;
+        border-top: 1px solid #2c3e50;
+        border-bottom: 1px solid #2c3e50;
+      }
+      .tabs {
+        display: flex;
+        flex-flow: wrap row;
+        width: calc(100% - 159px);
+        height: 80px;
+        .tab {
+          width: calc(33% - 2px);
+          height: 40px;
+          background-color: #34495e;
+          border-bottom: 1px solid #2c3e50;
+          border-left: 1px solid #2c3e50;
+          font-size: 12px;
+          color: #bdc3c7;
+          text-align: center;
+          line-height: 40px;
+        }
+      }
+    }
+    
+  }
+</style>
