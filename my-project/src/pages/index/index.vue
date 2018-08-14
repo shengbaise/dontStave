@@ -82,12 +82,12 @@ export default {
       }, {
         tabImgUrl: '/static/img/home/entry-icon_anim.png',
         name: '生物',
-        toPath: 'AnimInfo',
+        toPath: 'animInfo',
         type: 'anim?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_nature.png',
         name: '自然',
-        toPath: 'NatureInfo',
+        toPath: 'natureInfo',
         type: 'nature?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_rule.png',
@@ -146,10 +146,6 @@ export default {
 page {
   width:100%;
   height:100%;
-}
-image {
-  /* width: 100%; */
-  /* height: 100%; */
 }
 </style>
 

@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-13 17:31:28
+ * @Last Modified time: 2018-08-14 17:07:18
  */
 <template>
   <div class="science-technology">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="view">
-      <common-good v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
+      <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
     </div>
   </div>
 </template>
@@ -105,6 +105,11 @@ export default {
     this.initData()
   },
   methods: {
+    toDetail (item) {
+      wx.navigateTo({
+        url: `/pages/scienceTechnologyDetail/main?src=${item.src}`
+      })
+    },
     async initData () {
       const result = await this.$http.get(`${this.inline}/${this.technologyType}?version=${this.version}`)
       this.items = result.data
@@ -112,9 +117,12 @@ export default {
     },
     selectTab (type) {
       if (type) {
+        this.currentGoods = []
         this.currentTabType = type
-        this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
-        this.showMoreTab = false
+        setTimeout(() => {
+          this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
+          this.showMoreTab = false
+        }, 0)
       } else {
         this.showMoreTab = true
       }

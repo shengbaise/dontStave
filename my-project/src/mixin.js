@@ -8,6 +8,12 @@ export const global = {
     }
   },
   created () {
-    //
+    this.sleep = (millisecond) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('wake')
+        }, millisecond)
+      })
+    }
   }
 }

@@ -2,39 +2,53 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:25:27
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-13 17:31:02
+ * @Last Modified time: 2018-08-14 17:16:44
  */
 <template>
-  <div class="common-good">
+  <div class="common-good" @click="toDetail()">
     <div class="good-img-container">
       <img class="good-img" :src="good.src" alt="" mode="widthFix">
     </div>
     <div class="desciption">
       <div class="name">{{good.name}}</div>
       <div class="alis">{{good.alis}}</div>
-      <!-- <div v-if="good.attr" class="attrs">
+      <div v-if="good.attr && (type === 'science' || good.type === 34)" class="attrs">
         <div><span class="aggressivity">攻击力：</span>{{good.attr[0]}}</div>
         <div><span class="durable">耐久：</span>{{good.attr[1]}}</div>
-      </div> -->
-      <!-- <div v-if="good.attr" class="food-attrs">
+      </div>
+      <div v-if="good.attr && type === 'recipe'" class="food-attrs">
         <div class="food-attr" v-for="(foodAttrImg, index) in foodAttrImgs" :key="index">
           <img class="food-attr-img" :src="foodAttrImg" alt="" mode="widthFix">
           <div class="attr-content">{{good.attr[index]}}</div>
         </div>
-      </div> -->
+      </div>
+      <div v-if="good.attr && type === 'animal'" class="animal-attrs">
+        <div>
+          <span>伤害：{{good.attr[0]}} </span>
+          <span>生命值：{{good.attr[1]}}</span>
+        </div>
+        <div class="speed">
+          <span>行走速度：{{good.attr[2]}} </span>
+          <span>奔跑速度：{{good.attr[3]}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// https://images.weserv.nl/?url=
-
 export default {
   props: {
     good: {
       type: Object,
       default () {
         return {}
+      }
+    },
+    type: {
+      type: String,
+      default () {
+        return ''
       }
     }
   },
@@ -46,6 +60,11 @@ export default {
         'https://images.weserv.nl/?url=img1.gamersky.com/image2015/12/20151211zh_4/image006_S.jpg',
         '/static/img/food/notFresh.png'
       ]
+    }
+  },
+  methods: {
+    toDetail () {
+      this.$emit('click')
     }
   }
 }
@@ -103,6 +122,13 @@ export default {
           background-color: #915842;
           border-radius: 4px;
         }
+      }
+    }
+    .animal-attrs {
+      font-size: 14px;
+      color: #999;
+      .speed {
+        padding-top: 6px;
       }
     }
   }

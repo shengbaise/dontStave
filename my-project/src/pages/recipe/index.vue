@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-13 17:53:20
+ * @Last Modified time: 2018-08-14 19:14:08
  */
 <template>
   <div class="recipe">
@@ -10,11 +10,11 @@
     <div class="tabs-container">
       <div class="food" @click="selectTab(food.type)">{{food.label}}</div>
       <div class="tabs">
-        <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs">{{tab.label}}</div>
+        <div class="tab" :key="tab.label" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs">{{tab.label}}</div>
       </div>
     </div>
     <div class="view">
-      <common-good v-for="item in currentItems" :good="item" :key="item._id"></common-good>
+      <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
     </div>
   </div>
 </template>
@@ -68,14 +68,22 @@ export default {
     this.initData()
   },
   methods: {
+    toDetail (item) {
+      wx.navigateTo({
+        url: `/pages/recipeDetail/main?src=${item.src}`
+      })
+    },
     async initData () {
       const result = await this.$http.get(`${this.inline}/${this.type}?version=${this.version}`)
       this.items = result.data
       this.currentItems = this.items.filter(item => item.type === this.currentTabType)
     },
     selectTab (type) {
+      this.currentItems = []
       this.currentTabType = type
-      this.currentItems = this.items.filter(item => item.type === this.currentTabType)
+      setTimeout(() => {
+        this.currentItems = this.items.filter(item => item.type === this.currentTabType)
+      }, 0)
     }
   }
 }
