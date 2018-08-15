@@ -2,58 +2,139 @@
  * @Author: chenxu
  * @Date: 2018-08-14 19:14:31
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 20:15:08
+ * @Last Modified time: 2018-08-15 14:44:51
  */
 <template>
   <div class="recipe-detail">
     <common-good :good="item" type="recipe"></common-good>
     <div class="detail-container">
       <div class="detail">
-        <!-- <div class="materials">
-          <div class="material" v-for="(material, index) in item.composite" :key="index">
-            <img class="material-img" :src="material.src" alt="" mode="widthFix">
-            <div>x {{material.num}}</div>
+        <div class="science">
+          <!-- <div class="no-science" v-if="item.technology === 0">不需要科技</div> -->
+          <img class="science-img" src="/static/img/food/pot.png" alt="" mode="widthFix">
+        </div>
+        <div class="materials">
+          <div class="material" v-for="(material, index) in composites" :key="index">
+            <img class="material-img" :src="material" alt="" mode="widthFix">
+            <!-- <div>x {{material.num}}</div> -->
           </div>
-        </div> -->
-        <common-detail :console="item.console" :desc="item.desc"></common-detail>
+        </div>
+        <div class="materials">
+          <div class="need-materials">
+            <div class="material-item">
+              <div class="material" v-for="(material, index) in needs" :key="index">
+                <img class="material-img" :src="material.src" alt="" mode="widthFix">
+                <div>{{material.num}}</div>
+              </div>
+            </div>
+            <p class="need-desc">必须材料</p>
+          </div>
+          <div class="fail-materials">
+            <div class="material-item">
+              <div class="material" v-for="(material, index) in fails" :key="index">
+                <div>{{material.num}}</div>
+                <img class="material-img" :src="material.src" alt="" mode="widthFix">
+              </div>
+            </div>
+            <p class="need-desc">不能添加材料</p>
+          </div>
+        </div>
       </div>
     </div>
+    <!-- <div class="detail-container">
+      <div class="detail">
+        <div class="attr-text">
+          <div class="key">优先级</div>
+          <div class="value">{{item.priority}}</div>
+        </div>
+        <div class="attr-text">
+          <div class="key">烹饪</div>
+          <div class="value">{{item.time}}</div>
+        </div>
+        <div class="attr-text">
+          <div class="key">温度</div>
+          <div class="value">不影响</div>
+        </div>
+        <common-detail :console="item.console" :desc="item.desc"></common-detail>
+      </div>
+    </div> -->
+    <detail-container>
+      <!-- <div>
+        <div class="attr-text">
+          <div class="key">优先级</div>
+          <div class="value">{{item.priority}}</div>
+        </div>
+        <div class="attr-text">
+          <div class="key">烹饪</div>
+          <div class="value">{{item.time}}</div>
+        </div>
+        <div class="attr-text">
+          <div class="key">温度</div>
+          <div class="value">不影响</div>
+        </div>
+        <common-detail :console="item.console" :desc="item.desc"></common-detail>
+      </div> -->
+    </detail-container>
   </div>
 </template>
 
 <script>
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
+import detailContainer from '@/components/detailContainer.vue'
 
 export default {
   data () {
     return {
       item: {},
-      version: 'DST'
+      version: 'DST',
+      composites: [],
+      needs: [],
+      fails: []
     }
   },
   components: {
     commonGood,
-    commonDetail
+    commonDetail,
+    detailContainer
   },
   async onLoad (options) {
     const result = await this.$http.get(`${this.inline}/food/single?version=${this.version}&src=${options.src}`)
     this.item = result.data[0]
-    console.info(this.item, 'item')
-    // const composite = this.item.composite
-    // composite.forEach(item => {
-    //   item.src = this.formatUrl(item.src)
-    // })
-    // console.info(this.item, 'itemmmmmmmmmmmmm')
+
+    this.composites = this.item.composite.map(item => {
+      return this.formatUrl(item)
+    })
+
+    const needItems = this.item.need.map((need, index) => {
+      if (index % 2 === 0) {
+        return {
+          src: this.formatUrl(need),
+          num: this.item.need[index + 1]
+        }
+      }
+    })
+    console.info(needItems, 'neeeeeeeee')
+    const fails = this.item.fail.map((need, index) => {
+      if (index % 2 !== 0) {
+        return {
+          src: this.formatUrl(need),
+          num: this.item.fail[index - 1]
+        }
+      }
+    })
+    this.fails = fails.filter(item => !!item)
+    this.needs = needItems.filter(item => !!item)
+    console.info(this.fails, this.needs, 'fffffffff')
   },
   methods: {
-    // formatUrl (src) {
-    //   let urlParam = ''
-    //   if (['G', 'S', 'F', 'A'].indexOf(src[0]) > -1) {
-    //     urlParam = 'Foods'
-    //   }
-    //   return `http://img.fireleaves.cn/${urlParam}/${src}.png`
-    // }
+    formatUrl (src) {
+      let urlParam = ''
+      if (['G', 'S', 'F', 'A'].indexOf(src[0]) > -1) {
+        urlParam = 'Foods'
+      }
+      return `http://img.fireleaves.cn/${urlParam}/${src}.png`
+    }
   }
 }
 </script>
@@ -64,12 +145,25 @@ export default {
     padding: 12px;
     .detail {
       position: relative;
-      padding: 24px;
+      padding: 24px 24px 0 24px;
       background-color: #fff;
       border-radius: 6px;
       min-height: 30vh;
       border: 1px solid #e0e0e0;
       box-shadow: inset 0 4px 8px #e0e0e0;
+      .science {
+        height: 32px;
+        margin-top: -12px;
+        margin-right: -12px;
+        text-align: right;
+        .no-science {
+          color: #999;
+          font-size: 12px;
+        }
+        .science-img {
+          width: 32px;
+        }
+      }
       .materials {
         padding-top: 2px;
         padding-bottom: 18px;
@@ -77,6 +171,14 @@ export default {
         flex-flow: nowrap row;
         justify-content: space-around;
         align-items: center;
+        .material-item {
+          display: flex;
+          flex-flow: nowrap row;
+          justify-content: space-around;
+          align-items: center;
+          padding-bottom: 60px;
+          font-size: 12px;
+        }
         .material {
           display: flex;
           flex-flow: nowrap row;
@@ -85,8 +187,48 @@ export default {
             width: 48px;
           }
         }
+        .need-materials {
+          border-right: 1px solid #999;
+        }
+        .fail-materials {
+          border-left: 1px solid #999;
+          .material-img {
+            margin-left: 2px;
+          }
+        }
+        .need-materials, .fail-materials {
+          text-align: center;
+          width: 50%;
+          .material-img {
+            width: 32px;
+          }
+        }
+        .need-desc {
+          color: #999;
+          font-size: 12px;
+        }
       }
     }
   }
+  // .attr-text {
+  //   align-items: center;
+  //   margin-bottom: 12px;
+  //   padding-right: 12px;
+  //   height: 36px;
+  //   border-radius: 4px;
+  //   border-left: 4px solid #666;
+  //   background-color: #f9f9f9;
+  //   color: #999;
+  //   font-size: 14px;
+  //   display: flex;
+  //   flex-flow: nowrap row;
+  //   justify-content: space-between;
+  //   .key {
+  //     padding-left: 10px;
+  //   }
+  //   .value {
+  //     color: #333;
+  //   }
+  // }
 }
 </style>
