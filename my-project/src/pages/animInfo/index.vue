@@ -6,12 +6,12 @@
  */
 <template>
   <div class="anim-info">
-    <topImgs></topImgs>
+    <!-- <topImgs></topImgs> -->
     <div class="tabs">
       <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs" :key="tab.type">{{tab.label}}</div>
     </div>
     <div class="view">
-      <common-good v-for="item in currentGoods" :good="item" :key="item._id" type="animal"></common-good>
+      <common-good @click="toDetail(item)" v-for="item in currentGoods" :good="item" :key="item._id" type="animal"></common-good>
     </div>
   </div>
 </template>
@@ -61,6 +61,11 @@ export default {
     this.initData()
   },
   methods: {
+    toDetail (item) {
+      wx.navigateTo({
+        url: `/pages/animInfoDetail/main?src=${item.src}`
+      })
+    },
     async initData () {
       const result = await this.$http.get(`${this.inline}/${this.type}?version=${this.version}`)
       this.items = result.data

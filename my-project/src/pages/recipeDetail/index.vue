@@ -10,17 +10,16 @@
     <div class="detail-container">
       <div class="detail">
         <div class="science">
-          <!-- <div class="no-science" v-if="item.technology === 0">不需要科技</div> -->
-          <img class="science-img" src="/static/img/food/pot.png" alt="" mode="widthFix">
+          <div class="no-science" v-if="type !== '7'">食物属性</div>
+          <img class="science-img" v-else src="/static/img/food/pot.png" alt="" mode="widthFix">
         </div>
-        <div class="materials">
+        <div class="materials" v-if="composites.length > 0">
           <div class="material" v-for="(material, index) in composites" :key="index">
             <img class="material-img" :src="material" alt="" mode="widthFix">
-            <!-- <div>x {{material.num}}</div> -->
           </div>
         </div>
         <div class="materials">
-          <div class="need-materials">
+          <div class="need-materials" v-if="needs.length > 0">
             <div class="material-item">
               <div class="material" v-for="(material, index) in needs" :key="index">
                 <img class="material-img" :src="material.src" alt="" mode="widthFix">
@@ -29,7 +28,7 @@
             </div>
             <p class="need-desc">必须材料</p>
           </div>
-          <div class="fail-materials">
+          <div class="fail-materials" v-if="fails.length > 0">
             <div class="material-item">
               <div class="material" v-for="(material, index) in fails" :key="index">
                 <div>{{material.num}}</div>
@@ -39,9 +38,15 @@
             <p class="need-desc">不能添加材料</p>
           </div>
         </div>
+        <div class="materials" v-if="features.length > 0">
+          <div class="material" v-for="(feature, index) in features" :key="index">
+            <img class="material-img" :src="feature.src" alt="" mode="widthFix">
+            <div>{{feature.num}}</div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- <div class="detail-container">
+    <div class="detail-container">
       <div class="detail">
         <div class="attr-text">
           <div class="key">优先级</div>
@@ -57,24 +62,7 @@
         </div>
         <common-detail :console="item.console" :desc="item.desc"></common-detail>
       </div>
-    </div> -->
-    <detail-container>
-      <!-- <div>
-        <div class="attr-text">
-          <div class="key">优先级</div>
-          <div class="value">{{item.priority}}</div>
-        </div>
-        <div class="attr-text">
-          <div class="key">烹饪</div>
-          <div class="value">{{item.time}}</div>
-        </div>
-        <div class="attr-text">
-          <div class="key">温度</div>
-          <div class="value">不影响</div>
-        </div>
-        <common-detail :console="item.console" :desc="item.desc"></common-detail>
-      </div> -->
-    </detail-container>
+    </div>
   </div>
 </template>
 
@@ -90,7 +78,9 @@ export default {
       version: 'DST',
       composites: [],
       needs: [],
-      fails: []
+      fails: [],
+      features: [],
+      type: 0
     }
   },
   components: {
@@ -98,34 +88,8 @@ export default {
     commonDetail,
     detailContainer
   },
-  async onLoad (options) {
-    const result = await this.$http.get(`${this.inline}/food/single?version=${this.version}&src=${options.src}`)
-    this.item = result.data[0]
-
-    this.composites = this.item.composite.map(item => {
-      return this.formatUrl(item)
-    })
-
-    const needItems = this.item.need.map((need, index) => {
-      if (index % 2 === 0) {
-        return {
-          src: this.formatUrl(need),
-          num: this.item.need[index + 1]
-        }
-      }
-    })
-    console.info(needItems, 'neeeeeeeee')
-    const fails = this.item.fail.map((need, index) => {
-      if (index % 2 !== 0) {
-        return {
-          src: this.formatUrl(need),
-          num: this.item.fail[index - 1]
-        }
-      }
-    })
-    this.fails = fails.filter(item => !!item)
-    this.needs = needItems.filter(item => !!item)
-    console.info(this.fails, this.needs, 'fffffffff')
+  onLoad (options) {
+    this.initData(options)
   },
   methods: {
     formatUrl (src) {
@@ -134,6 +98,56 @@ export default {
         urlParam = 'Foods'
       }
       return `http://img.fireleaves.cn/${urlParam}/${src}.png`
+    },
+    async initData (options) {
+      const result = await this.$http.get(`${this.inline}/food/single?version=${this.version}&src=${options.src}`)
+      this.type = options.type
+      this.item = result.data[0]
+      this.composites = []
+      this.needs = []
+      this.fails = []
+      this.features = []
+
+      if (this.item.composites) {
+        this.composites = this.item.composite.map(item => {
+          return this.formatUrl(item)
+        })
+      }
+
+      if (this.item.need) {
+        const needItems = this.item.need.map((need, index) => {
+          if (index % 2 === 0) {
+            return {
+              src: this.formatUrl(need),
+              num: this.item.need[index + 1]
+            }
+          }
+        })
+        this.needs = needItems.filter(item => !!item)
+      }
+      if (this.item.fail) {
+        const fails = this.item.fail.map((need, index) => {
+          if (index % 2 !== 0) {
+            return {
+              src: this.formatUrl(need),
+              num: this.item.fail[index - 1]
+            }
+          }
+        })
+        this.fails = fails.filter(item => !!item)
+      }
+
+      if (this.item.feature) {
+        const features = this.item.feature.map((feature, index) => {
+          if (index % 2 === 0) {
+            return {
+              src: this.formatUrl(feature),
+              num: this.item.feature[index + 1]
+            }
+          }
+        })
+        this.features = features.filter(item => !!item)
+      }
     }
   }
 }
@@ -210,25 +224,25 @@ export default {
       }
     }
   }
-  // .attr-text {
-  //   align-items: center;
-  //   margin-bottom: 12px;
-  //   padding-right: 12px;
-  //   height: 36px;
-  //   border-radius: 4px;
-  //   border-left: 4px solid #666;
-  //   background-color: #f9f9f9;
-  //   color: #999;
-  //   font-size: 14px;
-  //   display: flex;
-  //   flex-flow: nowrap row;
-  //   justify-content: space-between;
-  //   .key {
-  //     padding-left: 10px;
-  //   }
-  //   .value {
-  //     color: #333;
-  //   }
-  // }
+  .attr-text {
+    align-items: center;
+    margin-bottom: 12px;
+    padding-right: 12px;
+    height: 36px;
+    border-radius: 4px;
+    border-left: 4px solid #666;
+    background-color: #f9f9f9;
+    color: #999;
+    font-size: 14px;
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: space-between;
+    .key {
+      padding-left: 10px;
+    }
+    .value {
+      color: #333;
+    }
+  }
 }
 </style>

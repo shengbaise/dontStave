@@ -6,7 +6,7 @@
  */
 <template>
   <div class="science-technology">
-    <topImgs></topImgs>
+    <!-- <top-imgs></top-imgs> -->
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -102,6 +102,7 @@ export default {
     this.technologyType = options.type
   },
   mounted () {
+    console.info('eeeeeeè')
     this.initData()
   },
   methods: {
@@ -111,6 +112,7 @@ export default {
       })
     },
     async initData () {
+      console.info(this.inline, 'mish inline')
       const result = await this.$http.get(`${this.inline}/${this.technologyType}?version=${this.version}`)
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)

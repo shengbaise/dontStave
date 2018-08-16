@@ -6,7 +6,7 @@
  */
 <template>
   <div class="recipe">
-    <topImgs></topImgs>
+    <!-- <topImgs></topImgs> -->
     <div class="tabs-container">
       <div class="food" @click="selectTab(food.type)">{{food.label}}</div>
       <div class="tabs">
@@ -70,7 +70,7 @@ export default {
   methods: {
     toDetail (item) {
       wx.navigateTo({
-        url: `/pages/recipeDetail/main?src=${item.src}`
+        url: `/pages/recipeDetail/main?src=${item.src}&type=${item.type}`
       })
     },
     async initData () {

@@ -10,7 +10,15 @@
     <img class="img" mode="widthFix" src="https://images.weserv.nl/?url=stavebox.oss-cn-beijing.aliyuncs.com/SomeLabel/C763C9B46AC4420F9F2107724A879221.png" alt="">
   </div>
 </template>
- 
+
+<script>
+export default {
+  data () {
+  },
+  mounted () {}
+}
+</script>
+
 <style lang="scss" scoped>
 .top-imgs {
   position: relative;
