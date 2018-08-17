@@ -54,7 +54,6 @@ export default {
     commonGood
   },
   onLoad (options) {
-    console.info(options, 'mish options')
     this.type = options.type
   },
   mounted () {
