@@ -6,7 +6,7 @@
  */
 <template>
   <div class="science-technology">
-    <top-imgs></top-imgs>
+    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -18,7 +18,7 @@
     <div class="view">
       <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
     </div>
-    <select-version></select-version>
+    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
@@ -30,6 +30,7 @@ import selectVersion from '@/components/selectVersion.vue'
 export default {
   data () {
     return {
+      isSelect: false,
       tabs: [{
         label: '工具',
         type: 11
@@ -110,8 +111,9 @@ export default {
         timingFunc: 'easeIn'
       }
     })
+    this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
-      title: '物品资料'
+      title: `物品资料${this.version}`
     })
     this.technologyType = options.type
   },
@@ -119,6 +121,14 @@ export default {
     this.initData()
   },
   methods: {
+    async selectVersion (item) {
+      await wx.setStorageSync('currentVersion', item)
+      this.version = wx.getStorageSync('currentVersion')
+      this.isSelect = false
+    },
+    switchVersion () {
+      this.isSelect = true
+    },
     toDetail (item) {
       wx.navigateTo({
         url: `/pages/scienceTechnologyDetail/main?src=${item.src}`
@@ -140,6 +150,17 @@ export default {
       } else {
         this.showMoreTab = true
       }
+    }
+  },
+  watch: {
+    version (value) {
+      this.initData()
+      setTimeout(() => {
+        wx.setStorageSync('currentVersion', value)
+      }, 0)
+      wx.setNavigationBarTitle({
+        title: `食谱(${this.version})`
+      })
     }
   }
 }

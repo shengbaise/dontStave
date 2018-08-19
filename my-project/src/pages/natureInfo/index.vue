@@ -6,23 +6,26 @@
  */
 <template>
   <div class="nature-info">
-    <top-imgs></top-imgs>
+    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
     <div class="view">
       <common-good v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
     </div>
+    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
 import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
+import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
     return {
+      isSelect: false,
       type: '',
       version: 'DST',
       currentTabType: 33,
@@ -41,7 +44,8 @@ export default {
   },
   components: {
     topImgs,
-    commonGood
+    commonGood,
+    selectVersion
   },
   onLoad (options) {
     wx.setNavigationBarColor({
@@ -52,8 +56,9 @@ export default {
         timingFunc: 'easeIn'
       }
     })
+    this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
-      title: '自然'
+      title: ` 自然(${this.version})`
     })
     this.type = options.type
   },
@@ -61,6 +66,14 @@ export default {
     this.initData()
   },
   methods: {
+    async selectVersion (item) {
+      await wx.setStorageSync('currentVersion', item)
+      this.version = wx.getStorageSync('currentVersion')
+      this.isSelect = false
+    },
+    switchVersion () {
+      this.isSelect = true
+    },
     async initData () {
       const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data
@@ -72,6 +85,17 @@ export default {
       setTimeout(() => {
         this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
       }, 0)
+    }
+  },
+  watch: {
+    version (value) {
+      this.initData()
+      setTimeout(() => {
+        wx.setStorageSync('currentVersion', value)
+      }, 0)
+      wx.setNavigationBarTitle({
+        title: `自然(${this.version})`
+      })
     }
   }
 }

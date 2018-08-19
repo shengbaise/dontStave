@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
+  <div class="container">
     <div class="banner">
       <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt="">
       <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
@@ -53,11 +53,13 @@
       <div>藏品</div>
       <div>我的</div>
     </div>
+    <select-version v-if="!version" @select-version="selectVersion($event)" listWidth="80%" :isHome="true"></select-version>
   </div>
 </template>
 
 <script>
 import uploadImg from '@/components/uploadImg'
+import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
@@ -97,11 +99,13 @@ export default {
       }],
       data: {},
       banners: [],
-      articles: []
+      articles: [],
+      version: ''
     }
   },
   components: {
-    uploadImg
+    uploadImg,
+    selectVersion
   },
   onLoad () {
     wx.setNavigationBarColor({
@@ -115,6 +119,8 @@ export default {
     wx.setNavigationBarTitle({
       title: '掌上饥荒'
     })
+
+    this.version = wx.getStorageSync('currentVersion')
   },
   async mounted () {
     const res = await this.$http.get('https://www.fireleaves.cn/init')
@@ -123,14 +129,14 @@ export default {
     this.articles = this.data.article
   },
   methods: {
+    async selectVersion (item) {
+      await wx.setStorageSync('currentVersion', item)
+      this.version = wx.getStorageSync('currentVersion')
+    },
     toTap (path, type) {
       wx.navigateTo({
         url: `/pages/${path}/main?type=${type}`
       })
-    },
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
     },
     getUserInfo () {
       // 调用登录接口
@@ -143,10 +149,10 @@ export default {
           })
         }
       })
-    },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
     }
+    // clickHandle (msg, ev) {
+    //   console.log('clickHandle:', msg, ev)
+    // }
   },
 
   created () {

@@ -6,7 +6,7 @@
  */
 <template>
   <div class="recipe">
-    <top-imgs></top-imgs>
+    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs-container">
       <div class="food" @click="selectTab(food.type)">{{food.label}}</div>
       <div class="tabs">
@@ -16,16 +16,19 @@
     <div class="view">
       <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
     </div>
+    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
 import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
+import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
     return {
+      isSelect: false,
       type: '',
       version: 'DST',
       items: [],
@@ -58,7 +61,8 @@ export default {
   },
   components: {
     topImgs,
-    commonGood
+    commonGood,
+    selectVersion
   },
   onLoad (options) {
     wx.setNavigationBarColor({
@@ -69,8 +73,9 @@ export default {
         timingFunc: 'easeIn'
       }
     })
+    this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
-      title: '食谱'
+      title: `食谱(${this.version})`
     })
     this.type = options.type
   },
@@ -78,6 +83,14 @@ export default {
     this.initData()
   },
   methods: {
+    async selectVersion (item) {
+      await wx.setStorageSync('currentVersion', item)
+      this.version = wx.getStorageSync('currentVersion')
+      this.isSelect = false
+    },
+    switchVersion () {
+      this.isSelect = true
+    },
     toDetail (item) {
       wx.navigateTo({
         url: `/pages/recipeDetail/main?src=${item.src}&type=${item.type}`
@@ -94,6 +107,17 @@ export default {
       setTimeout(() => {
         this.currentItems = this.items.filter(item => item.type === this.currentTabType)
       }, 0)
+    }
+  },
+  watch: {
+    version (value) {
+      this.initData()
+      setTimeout(() => {
+        wx.setStorageSync('currentVersion', value)
+      }, 0)
+      wx.setNavigationBarTitle({
+        title: `食谱(${this.version})`
+      })
     }
   }
 }

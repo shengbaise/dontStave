@@ -6,25 +6,28 @@
  */
 <template>
   <div class="anim-info">
-    <top-imgs></top-imgs>
+    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
       <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs" :key="tab.type">{{tab.label}}</div>
     </div>
     <div class="view">
       <common-good @click="toDetail(item)" v-for="item in currentGoods" :good="item" :key="item._id" type="animal"></common-good>
     </div>
+    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
 import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
+import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
     return {
       type: '',
       items: [],
+      isSelect: false,
       currentTabType: 0,
       currentGoods: [],
       version: 'DST',
@@ -51,7 +54,8 @@ export default {
   },
   components: {
     topImgs,
-    commonGood
+    commonGood,
+    selectVersion
   },
   onLoad (options) {
     wx.setNavigationBarColor({
@@ -62,16 +66,24 @@ export default {
         timingFunc: 'easeIn'
       }
     })
+    this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
-      title: '生物资料'
+      title: `生物资料(${this.version})`
     })
-
     this.type = options.type
   },
   mounted () {
     this.initData()
   },
   methods: {
+    async selectVersion (item) {
+      await wx.setStorageSync('currentVersion', item)
+      this.version = wx.getStorageSync('currentVersion')
+      this.isSelect = false
+    },
+    switchVersion () {
+      this.isSelect = true
+    },
     toDetail (item) {
       wx.navigateTo({
         url: `/pages/animInfoDetail/main?src=${item.src}`
@@ -89,6 +101,17 @@ export default {
       setTimeout(() => {
         this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
       }, 0)
+    }
+  },
+  watch: {
+    version (value) {
+      this.initData()
+      setTimeout(() => {
+        wx.setStorageSync('currentVersion', value)
+      }, 0)
+      wx.setNavigationBarTitle({
+        title: `生物资料(${this.version})`
+      })
     }
   }
 }

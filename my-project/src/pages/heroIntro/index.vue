@@ -8,7 +8,7 @@
   <div class="hero-intro">
     <div class="hero">
       <div class="top-picture">
-        <img class="picture" src="http://img.fireleaves.cn/SomeLabel/wlis.jpg" alt="" mode="widthFix">
+        <img class="picture" v-if="heroList[heroIndex]" :src="heroList[heroIndex].topImg" alt="" mode="aspectFit">
         <div class="shade"></div>
         <div class="hero-message" v-if="hero._id">
           <div class="name">{{heros[heroIndex].name}}</div>
@@ -50,81 +50,97 @@ export default {
       heroList: [{
         src: '/static/img/hero/wex.png',
         name: '威尔森',
-        alis: 'Wilson'
+        alis: 'Wilson',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wilson.jpg'
       }, {
         src: '/static/img/hero/huonv.png',
         name: '薇洛',
-        alis: 'Willow'
+        alis: 'Willow',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/willow.jpg'
       },
       {
         src: '/static/img/hero/dls.png',
         name: '沃尔夫冈',
-        alis: 'Wolfgang'
+        alis: 'Wolfgang',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wolfgang.jpg'
       },
       {
         src: '/static/img/hero/wendi.png',
         name: '温蒂',
-        alis: 'Wendy'
+        alis: 'Wendy',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wendy.jpg'
       },
       {
         src: '/static/img/hero/jqr.png',
         name: '机器人',
-        alis: 'WX-78'
+        alis: 'WX-78',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/WX-78.jpg'
       },
       {
         src: '/static/img/hero/lnn.png',
         name: '老奶奶',
-        alis: 'Wickerbottom'
+        alis: 'Wickerbottom',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wickerbottom.jpg'
       },
       {
         src: '/static/img/hero/fmg.png',
         name: '伍迪',
-        alis: 'Woodie'
+        alis: 'Woodie',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Woodie.jpg'
       },
       {
         src: '/static/img/hero/xiaochou.png',
         name: '韦斯',
-        alis: 'Wes'
+        alis: 'Wes',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wes.jpg'
       },
       {
         src: '/static/img/hero/mswe.png',
         name: '麦斯威尔',
-        alis: 'Maxwell'
+        alis: 'Maxwell',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Maxwell.jpg'
       },
       {
         src: '/static/img/hero/wns.png',
         name: '薇格弗德',
-        alis: 'Wigfrid'
+        alis: 'Wigfrid',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wigfrid.jpg'
       },
       {
         src: '/static/img/hero/walani.png',
         name: '瓦拉尼',
-        alis: 'Walani'
+        alis: 'Walani',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Walani.png'
       },
       {
         src: '/static/img/hero/weibo.png',
         name: '韦伯',
-        alis: 'Webber'
+        alis: 'Webber',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Webber.jpg'
       },
       {
         src: '/static/img/hero/woli.png',
         name: '沃利',
-        alis: 'Warly'
+        alis: 'Warly',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Warly.png'
       },
       {
         src: '/static/img/hero/weierbo.png',
         name: '威尔伯',
-        alis: 'Wilbur'
+        alis: 'Wilbur',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Wilbur.png'
       },
       {
         src: '/static/img/hero/mtcz.png',
         name: '木腿船长',
-        alis: 'Woodlegs'
+        alis: 'Woodlegs',
+        topImg: 'http://img.fireleaves.cn/SomeLabel/Woodlegs.png'
       },
       {
         src: '/static/img/hero/winona.png',
         name: '薇诺娜',
-        alis: 'Winona'
+        alis: 'Winona',
+        topImg: 'http://fireleaves.cn/staveImg/winona.png'
       }]
     }
   },
@@ -146,6 +162,7 @@ export default {
     const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}`)
     this.heros = result.data
     this.hero = this.heros[0]
+    console.info(this.hero, 'mish hero')
   },
   methods: {
     showSelectHero () {

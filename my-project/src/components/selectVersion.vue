@@ -1,32 +1,54 @@
 <template>
   <div class="select-version">
-    <div class="version-list">
-      <div class="title">版本选择</div>
-      <radio-group class="version-group" @bindchange="radioChange">
+    <div class="version-list" :style="{ width: listWidth }">
+      <div class="title" v-if="!isHome">版本选择</div>
+      <div class="title" v-else>选择你当前游戏的版本，我们会优先展示这些数据</div>
+      <radio-group class="version-group" @change="radioChange">
         <label class="radio" v-for="(item, index) in items" :key="index">
-          <input class="input-item" type="radio" :value="item.name" :checked="item.checked"/>{{item.value}}
+          <radio :checked="item.name === currentVersion" class="input-item" color="#009688" type="radio" :value="item.name"/>{{item.value}}
         </label>
       </radio-group>
-      <div class="ok">确定</div>
+      <div class="ok" @click="selectVersion()">确定</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    listWidth: {
+      type: String,
+      default () {
+        return '70%'
+      }
+    },
+    isHome: {
+      type: Boolean,
+      default () {
+        return false
+      }
+    }
+  },
   data () {
     return {
       items: [
-        {name: 'DST', value: '联机版(DST)', checked: 'true'},
+        {name: 'DST', value: '联机版(DST)'},
         {name: 'DS', value: '单机版(DS)'},
         {name: 'ROG', value: '巨人统治(ROG)'},
         {name: 'SW', value: '船难(SW)'}
-      ]
+      ],
+      currentVersion: 'DST'
     }
+  },
+  onLoad () {
+    this.currentVersion = wx.getStorageSync('currentVersion')
   },
   methods: {
     radioChange (e) {
-      console.log('radio发生change事件，携带value值为：', e.detail.value)
+      this.currentVersion = e.target.value
+    },
+    selectVersion () {
+      this.$emit('select-version', this.currentVersion)
     }
   }
 }
@@ -53,16 +75,13 @@ export default {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;
     box-shadow: 0 0 6px rgba(0,0,0,.16), 0 6px 12px rgba(0,0,0,.32);
     height: 40%;
     overflow: scroll;
     background-color: white;
     border-radius: 4px;
     .title {
-      padding-left: 10px;
-      height: 48px;
-      line-height: 48px;
+      padding: 16px 0 12px 10px;
       border-bottom: 1px solid #DCDFE6;
       font-size: 14px;
       font-weight: 600;

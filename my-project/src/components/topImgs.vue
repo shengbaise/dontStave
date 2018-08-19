@@ -7,16 +7,36 @@
 <template>
   <div class="top-imgs">
     <img class="bg-img" mode="scaleToFill" src="http://img.fireleaves.cn/SomeLabel/cool-background.png" alt="">
-    <img class="img" mode="widthFix" src="http://img.fireleaves.cn/SomeLabel/C763C9B46AC4420F9F2107724A879221.png" alt="">
-    <img class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
+    <img class="img" mode="aspectFit" :src="logoImg[currentVersion]" alt="">
+    <img @click="switchVersion()" class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  props: {
+    currentVersion: {
+      type: String,
+      default () {
+        return 'DST'
+      }
+    }
   },
-  mounted () {}
+  data () {
+    return {
+      logoImg: {
+        'DST': 'http://img.fireleaves.cn/SomeLabel/C763C9B46AC4420F9F2107724A879221.png',
+        'DS': 'http://img.fireleaves.cn/SomeLabel/250px-Logo.png',
+        'ROG': 'http://img.fireleaves.cn/SomeLabel/Reign_of_Giants.png',
+        'SW': 'http://img.fireleaves.cn/SomeLabel/250px-Shipwrecked_Logo.png'
+      }
+    }
+  },
+  methods: {
+    switchVersion () {
+      this.$emit('switch-version')
+    }
+  }
 }
 </script>
 
@@ -33,7 +53,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 120px;
+    height: 120px;
   }
   .switch {
     position: absolute;
