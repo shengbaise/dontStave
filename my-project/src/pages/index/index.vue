@@ -13,20 +13,20 @@
     <div class="view">
       <div class="tabs">
         <div class="tab" v-for="(tab, index) in tabs" :key="index" @click="toTap(tab.toPath, tab.type)">
-          <img class="tab-img" alt="" :src="tab.tabImgUrl" mode="widthFix">
+          <img class="tab-img" alt="" :src="tab.tabImgUrl" mode="aspectFill">
           <div class="tab-name">{{tab.name}}</div>
         </div>
       </div>
       <div class=" egg-shell">
         <div class="left">
-          <img class="egg-img" alt="" src="/static/img/home/map_intro.png" mode="widthFix">
+          <upload-img imgUrl="/static/img/home/map_intro.png"></upload-img>
           <div class="content">
             <p class="map">地图百科</p>
             <p class="detail">地域特色，生物群落</p>
           </div>
         </div>
         <div class="right">
-          <img class="egg-img" alt="" src="/static/img/home/season_intro.png" mode="widthFix">
+          <upload-img imgUrl="/static/img/home/season_intro.png"></upload-img>
           <div class="content">
             <p class="location">地标 & 奇遇</p>
             <p class="detail">地标建筑，趣味彩蛋</p>
@@ -35,7 +35,7 @@
       </div>
       <div class="articles">
         <div class="article" v-for="item in articles" :key="item.id">
-          <img class="article-img" :src="item.src" alt="">
+          <img class="article-img" :src="item.src" alt="" mode="aspectFill">
           <div class="text">
             <h1 class="title">{{item.title}}</h1>
             <p class="content">{{item.content}}</p>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import svgIcon from '@/components/svgIcon'
+import uploadImg from '@/components/uploadImg'
 
 export default {
   data () {
@@ -101,10 +101,23 @@ export default {
     }
   },
   components: {
-    svgIcon
+    uploadImg
+  },
+  onLoad () {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '掌上饥荒'
+    })
   },
   async mounted () {
-    const res = await this.$http.get(`${this.inline}/init`)
+    const res = await this.$http.get('https://www.fireleaves.cn/init')
     this.data = res.data[0]
     this.banners = this.data.banner
     this.articles = this.data.article
@@ -151,23 +164,25 @@ page {
 
 <style lang="scss" scoped>
 .container {
+  padding-top: 0;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background-color: #37474f;
   .banner {
-    position: absolute;
-    top: 0;
+    // position: relative;
+    // top: 0;
     .banner-home {
       margin-top: 12px;
       height: 160px;
     }
   }
   .view {
-    position: absolute;
-    top: 172px;
-    height: calc(100% - 216px);
+    position: relative;
+    margin-bottom: 44px;
+    background-color: #37474f;
+    // top: 172px;
     width: 100%;
-    overflow: scroll;
+    // overflow: scroll;
     .tabs {
       height: 40px;
       padding: 10px;
@@ -176,11 +191,9 @@ page {
       font-size:14px;
       justify-content: space-around;
       color: white;
-      .tab {
-        .tab-img {
-          width: 100%;
-          height: 100%;
-        }
+      .tab-img {
+        height: 32px;
+        width: 32px;
       }
     }
     .egg-shell {
@@ -269,7 +282,7 @@ page {
     }
   }
   .footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
     bottom: 0px;
     height: 44px;

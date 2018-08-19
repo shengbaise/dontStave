@@ -6,7 +6,7 @@
  */
 <template>
   <div class="science-technology">
-    <!-- <top-imgs></top-imgs> -->
+    <top-imgs></top-imgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -18,12 +18,14 @@
     <div class="view">
       <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
     </div>
+    <select-version></select-version>
   </div>
 </template>
 
 <script>
 import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
+import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
@@ -96,13 +98,24 @@ export default {
   },
   components: {
     topImgs,
-    commonGood
+    commonGood,
+    selectVersion
   },
   onLoad (options) {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '物品资料'
+    })
     this.technologyType = options.type
   },
   mounted () {
-    console.info('eeeeeeè')
     this.initData()
   },
   methods: {
@@ -112,8 +125,7 @@ export default {
       })
     },
     async initData () {
-      console.info(this.inline, 'mish inline')
-      const result = await this.$http.get(`${this.inline}/${this.technologyType}?version=${this.version}`)
+      const result = await this.$http.get(`https://www.fireleaves.cn/${this.technologyType}?version=${this.version}`)
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },
@@ -188,11 +200,11 @@ export default {
     }
   }
   .view {
-    position: absolute;
-    top: 198px;
-    height: calc(100% - 198px);
-    width: 100%;
-    overflow: scroll;
+    // position: absolute;
+    // top: 198px;
+    // height: calc(100% - 198px);
+    // width: 100%;
+    // overflow: scroll;
   }
 }
 </style>

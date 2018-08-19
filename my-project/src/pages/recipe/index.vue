@@ -6,7 +6,7 @@
  */
 <template>
   <div class="recipe">
-    <!-- <topImgs></topImgs> -->
+    <top-imgs></top-imgs>
     <div class="tabs-container">
       <div class="food" @click="selectTab(food.type)">{{food.label}}</div>
       <div class="tabs">
@@ -61,8 +61,18 @@ export default {
     commonGood
   },
   onLoad (options) {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '食谱'
+    })
     this.type = options.type
-    console.info(options, 'recipe')
   },
   mounted () {
     this.initData()
@@ -74,7 +84,7 @@ export default {
       })
     },
     async initData () {
-      const result = await this.$http.get(`${this.inline}/${this.type}?version=${this.version}`)
+      const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data
       this.currentItems = this.items.filter(item => item.type === this.currentTabType)
     },

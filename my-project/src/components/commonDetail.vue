@@ -6,13 +6,14 @@
  */
 <template>
   <div class="common-detail">
-    <div class="console">
+    <div class="console" v-if="console">
       <div class="key"> 生成代码：</div>
       <div class="value">{{console}}</div>
     </div>
     <div class="description">
       <h3 class="title">介绍</h3>
-      <p class="content">{{desc}}</p>
+      <!-- <p class="content">{{desc}}</p> -->
+      <div v-html="desc" class="content"></div>
     </div>
   </div>
 </template>

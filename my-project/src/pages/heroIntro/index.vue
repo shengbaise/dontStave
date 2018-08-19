@@ -7,8 +7,8 @@
 <template>
   <div class="hero-intro">
     <div class="hero">
-      <div class="top">
-        <img class="picture" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131635077821_tiny.jpg" alt="" mode="widthFix">
+      <div class="top-picture">
+        <img class="picture" src="http://img.fireleaves.cn/SomeLabel/wlis.jpg" alt="" mode="widthFix">
         <div class="shade"></div>
         <div class="hero-message" v-if="hero._id">
           <div class="name">{{heros[heroIndex].name}}</div>
@@ -129,10 +129,21 @@ export default {
     }
   },
   onLoad (options) {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '人物介绍'
+    })
     this.type = options.type
   },
   async mounted () {
-    const result = await this.$http.get(`${this.inline}/${this.type}`)
+    const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}`)
     this.heros = result.data
     this.hero = this.heros[0]
   },
@@ -151,7 +162,7 @@ export default {
 <style lang="scss" scoped>
 .hero-intro {
   .hero {
-    .top {
+    .top-picture {
       position: relative;
       text-align: center;
       .picture {
@@ -197,6 +208,7 @@ export default {
         font-size: 15px;
         letter-spacing: 4px;
       }
+
     }
   }
   .select-button {

@@ -6,7 +6,7 @@
  */
 <template>
   <div class="anim-info">
-    <!-- <topImgs></topImgs> -->
+    <top-imgs></top-imgs>
     <div class="tabs">
       <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs" :key="tab.type">{{tab.label}}</div>
     </div>
@@ -54,6 +54,18 @@ export default {
     commonGood
   },
   onLoad (options) {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '生物资料'
+    })
+
     this.type = options.type
   },
   mounted () {
@@ -66,7 +78,7 @@ export default {
       })
     },
     async initData () {
-      const result = await this.$http.get(`${this.inline}/${this.type}?version=${this.version}`)
+      const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
       console.info(this.items, 'mish itemtetmetmetmem')

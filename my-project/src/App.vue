@@ -60,4 +60,45 @@ export default {
     }
   }
 }
+.materials {
+  padding-top: 2px;
+  padding-bottom: 18px;
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-around;
+  align-items: center;
+  .material-item {
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 60px;
+    font-size: 12px;
+  }
+  .material {
+    display: flex;
+    flex-flow: nowrap row;
+    align-items: center;
+    font-size: 16px;
+    .material-img {
+      width: 48px;
+    }
+    .material-img-tool {
+      width: 32px;
+    }
+  }
+}
+.top {
+  height: 32px;
+  margin-top: -12px;
+  margin-right: -12px;
+  text-align: right;
+  .top-tip {
+    color: #999;
+    font-size: 12px;
+  }
+  .top-img {
+    width: 32px;
+  }
+}
 </style>

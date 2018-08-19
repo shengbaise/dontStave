@@ -7,7 +7,8 @@
 <template>
   <div class="common-good" @click="toDetail()">
     <div class="good-img-container">
-      <img class="good-img" :src="good.src" alt="" mode="widthFix">
+      <img class="background-image" src="/static/img/home/chacter2.png" alt="" mode="aspectFit">
+      <img class="good-img" :src="good.src" alt="" mode="aspectFit">
     </div>
     <div class="desciption">
       <div class="name">{{good.name}}</div>
@@ -18,18 +19,18 @@
       </div>
       <div v-if="good.attr && type === 'recipe'" class="food-attrs">
         <div class="food-attr" v-for="(foodAttrImg, index) in foodAttrImgs" :key="index">
-          <img class="food-attr-img" :src="foodAttrImg" alt="" mode="widthFix">
+          <img class="food-attr-img" :src="foodAttrImg" alt="" mode="aspectFit">
           <div class="attr-content">{{good.attr[index]}}</div>
         </div>
       </div>
       <div v-if="good.attr && type === 'animal'" class="animal-attrs">
         <div>
-          <span>伤害：{{good.attr[0]}} </span>
-          <span>生命值：{{good.attr[1]}}</span>
+          <span class="hurt">伤害：<span v-show="good.attr[0] || good.attr[0] === 0">{{good.attr[0]}} </span></span>
+          <span class="live">生命值：<span v-show="good.attr[1] || good.attr[1] === 0">{{good.attr[1]}}</span></span>
         </div>
         <div class="speed">
-          <span>行走速度：{{good.attr[2]}} </span>
-          <span>奔跑速度：{{good.attr[3]}}</span>
+          <span class="speed-item">行走速度：<span v-show="good.attr[2] || good.attr[2] === 0">{{good.attr[2]}} </span> </span>
+          <span class="speed-item">奔跑速度：<span v-show="good.attr[3] || good.attr[3] === 0">{{good.attr[3]}}</span></span>
         </div>
       </div>
     </div>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import uploadImg from '@/components/uploadImg'
+
 export default {
   props: {
     good: {
@@ -52,12 +55,15 @@ export default {
       }
     }
   },
+  components: {
+    uploadImg
+  },
   data () {
     return {
       foodAttrImgs: [
-        'https://images.weserv.nl/?url=img1.gamersky.com/image2015/12/20151211zh_4/image002_S.jpg',
-        'https://images.weserv.nl/?url=img1.gamersky.com/image2015/12/20151211zh_4/image004_S.jpg',
-        'https://images.weserv.nl/?url=img1.gamersky.com/image2015/12/20151211zh_4/image006_S.jpg',
+        'http://img.fireleaves.cn/SomeLabel/image.jpg',
+        'http://img.fireleaves.cn/SomeLabel/image%20%281%29.jpg',
+        'http://img.fireleaves.cn/SomeLabel/image%20%282%29.jpg',
         '/static/img/food/notFresh.png'
       ]
     }
@@ -72,25 +78,45 @@ export default {
 
 <style lang="scss" scoped>
 .common-good {
-  display: flex;
-  flex-flow: nowrap row;
-  padding: 10px;
+  position: relative;
+  width: 100%;
+  height: 130px;
   border-bottom: 1px solid #DCDFE6;
   .good-img-container {
-    position: relative;
-    width: 126px;
-    height: 106px;
-    background-image: url(../../static/img/home/chacter2.png);
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 120px;
+    height: 103px;
+    // background-image: url(../../static/img/home/chacter2.png);
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    .background-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 103px;
+    }
     .good-img {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 68px;
+      min-height: 48px;
+      min-width: 48px;
+      max-width: 64px;
+      max-height: 64px;
     }
   }
   .desciption {
-    margin-left: 15px;
+    position: absolute;
+    top: 12.5px;
+    left: 145px;
+    width: calc(100% - 145px);
     .name {
       font-size: 17px;
     }
@@ -108,14 +134,15 @@ export default {
     .food-attrs {
       display: flex;
       flex-flow: nowrap row;
-      justify-content: center;
       .food-attr {
         margin-right: 12px;
         .food-attr-img {
           width: 20px;
+          height: 20px;
           padding: 2px 12px;
         }
         .attr-content {
+          text-align: center;
           font-size: 12px;
           padding: 2px 12px;
           color: #fff;
@@ -129,6 +156,10 @@ export default {
       color: #999;
       .speed {
         padding-top: 6px;
+      }
+      .speed-item, .hurt, .live {
+        display: inline-block;
+        padding-right: 14px;
       }
     }
   }

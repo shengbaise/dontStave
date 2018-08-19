@@ -89,6 +89,17 @@ export default {
     detailContainer
   },
   onLoad (options) {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '食谱详情'
+    })
     this.initData(options)
   },
   methods: {
@@ -100,7 +111,7 @@ export default {
       return `http://img.fireleaves.cn/${urlParam}/${src}.png`
     },
     async initData (options) {
-      const result = await this.$http.get(`${this.inline}/food/single?version=${this.version}&src=${options.src}`)
+      const result = await this.$http.get(`https://www.fireleaves.cn/food/single?version=${this.version}&src=${options.src}`)
       this.type = options.type
       this.item = result.data[0]
       this.composites = []

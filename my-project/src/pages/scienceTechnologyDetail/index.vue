@@ -43,7 +43,18 @@ export default {
     commonDetail
   },
   async onLoad (options) {
-    const result = await this.$http.get(`${this.inline}/material/single?version=${this.version}&src=${options.src}`)
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '物品详情'
+    })
+    const result = await this.$http.get(`https://www.fireleaves.cn/material/single?version=${this.version}&src=${options.src}`)
     this.item = result.data[0]
     const composition = this.item.composition
     composition.forEach(item => {

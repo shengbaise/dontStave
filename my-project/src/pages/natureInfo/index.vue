@@ -6,7 +6,7 @@
  */
 <template>
   <div class="nature-info">
-    <topImgs></topImgs>
+    <top-imgs></top-imgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -44,6 +44,17 @@ export default {
     commonGood
   },
   onLoad (options) {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#009688',
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setNavigationBarTitle({
+      title: '自然'
+    })
     this.type = options.type
   },
   mounted () {
@@ -51,7 +62,7 @@ export default {
   },
   methods: {
     async initData () {
-      const result = await this.$http.get(`${this.inline}/${this.type}?version=${this.version}`)
+      const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },

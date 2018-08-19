@@ -6,8 +6,9 @@
  */
 <template>
   <div class="top-imgs">
-    <img class="bg-img" mode="scaleToFill" src="https://images.weserv.nl/?url=stavebox.oss-cn-beijing.aliyuncs.com/SomeLabel/cool-background.png?x-oss-process=style/versionbg" alt="">
-    <img class="img" mode="widthFix" src="https://images.weserv.nl/?url=stavebox.oss-cn-beijing.aliyuncs.com/SomeLabel/C763C9B46AC4420F9F2107724A879221.png" alt="">
+    <img class="bg-img" mode="scaleToFill" src="http://img.fireleaves.cn/SomeLabel/cool-background.png" alt="">
+    <img class="img" mode="widthFix" src="http://img.fireleaves.cn/SomeLabel/C763C9B46AC4420F9F2107724A879221.png" alt="">
+    <img class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
   </div>
 </template>
 
@@ -33,6 +34,13 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 120px;
+  }
+  .switch {
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    height: 28px;
+    width: 28px;
   }
 }
 </style>
