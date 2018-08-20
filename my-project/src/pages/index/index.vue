@@ -19,14 +19,16 @@
       </div>
       <div class=" egg-shell">
         <div class="left">
-          <upload-img imgUrl="/static/img/home/map_intro.png"></upload-img>
+          <!-- <upload-img imgUrl="/static/img/home/map_intro.png"></upload-img> -->
+          <img src="/static/img/home/map_intro.png" class="egg-img" alt="" mode="widthFix">
           <div class="content">
             <p class="map">地图百科</p>
             <p class="detail">地域特色，生物群落</p>
           </div>
         </div>
         <div class="right">
-          <upload-img imgUrl="/static/img/home/season_intro.png"></upload-img>
+          <img src="/static/img/home/season_intro.png" class="egg-img" alt="" mode="widthFix">
+          <!-- <upload-img imgUrl="/static/img/home/season_intro.png"></upload-img> -->
           <div class="content">
             <p class="location">地标 & 奇遇</p>
             <p class="detail">地标建筑，趣味彩蛋</p>
@@ -48,10 +50,14 @@
       </div>
     </div>
     <div class="footer">
-      <div>首页</div>
-      <div>动态</div>
-      <div>藏品</div>
-      <div>我的</div>
+      <div @click="toTabPage(tab.label)" v-for="tab in footerTabs" :key="tab.label" :class="{ 'selected': currentLabel === tab.label }">
+        <i
+          class="iconfont icon icon-home"
+          :class="[tab.icon === 'icon-home' ? 'icon-home' : tab.icon === 'icon-xiaoxi'
+          ? 'icon-xiaoxi' : tab.icon === 'icon-shoucang-tianchong'
+          ? 'icon-shoucang-tianchong' : 'icon-mine']"></i>
+        <div class="label">{{tab.label}}</div>
+      </div>
     </div>
     <select-version v-if="!version" @select-version="selectVersion($event)" listWidth="80%" :isHome="true"></select-version>
   </div>
@@ -64,6 +70,19 @@ import selectVersion from '@/components/selectVersion.vue'
 export default {
   data () {
     return {
+      footerTabs: [{
+        label: '主页',
+        icon: 'icon-home'
+      }, {
+        label: '动态',
+        icon: 'icon-xiaoxi'
+      }, {
+        label: '藏品',
+        icon: 'icon-shoucang-tianchong'
+      }, {
+        label: '我的',
+        icon: 'icon-mine'
+      }],
       motto: 'Hello World',
       userInfo: {},
       tabs: [{
@@ -100,7 +119,8 @@ export default {
       data: {},
       banners: [],
       articles: [],
-      version: ''
+      version: '',
+      currentLabel: '主页'
     }
   },
   components: {
@@ -108,18 +128,12 @@ export default {
     selectVersion
   },
   onLoad () {
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#009688',
-      animation: {
-        duration: 300,
-        timingFunc: 'easeIn'
-      }
-    })
     wx.setNavigationBarTitle({
       title: '掌上饥荒'
     })
-
+    wx.setBackgroundColor({
+      backgroundColor: '#1a2933'
+    })
     this.version = wx.getStorageSync('currentVersion')
   },
   async mounted () {
@@ -129,6 +143,9 @@ export default {
     this.articles = this.data.article
   },
   methods: {
+    toTabPage (label) {
+      this.currentLabel = label
+    },
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
       this.version = wx.getStorageSync('currentVersion')
@@ -165,6 +182,8 @@ export default {
 page {
   width:100%;
   height:100%;
+  background-color: #37474f;
+  font-family: Avenir,Helvetica,Arial,sans-serif;
 }
 </style>
 
@@ -172,11 +191,14 @@ page {
 .container {
   padding-top: 0;
   width: 100%;
-  // height: 100%;
   background-color: #37474f;
+  .selected {
+    color: rgb(40, 116, 240) !important;
+    .icon {
+      color: rgb(40, 116, 240) !important;
+    }
+  }
   .banner {
-    // position: relative;
-    // top: 0;
     .banner-home {
       margin-top: 12px;
       height: 160px;
@@ -210,13 +232,13 @@ page {
       flex-flow: nowrap row;
       justify-content: space-between;
       font-size: 14px;
-      color: white;
+      color: #fff;
       border-top: 10px solid #2d3b42;
       border-bottom: 10px solid #2d3b42;
       box-sizing: border-box;
       .egg-img {
-        width: 30%;
-        // height: 100%;
+        padding: 10px;
+        width: 38px;
       }
       .left, .right {
         margin-top: 10px;
@@ -234,11 +256,11 @@ page {
       .right {
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
-        background-color: #999d9c;
+        background-color: rgb(32, 43, 50);
       }
       .content {
         .detail {
-          color: #4f5555;
+          color: #999;
           font-size: 12px;
         }
       }
@@ -291,15 +313,24 @@ page {
     position: fixed;
     width: 100%;
     bottom: 0px;
-    height: 44px;
-    // background-color: #4f5555;
+    height: 56px;
     background-color: #263238;
-    color: white;
+    color: rgba(102,102,102,.54);
     display: flex;
     flex-flow: nowrap row;
     justify-content: space-around;
     align-items: center;
     font-size: 12px;
+    .icon {
+      font-size: 24px;
+      color: rgba(102,102,102,.54);
+    }
+    .icon-shoucang-tianchong {
+      font-size: 23px;
+    }
+    .icon-mine {
+      font-size: 28px;
+    }
   }
 }
 </style>

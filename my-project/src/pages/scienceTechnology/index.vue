@@ -103,14 +103,6 @@ export default {
     selectVersion
   },
   onLoad (options) {
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#009688',
-      animation: {
-        duration: 300,
-        timingFunc: 'easeIn'
-      }
-    })
     this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
       title: `物品资料${this.version}`

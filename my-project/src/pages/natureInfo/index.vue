@@ -48,14 +48,6 @@ export default {
     selectVersion
   },
   onLoad (options) {
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#009688',
-      animation: {
-        duration: 300,
-        timingFunc: 'easeIn'
-      }
-    })
     this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
       title: ` 自然(${this.version})`

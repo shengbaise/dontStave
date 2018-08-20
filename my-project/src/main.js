@@ -23,9 +23,9 @@ export default {
     pages: ['^pages/index/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#009688',
+      navigationBarTitleText: '掌上饥荒',
+      navigationBarTextStyle: '#ffffff'
     }
   }
 }

@@ -145,14 +145,6 @@ export default {
     }
   },
   onLoad (options) {
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#009688',
-      animation: {
-        duration: 300,
-        timingFunc: 'easeIn'
-      }
-    })
     wx.setNavigationBarTitle({
       title: '人物介绍'
     })
