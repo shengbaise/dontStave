@@ -55,12 +55,5 @@ export default {
     transform: translate(-50%, -50%);
     height: 120px;
   }
-  .switch {
-    position: absolute;
-    right: 10px;
-    top: 3px;
-    height: 28px;
-    width: 28px;
-  }
 }
 </style>

@@ -14,7 +14,7 @@
           <div class="name">{{heros[heroIndex].name}}</div>
           <div class="motto">{{heros[heroIndex].motto}}</div>
           <div class="attr">饥饿： {{heros[heroIndex].attr[0]}} 生命： {{heros[heroIndex].attr[1]}} 精神： {{heros[heroIndex].attr[2]}}</div>
-          <div class="hurt">空手伤害： {{heros[heroIndex].attr[3]}}</div>
+          <div class="hurt">空手伤害： {{heros[heroIndex].attr[3]}}倍</div>
         </div>
       </div>
       <div class="content-body" v-if="heros[heroIndex]">
@@ -22,7 +22,7 @@
         <div v-html="heros[heroIndex].ability"></div>
       </div>
     </div>
-    <div class="select-button" @click="showSelectHero()">选择角色</div>
+    <img @click="showSelectHero()" class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
     <div class="select-hero" v-show="isSelect">
       <div class="hero-list">
         <div class="title">选择角色</div>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+const url = 'http://img.fireleaves.cn/SomeLabel'
+
 export default {
   data () {
     return {
@@ -48,99 +50,99 @@ export default {
       hero: {},
       heros: [],
       heroList: [{
-        src: '/static/img/hero/wex.png',
+        src: `${url}/wex.png`,
         name: '威尔森',
         alis: 'Wilson',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wilson.jpg'
+        topImg: `${url}/Wilson.jpg`
       }, {
-        src: '/static/img/hero/huonv.png',
+        src: `${url}/huonv.png`,
         name: '薇洛',
         alis: 'Willow',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/willow.jpg'
+        topImg: `${url}/willow.jpg`
       },
       {
-        src: '/static/img/hero/dls.png',
+        src: `${url}/dls.png`,
         name: '沃尔夫冈',
         alis: 'Wolfgang',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wolfgang.jpg'
+        topImg: `${url}/Wolfgang.jpg`
       },
       {
-        src: '/static/img/hero/wendi.png',
+        src: `${url}/wendi.png`,
         name: '温蒂',
         alis: 'Wendy',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wendy.jpg'
+        topImg: `${url}/Wendy.jpg`
       },
       {
-        src: '/static/img/hero/jqr.png',
+        src: `${url}/jqr.png`,
         name: '机器人',
         alis: 'WX-78',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/WX-78.jpg'
+        topImg: `${url}/WX-78.jpg`
       },
       {
-        src: '/static/img/hero/lnn.png',
+        src: `${url}/lnn.png`,
         name: '老奶奶',
         alis: 'Wickerbottom',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wickerbottom.jpg'
+        topImg: `${url}/Wickerbottom.jpg`
       },
       {
-        src: '/static/img/hero/fmg.png',
+        src: `${url}/fmg.png`,
         name: '伍迪',
         alis: 'Woodie',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Woodie.jpg'
+        topImg: `${url}/Woodie.jpg`
       },
       {
-        src: '/static/img/hero/xiaochou.png',
+        src: `${url}/xiaochou.png`,
         name: '韦斯',
         alis: 'Wes',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wes.jpg'
+        topImg: `${url}/Wes.jpg`
       },
       {
-        src: '/static/img/hero/mswe.png',
+        src: `${url}/mswe.png`,
         name: '麦斯威尔',
         alis: 'Maxwell',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Maxwell.jpg'
+        topImg: `${url}/Maxwell.jpg`
       },
       {
-        src: '/static/img/hero/wns.png',
+        src: `${url}/wns.png`,
         name: '薇格弗德',
         alis: 'Wigfrid',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wigfrid.jpg'
+        topImg: `${url}/Wigfrid.jpg`
       },
       {
-        src: '/static/img/hero/walani.png',
+        src: `${url}/walani.png`,
         name: '瓦拉尼',
         alis: 'Walani',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Walani.png'
+        topImg: `${url}/Walani.png`
       },
       {
-        src: '/static/img/hero/weibo.png',
+        src: `${url}/weibo.png`,
         name: '韦伯',
         alis: 'Webber',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Webber.jpg'
+        topImg: `${url}/Webber.jpg`
       },
       {
-        src: '/static/img/hero/woli.png',
+        src: `${url}/woli.png`,
         name: '沃利',
         alis: 'Warly',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Warly.png'
+        topImg: `${url}/Warly.png`
       },
       {
-        src: '/static/img/hero/weierbo.png',
+        src: `${url}/weierbo.png`,
         name: '威尔伯',
         alis: 'Wilbur',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Wilbur.png'
+        topImg: `${url}/Wilbur.png`
       },
       {
-        src: '/static/img/hero/mtcz.png',
+        src: `${url}/mtcz.png`,
         name: '木腿船长',
         alis: 'Woodlegs',
-        topImg: 'http://img.fireleaves.cn/SomeLabel/Woodlegs.png'
+        topImg: `${url}/Woodlegs.png`
       },
       {
-        src: '/static/img/hero/winona.png',
+        src: `${url}/winona.png`,
         name: '薇诺娜',
         alis: 'Winona',
-        topImg: 'http://fireleaves.cn/staveImg/winona.png'
+        topImg: `${url}/winona.png`
       }]
     }
   },
@@ -176,18 +178,19 @@ export default {
       text-align: center;
       .picture {
         position: relative;
-        width: 50%;
+        // width: 50%;
+        height: 250px;
       }
       .shade {
         position: absolute;
         top: 0;
-        height: 270px;
+        height: 250px;
         width: 100%;
         background: radial-gradient(rgba(255, 255, 255, 0) 6%, rgba(0, 0, 0, 0.9) 80%);
       }
       .hero-message {
         position: absolute;
-        bottom: 15px;
+        bottom: 30px;
         left: 15px;
         color: white;
         font-size: 14px;
@@ -197,9 +200,11 @@ export default {
           margin-bottom: 4px;
         }
         .motto {
+          margin: 4px 0;
           padding-left: 10px;
-          color: #d3d7d4;
-          border-left: 4px solid #4f5555;
+          font-size: 14px;
+          color: #d6d6d6;
+          border-left: 4px solid #d6d6d6;
         }
       }
     }

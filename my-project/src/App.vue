@@ -13,6 +13,8 @@ export default {
 
 <style lang="scss">
 @import "./static/font/iconfont.wxss";
+@import "./static/wxss/common.wxss";
+
 .container {
   height: 100%;
   display: flex;

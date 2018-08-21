@@ -131,9 +131,6 @@ export default {
     wx.setNavigationBarTitle({
       title: '掌上饥荒'
     })
-    wx.setBackgroundColor({
-      backgroundColor: '#1a2933'
-    })
     this.version = wx.getStorageSync('currentVersion')
   },
   async mounted () {

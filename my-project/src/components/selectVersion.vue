@@ -41,7 +41,9 @@ export default {
     }
   },
   onLoad () {
-    this.currentVersion = wx.getStorageSync('currentVersion')
+    if (wx.getStorageSync('currentVersion')) {
+      this.currentVersion = wx.getStorageSync('currentVersion')
+    }
   },
   methods: {
     radioChange (e) {

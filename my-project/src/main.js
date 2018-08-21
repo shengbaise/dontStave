@@ -25,7 +25,8 @@ export default {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#009688',
       navigationBarTitleText: '掌上饥荒',
-      navigationBarTextStyle: '#ffffff'
+      navigationBarTextStyle: '#ffffff',
+      backgroundColor: '#1a2933'
     }
   }
 }

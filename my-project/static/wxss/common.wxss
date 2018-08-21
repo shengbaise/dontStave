@@ -1,0 +1,7 @@
+.switch {
+	position: absolute;
+	right: 10px;
+	top: 3px;
+	height: 28px;
+	width: 28px;
+}
