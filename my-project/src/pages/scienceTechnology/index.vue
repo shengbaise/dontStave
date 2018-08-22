@@ -12,7 +12,7 @@
     </div>
     <div class="more-tabs-container" v-show="showMoreTab">
       <div class="more-tabs">
-        <div class="tab" @click="selectTab(item.type)" :class="{ 'more-tab-selected': currentTabType === item.type }"  v-for="item in moreTabs" :key="item.label">{{item.label}}</div>
+        <div class="tab" @click="selectTab(item.type)" :class="{ 'more-tab-selected': currentTabType === item.type }"  v-for="item in currentMoreTabs" :key="item.label">{{item.label}}</div>
       </div>
     </div>
     <div class="view">
@@ -33,13 +33,16 @@ export default {
       isSelect: false,
       tabs: [{
         label: '工具',
-        type: 11
+        type: 11,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '照明',
-        type: 9
+        type: 9,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '生存',
-        type: 10
+        type: 10,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '更多'
       }],
@@ -49,52 +52,76 @@ export default {
       items: [],
       moreTabs: [{
         label: '工具',
-        type: 11
+        type: 11,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '照明',
-        type: 9
+        type: 9,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '生存',
-        type: 10
+        type: 10,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '食物',
-        type: 13
+        type: 13,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '战斗',
-        type: 12
+        type: 12,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '科学',
-        type: 14
+        type: 14,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '魔法',
-        type: 15
+        type: 15,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '服装',
-        type: 16
+        type: 16,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '书本',
-        type: 19
+        type: 19,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '建筑',
-        type: 25
+        type: 25,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '合成',
-        type: 26
+        type: 26,
+        version: ['DST', 'DS', 'ROG', 'SW']
       }, {
         label: '远古',
-        type: 27
+        type: 27,
+        version: ['DST', 'DS', 'ROG']
       }, {
         label: '暗影',
-        type: 28
+        type: 28,
+        version: ['DST']
       }, {
         label: '宠物',
-        type: 30
+        type: 29,
+        version: ['DST']
       }, {
         label: '雕塑',
-        type: 10
+        type: 30,
+        version: ['DST']
+      }, {
+        label: '航海',
+        type: 18,
+        version: ['SW']
+      }, {
+        label: '火山',
+        type: 32,
+        version: ['SW']
       }],
       showMoreTab: false,
-      version: 'DST'
+      version: 'DST',
+      currentMoreTabs: []
     }
   },
   components: {
@@ -105,7 +132,7 @@ export default {
   onLoad (options) {
     this.version = wx.getStorageSync('currentVersion')
     wx.setNavigationBarTitle({
-      title: `物品资料${this.version}`
+      title: `物品资料(${this.version})`
     })
     this.technologyType = options.type
   },
@@ -113,6 +140,11 @@ export default {
     this.initData()
   },
   methods: {
+    setCurrentMoreTabs () {
+      this.currentMoreTabs = this.moreTabs.filter(item => {
+        return item.version.indexOf(this.version) > -1
+      })
+    },
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
       this.version = wx.getStorageSync('currentVersion')
@@ -123,12 +155,13 @@ export default {
     },
     toDetail (item) {
       wx.navigateTo({
-        url: `/pages/scienceTechnologyDetail/main?src=${item.src}`
+        url: `/pages/scienceTechnologyDetail/main?src=${item.src}&version=${this.version}`
       })
     },
     async initData () {
       const result = await this.$http.get(`https://www.fireleaves.cn/${this.technologyType}?version=${this.version}`)
       this.items = result.data
+      this.setCurrentMoreTabs()
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },
     selectTab (type) {
@@ -146,8 +179,10 @@ export default {
   },
   watch: {
     version (value) {
-      this.initData()
+      this.currentGoods = []
+      this.currentTabType = 11
       setTimeout(() => {
+        this.initData()
         wx.setStorageSync('currentVersion', value)
       }, 0)
       wx.setNavigationBarTitle({

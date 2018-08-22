@@ -6,6 +6,30 @@
  */
 <template>
   <div class="common-detail">
+    <div class="console" v-if="reason && (type === 15 || type === 16 || type === 27)">
+      <div class="key">影响理智:</div>
+      <div class="value">{{reason}}</div>
+    </div>
+    <div class="console" v-if="warm && type === 16">
+      <div class="key">保暖:</div>
+      <div class="value">{{warm}}</div>
+    </div>
+    <div class="console" v-if="moistureCloth && type === 16">
+      <div class="key">防潮:</div>
+      <div class="value">{{moistureCloth}}</div>
+    </div>
+    <div class="console" v-if="heat && type === 16">
+      <div class="key">隔热:</div>
+      <div class="value">{{heat}}</div>
+    </div>
+    <div class="console" v-if="defense && (type === 12 || type === 16 || type === 27)">
+      <div class="key">防御:</div>
+      <div class="value">{{defense}}</div>
+    </div>
+    <div class="console" v-if="moisture && type === 12">
+      <div class="key">防潮:</div>
+      <div class="value">{{moisture}}</div>
+    </div>
     <div class="console" v-if="console">
       <div class="key"> 生成代码：</div>
       <div class="value">{{console}}</div>
@@ -31,6 +55,54 @@ export default {
       type: String,
       default () {
         return ''
+      }
+    },
+    // 防御力
+    defense: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    // 防潮力
+    moisture: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    type: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    // 影响理智
+    reason: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    // 隔热
+    heat: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    // 衣物防潮
+    moistureCloth: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    // 保暖
+    warm: {
+      type: Number,
+      default () {
+        return 0
       }
     }
   }
