@@ -11,7 +11,7 @@
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
     <div class="view">
-      <common-good v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
+      <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
     </div>
     <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
@@ -58,6 +58,11 @@ export default {
     this.initData()
   },
   methods: {
+    toDetail (item) {
+      wx.navigateTo({
+        url: `/pages/natureInfoDetail/main?src=${item.src}&version=${this.version}`
+      })
+    },
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
       this.version = wx.getStorageSync('currentVersion')
@@ -81,8 +86,9 @@ export default {
   },
   watch: {
     version (value) {
-      this.initData()
+      this.currentGoods = []
       setTimeout(() => {
+        this.initData()
         wx.setStorageSync('currentVersion', value)
       }, 0)
       wx.setNavigationBarTitle({

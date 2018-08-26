@@ -8,33 +8,36 @@
   <div class="recipe-detail">
     <common-good :good="item" type="recipe"></common-good>
     <div class="detail-container">
-      <div class="detail">
+      <div class="food-detail">
         <div class="science">
           <div class="no-science" v-if="type !== '7'">食物属性</div>
-          <img class="science-img" v-else src="/static/img/food/pot.png" alt="" mode="widthFix">
+          <img class="science-img" v-if="type === '7' && item.pot" :src="potItem[item.pot]" alt="" mode="widthFix">
+          <img class="science-img" v-if="type === '7' && !item.pot" src="/static/img/food/pot.png" alt="" mode="widthFix">
         </div>
         <div class="materials" v-if="composites.length > 0">
           <div class="material" v-for="(material, index) in composites" :key="index">
             <img class="material-img" :src="material" alt="" mode="widthFix">
           </div>
         </div>
-        <div class="materials">
-          <div class="need-materials" v-if="needs.length > 0">
-            <div class="material-item">
+        <div class="materials" v-if="type === '7'">
+          <div class="need-materials">
+            <div class="material-item" v-if="needs.length > 0">
               <div class="material" v-for="(material, index) in needs" :key="index">
                 <img class="material-img" :src="material.src" alt="" mode="widthFix">
                 <div>{{material.num}}</div>
               </div>
             </div>
+            <p class="material-item" v-else>无</p>
             <p class="need-desc">必须材料</p>
           </div>
-          <div class="fail-materials" v-if="fails.length > 0">
-            <div class="material-item">
+          <div class="fail-materials">
+            <div class="material-item" v-if="fails.length > 0">
               <div class="material" v-for="(material, index) in fails" :key="index">
                 <div>{{material.num}}</div>
                 <img class="material-img" :src="material.src" alt="" mode="widthFix">
               </div>
             </div>
+            <p class="material-item" v-else>无</p>
             <p class="need-desc">不能添加材料</p>
           </div>
         </div>
@@ -47,7 +50,7 @@
       </div>
     </div>
     <div class="detail-container">
-      <div class="detail">
+      <div class="food-detail">
         <div class="attr-text">
           <div class="key">优先级</div>
           <div class="value">{{item.priority}}</div>
@@ -80,7 +83,11 @@ export default {
       needs: [],
       fails: [],
       features: [],
-      type: 0
+      type: 0,
+      potItem: {
+        1: '/static/img/food/pot.png',
+        2: '/static/img/food/wolyPot.png'
+      }
     }
   },
   components: {
@@ -103,6 +110,7 @@ export default {
       return `http://img.fireleaves.cn/${urlParam}/${src}.png`
     },
     async initData (options) {
+      this.version = options.version
       const result = await this.$http.get(`https://www.fireleaves.cn/food/single?version=${this.version}&src=${options.src}`)
       this.type = options.type
       this.item = result.data[0]
@@ -111,7 +119,7 @@ export default {
       this.fails = []
       this.features = []
 
-      if (this.item.composites) {
+      if (this.item.composite) {
         this.composites = this.item.composite.map(item => {
           return this.formatUrl(item)
         })
@@ -160,12 +168,12 @@ export default {
 .recipe-detail {
   .detail-container {
     padding: 12px;
-    .detail {
+    .food-detail {
       position: relative;
       padding: 24px 24px 0 24px;
       background-color: #fff;
       border-radius: 6px;
-      min-height: 30vh;
+      // min-height: 30vh;
       border: 1px solid #e0e0e0;
       box-shadow: inset 0 4px 8px #e0e0e0;
       .science {
@@ -190,7 +198,7 @@ export default {
         align-items: center;
         .material-item {
           display: flex;
-          flex-flow: nowrap row;
+          flex-flow: wrap row;
           justify-content: space-around;
           align-items: center;
           padding-bottom: 60px;

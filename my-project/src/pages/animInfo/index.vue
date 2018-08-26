@@ -8,7 +8,7 @@
   <div class="anim-info">
     <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
-      <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs" :key="tab.type">{{tab.label}}</div>
+      <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in currentTabs" :key="tab.type">{{tab.label}}</div>
     </div>
     <div class="view">
       <common-good @click="toDetail(item)" v-for="item in currentGoods" :good="item" :key="item._id" type="animal"></common-good>
@@ -41,6 +41,9 @@ export default {
         label: '洞穴',
         type: 2
       }, {
+        label: '海洋',
+        type: 24
+      }, {
         label: '邪恶',
         type: 3
       }, {
@@ -49,7 +52,8 @@ export default {
       }, {
         label: '其他',
         type: 22
-      }]
+      }],
+      currentTabs: []
     }
   },
   components: {
@@ -78,14 +82,18 @@ export default {
     },
     toDetail (item) {
       wx.navigateTo({
-        url: `/pages/animInfoDetail/main?src=${item.src}`
+        url: `/pages/animInfoDetail/main?src=${item.src}&version=${this.version}`
       })
     },
     async initData () {
+      if (this.version === 'SW') {
+        this.currentTabs = this.tabs.filter(item => item.type !== 2)
+      } else {
+        this.currentTabs = this.tabs.filter(item => item.type !== 24)
+      }
       const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
-      console.info(this.items, 'mish itemtetmetmetmem')
     },
     selectTab (type) {
       this.currentGoods = []
@@ -97,8 +105,9 @@ export default {
   },
   watch: {
     version (value) {
-      this.initData()
+      this.currentGoods = []
       setTimeout(() => {
+        this.initData()
         wx.setStorageSync('currentVersion', value)
       }, 0)
       wx.setNavigationBarTitle({

@@ -16,7 +16,7 @@
     <div class="view">
       <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
     </div>
-    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
+    <select-version @select-sort="selectSort($event)" :isRecipe="true" v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
@@ -56,7 +56,9 @@ export default {
         label: '非食材',
         type: 21
       }],
-      currentTabType: 7
+      currentTabType: 7,
+      sortType: 'fullOfFood',
+      itemsSort: []
     }
   },
   components: {
@@ -65,7 +67,13 @@ export default {
     selectVersion
   },
   onLoad (options) {
-    this.version = wx.getStorageSync('currentVersion')
+    if (wx.getStorageSync('currentSort')) {
+      this.sortType = wx.getStorageSync('currentSort')
+    }
+    if (wx.getStorageSync('currentVersion')) {
+      this.version = wx.getStorageSync('currentVersion')
+    }
+
     wx.setNavigationBarTitle({
       title: `食谱(${this.version})`
     })
@@ -75,6 +83,26 @@ export default {
     this.initData()
   },
   methods: {
+    async selectSort (item) {
+      await wx.setStorageSync('currentSort', item)
+      this.sortType = wx.getStorageSync('currentSort')
+      this.isSelect = false
+    },
+    sortRecipe (item) {
+      if (item === 'fullOfFood') {
+        this.itemsSort = this.items.sort((a, b) => {
+          return b.attr[0] - a.attr[0]
+        })
+      } else if (item === 'bloodVolume') {
+        this.itemsSort = this.items.sort((a, b) => {
+          return b.attr[1] - a.attr[1]
+        })
+      } else if (item === 'spirit') {
+        this.itemsSort = this.items.sort((a, b) => {
+          return b.attr[2] - a.attr[2]
+        })
+      }
+    },
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
       this.version = wx.getStorageSync('currentVersion')
@@ -85,27 +113,45 @@ export default {
     },
     toDetail (item) {
       wx.navigateTo({
-        url: `/pages/recipeDetail/main?src=${item.src}&type=${item.type}`
+        url: `/pages/recipeDetail/main?src=${item.src}&type=${item.type}&version=${this.version}`
       })
     },
     async initData () {
       const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data
-      this.currentItems = this.items.filter(item => item.type === this.currentTabType)
+      this.sortRecipe(this.sortType)
+      this.currentItems = this.itemsSort.filter(item => item.type === this.currentTabType)
+    },
+    initSortData () {
+      this.sortRecipe(this.sortType)
+      this.currentItems = this.itemsSort.filter(item => item.type === this.currentTabType)
     },
     selectTab (type) {
       this.currentItems = []
       this.currentTabType = type
       setTimeout(() => {
-        this.currentItems = this.items.filter(item => item.type === this.currentTabType)
+        this.currentItems = this.itemsSort.filter(item => item.type === this.currentTabType)
       }, 0)
     }
   },
   watch: {
     version (value) {
-      this.initData()
+      this.currentItems = []
+      // this.currentTabType = 11
       setTimeout(() => {
+        this.initData()
         wx.setStorageSync('currentVersion', value)
+      }, 0)
+      wx.setNavigationBarTitle({
+        title: `食谱(${this.version})`
+      })
+    },
+    sortType (value) {
+      this.currentItems = []
+      // this.currentTabType = 11
+      setTimeout(() => {
+        this.initSortData()
+        wx.setStorageSync('currentSort', value)
       }, 0)
       wx.setNavigationBarTitle({
         title: `食谱(${this.version})`

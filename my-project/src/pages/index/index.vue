@@ -248,7 +248,7 @@ page {
       .left {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
-        background-color: #1a2933;
+        background-color: #102027;
       }
       .right {
         border-top-right-radius: 4px;

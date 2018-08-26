@@ -84,7 +84,7 @@ export default {
     wx.setNavigationBarTitle({
       title: '生物详细资料'
     })
-
+    this.version = options.version
     const result = await this.$http.get(`https://www.fireleaves.cn/anim/single?version=${this.version}&src=${options.src}`)
     this.item = result.data[0]
     this.rewards = this.item.reward
