@@ -16,9 +16,6 @@ export default {
         return []
       }
     }
-  },
-  mounted () {
-    console.info(this.attrs, 'mish attrs')
   }
 }
 </script>

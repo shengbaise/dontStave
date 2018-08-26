@@ -15,7 +15,7 @@
         </div>
         <div class="materials">
           <div class="material" v-for="(material, index) in item.composition" :key="index">
-            <img class="material-img" :src="material.src" alt="" mode="widthFix">
+            <img class="material-img" :src="material.src" alt="" mode="aspectFit">
             <div>x {{material.num}}</div>
           </div>
         </div>

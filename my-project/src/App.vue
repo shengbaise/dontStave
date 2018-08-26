@@ -84,6 +84,7 @@ export default {
     align-items: center;
     font-size: 16px;
     .material-img {
+      height: 48px;
       width: 48px;
     }
     .material-img-tool {

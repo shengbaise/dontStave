@@ -156,7 +156,6 @@ export default {
     const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}`)
     this.heros = result.data
     this.hero = this.heros[0]
-    console.info(this.hero, 'mish hero')
   },
   methods: {
     showSelectHero () {

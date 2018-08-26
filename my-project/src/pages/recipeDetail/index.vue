@@ -16,14 +16,14 @@
         </div>
         <div class="materials" v-if="composites.length > 0">
           <div class="material" v-for="(material, index) in composites" :key="index">
-            <img class="material-img" :src="material" alt="" mode="widthFix">
+            <img class="material-img" :src="material" alt="" mode="aspectFit">
           </div>
         </div>
         <div class="materials" v-if="type === '7'">
           <div class="need-materials">
             <div class="material-item" v-if="needs.length > 0">
               <div class="material" v-for="(material, index) in needs" :key="index">
-                <img class="material-img" :src="material.src" alt="" mode="widthFix">
+                <img class="material-img" :src="material.src" alt="" mode="aspectFit">
                 <div>{{material.num}}</div>
               </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="material-item" v-if="fails.length > 0">
               <div class="material" v-for="(material, index) in fails" :key="index">
                 <div>{{material.num}}</div>
-                <img class="material-img" :src="material.src" alt="" mode="widthFix">
+                <img class="material-img" :src="material.src" alt="" mode="aspectFit">
               </div>
             </div>
             <p class="material-item" v-else>无</p>
@@ -43,7 +43,7 @@
         </div>
         <div class="materials" v-if="features.length > 0">
           <div class="material" v-for="(feature, index) in features" :key="index">
-            <img class="material-img" :src="feature.src" alt="" mode="widthFix">
+            <img class="material-img" :src="feature.src" alt="" mode="aspectFit">
             <div>{{feature.num}}</div>
           </div>
         </div>

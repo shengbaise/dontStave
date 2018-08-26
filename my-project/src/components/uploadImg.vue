@@ -28,9 +28,6 @@ export default {
     wx.getImageInfo({
       src: self.imgUrl,
       success: (res) => {
-        console.info(res.path, 'imgUrl')
-        // let base64 = wx.arrayBufferToBase64(self.imgUrl)
-        // console.info(base64, 'base64')
         self.imgWidth = res.width
         self.imgHeight = res.height
       }
