@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="articles">
-        <div class="article" v-for="item in articles" :key="item.id">
+        <div class="article" v-for="item in articles" :key="item.id" @click="toArticleDetail(item.id)">
           <img class="article-img" :src="item.src" alt="" mode="aspectFill">
           <div class="text">
             <h1 class="title">{{item.title}}</h1>
@@ -113,8 +113,8 @@ export default {
       }, {
         tabImgUrl: '/static/img/home/entry-icon_rule.png',
         name: '机制',
-        toPath: 'Rule',
-        type: 'hero'
+        toPath: 'gameMechanism',
+        type: ''
       }],
       data: {},
       banners: [],
@@ -140,6 +140,11 @@ export default {
     this.articles = this.data.article
   },
   methods: {
+    toArticleDetail (id) {
+      wx.navigateTo({
+        url: `/pages/articleDetail/main?id=${id}`
+      })
+    },
     toTabPage (label) {
       this.currentLabel = label
     },

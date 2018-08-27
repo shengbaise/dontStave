@@ -88,7 +88,6 @@ export default {
     const result = await this.$http.get(`https://www.fireleaves.cn/anim/single?version=${this.version}&src=${options.src}`)
     this.item = result.data[0]
     this.rewards = this.item.reward
-    console.info(this.rewards, 'mish item.......')
 
     this.rewards.forEach(item => {
       if (item.num[0] !== '×') {
