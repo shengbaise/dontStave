@@ -15,7 +15,7 @@
         </div>
         <div class="materials">
           <div class="material" v-for="(material, index) in item.composition" :key="index">
-            <img class="material-img" :src="material.src" alt="" mode="aspectFit">
+            <img @click="toImgDetail(material.src)" class="material-img" :src="material.src" alt="" mode="aspectFit">
             <div>x {{material.num}}</div>
           </div>
         </div>
@@ -37,6 +37,7 @@
 <script>
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
+import { getImgDetail, formatUrl } from '@/utils/index.js'
 
 export default {
   data () {
@@ -66,26 +67,12 @@ export default {
     commonGood,
     commonDetail
   },
-  async onLoad (options) {
+  onLoad (options) {
     wx.setNavigationBarTitle({
       title: '物品详情'
     })
     this.version = options.version
-    const result = await this.$http.get(`https://www.fireleaves.cn/material/single?version=${this.version}&src=${options.src}`)
-    this.item = result.data[0]
-    if (this.item.attr) {
-      this.reason = this.item.attr[3]
-      this.moisture = this.item.attr[4]
-      this.defense = this.item.attr[2]
-      this.moistureCloth = this.item.attr[4]
-      this.heat = this.item.attr[5]
-      this.warm = this.item.attr[6]
-      // if (this.item.type === 16)
-    }
-    const composition = this.item.composition
-    composition.forEach(item => {
-      item.src = this.formatUrl(item.src)
-    })
+    this.initData(options)
   },
   mounted () {
     this.moisture = 0
@@ -96,12 +83,41 @@ export default {
     this.warm = 0
   },
   methods: {
-    formatUrl (src) {
-      let urlParam = ''
-      if (['G', 'S', 'F', 'A'].indexOf(src[0]) > -1) {
-        urlParam = 'animReward'
+    async initData (options) {
+      const result = await this.$http.get(`https://www.fireleaves.cn/material/single?version=${this.version}&src=${options.src}`)
+      this.item = result.data[0]
+      if (this.item.attr) {
+        this.reason = this.item.attr[3]
+        this.moisture = this.item.attr[4]
+        this.defense = this.item.attr[2]
+        this.moistureCloth = this.item.attr[4]
+        this.heat = this.item.attr[5]
+        this.warm = this.item.attr[6]
+        // if (this.item.type === 16)
       }
-      return `http://img.fireleaves.cn/${urlParam}/${src}.png`
+      const composition = this.item.composition
+      composition.forEach(item => {
+        item.src = formatUrl(item.src)
+      })
+    },
+    toImgDetail (src) {
+      const detailItem = getImgDetail(src)
+      if (!detailItem) {
+        return
+      }
+      if (src === 'scienceTechnologyDetail') {
+        this.item = {}
+        setTimeout(() => {
+          this.initData({
+            src: src,
+            version: this.version
+          })
+        }, 0)
+      } else {
+        wx.navigateTo({
+          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+        })
+      }
     }
   }
 }

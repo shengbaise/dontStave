@@ -6,13 +6,13 @@
         <div class="origin-tip" v-if="origins.length > 0">来源</div>
         <div class="materials" v-if="origins.length > 0">
           <div class="material" v-for="(origin, index) in origins" :key="index">
-            <img class="material-img" :src="origin" alt="" mode="aspectFit">
+            <img class="material-img" @click="toImgDetail(origin)" :src="origin" alt="" mode="aspectFit">
           </div>
         </div>
         <div class="science-tip" v-if="createSciences.length > 0">可制作科技</div>
         <div class="materials" v-if="createSciences.length > 0">
           <div class="material" v-for="(science, index) in createSciences" :key="index">
-            <img class="material-img" :src="science" alt="" mode="aspectFit">
+            <img class="material-img" @click="toImgDetail(science)" :src="science" alt="" mode="aspectFit">
           </div>
         </div>
         <common-detail :console="item.console" :desc="item.desc"></common-detail>
@@ -24,6 +24,7 @@
 <script>
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
+import { getImgDetail, formatUrl } from '@/utils/index.js'
 
 export default {
   data () {
@@ -39,6 +40,7 @@ export default {
     // detailContainer
   },
   onLoad (options) {
+    this.version = options.version
     wx.setNavigationBarTitle({
       title: '自然详情'
     })
@@ -49,13 +51,32 @@ export default {
     this.createSciences = []
   },
   methods: {
+    toImgDetail (src) {
+      const detailItem = getImgDetail(src)
+      if (!detailItem) {
+        return
+      }
+      if (src === 'natureInfoDetail') {
+        this.item = {}
+        setTimeout(() => {
+          this.initData({
+            src: src,
+            version: this.version
+          })
+        }, 0)
+      } else {
+        wx.navigateTo({
+          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+        })
+      }
+    },
     async initData (options) {
       const result = await this.$http.get(`https://www.fireleaves.cn/nature/single?version=${options.version}&src=${options.src}`)
       this.item = result.data[0]
       if (this.item.origin) {
         const origins = this.item.origin.map(item => {
           if (item !== null) {
-            return this.formatUrl(item)
+            return formatUrl(item)
           }
         })
         this.origins = origins.filter(item => !!item)
@@ -63,18 +84,11 @@ export default {
       if (this.item.createScience) {
         const createSciences = this.item.createScience.map(item => {
           if (item !== null) {
-            return this.formatUrl(item)
+            return formatUrl(item)
           }
         })
         this.createSciences = createSciences.filter(item => !!item)
       }
-    },
-    formatUrl (src) {
-      let urlParam = ''
-      if (['G', 'S', 'F', 'A', 'N'].indexOf(src[0]) > -1) {
-        urlParam = 'animReward'
-      }
-      return `http://img.fireleaves.cn/${urlParam}/${src}.png`
     }
   }
 }

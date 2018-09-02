@@ -16,7 +16,7 @@
         </div>
         <div class="materials" v-if="composites.length > 0">
           <div class="material" v-for="(material, index) in composites" :key="index">
-            <img class="material-img" :src="material" alt="" mode="aspectFit">
+            <img class="material-img"@click="toImgDetail(material)" :src="material" alt="" mode="aspectFit">
           </div>
         </div>
         <div class="materials" v-if="type === '7'">
@@ -73,6 +73,7 @@
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import detailContainer from '@/components/detailContainer.vue'
+import { getImgDetail, formatUrl } from '@/utils/index.js'
 
 export default {
   data () {
@@ -102,12 +103,24 @@ export default {
     this.initData(options)
   },
   methods: {
-    formatUrl (src) {
-      let urlParam = ''
-      if (['G', 'S', 'F', 'A'].indexOf(src[0]) > -1) {
-        urlParam = 'Foods'
+    toImgDetail (src) {
+      const detailItem = getImgDetail(src)
+      if (!detailItem) {
+        return
       }
-      return `http://img.fireleaves.cn/${urlParam}/${src}.png`
+      if (detailItem === 'recipeDetail') {
+        this.item = {}
+        setTimeout(() => {
+          this.initData({
+            src: src,
+            version: this.version
+          })
+        }, 0)
+      } else {
+        wx.navigateTo({
+          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+        })
+      }
     },
     async initData (options) {
       this.version = options.version
@@ -121,7 +134,7 @@ export default {
 
       if (this.item.composite) {
         this.composites = this.item.composite.map(item => {
-          return this.formatUrl(item)
+          return formatUrl(item)
         })
       }
 
@@ -129,7 +142,7 @@ export default {
         const needItems = this.item.need.map((need, index) => {
           if (index % 2 === 0) {
             return {
-              src: this.formatUrl(need),
+              src: formatUrl(need),
               num: this.item.need[index + 1]
             }
           }
@@ -140,7 +153,7 @@ export default {
         const fails = this.item.fail.map((need, index) => {
           if (index % 2 !== 0) {
             return {
-              src: this.formatUrl(need),
+              src: formatUrl(need),
               num: this.item.fail[index - 1]
             }
           }
@@ -152,7 +165,7 @@ export default {
         const features = this.item.feature.map((feature, index) => {
           if (index % 2 === 0) {
             return {
-              src: this.formatUrl(feature),
+              src: formatUrl(feature),
               num: this.item.feature[index + 1]
             }
           }

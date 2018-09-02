@@ -9,9 +9,9 @@
         </div>
         <div class="materials" v-if="rewards.length > 0">
           <div class="material" v-for="(reward, index) in rewards" :key="index">
-            <img class="material-img" :src="reward.src" alt="" mode="widthFix">
-            <div v-show="reward.num[0] !== '×'">(<img class="material-img-tool" :src="reward.num" alt="" mode="widthFix">)</div>
-            <div v-show="reward.num[0] === '×'">{{reward.num}}</div>
+            <img class="material-img" @click="toImgDetail(reward.src)" :src="reward.src" alt="" mode="widthFix">
+            <div v-if="reward.num[0] !== '×'">(<img @click="toImgDetail(reward.src)" class="material-img-tool" :src="reward.num" alt="" mode="widthFix">)</div>
+            <div v-else="reward.num[0] === '×'">{{reward.num}}</div>
           </div>
         </div>
         <div class="ability" v-show="item.Ability && item.Ability.length > 0">
@@ -31,6 +31,7 @@
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import commonAttr from '@/components/commonAttr.vue'
+import { getImgDetail, formatUrl } from '@/utils/index.js'
 
 export default {
   data () {
@@ -91,18 +92,20 @@ export default {
 
     this.rewards.forEach(item => {
       if (item.num[0] !== '×') {
-        item.num = this.formatUrl(item.num)
+        item.num = formatUrl(item.num)
       }
-      item.src = this.formatUrl(item.src)
+      item.src = formatUrl(item.src)
     })
+    console.info(this.rewards, 'ddddd')
   },
   methods: {
-    formatUrl (src) {
-      let urlParam = ''
-      // if (['G', 'S', 'F', 'A'].indexOf(src[0]) > -1) {
-      urlParam = 'animReward'
-      // }
-      return `http://img.fireleaves.cn/${urlParam}/${src}.png`
+    toImgDetail (src) {
+      const detailItem = getImgDetail(src)
+      if (detailItem) {
+        wx.navigateTo({
+          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+        })
+      }
     }
   }
 }

@@ -8,6 +8,35 @@ const fly = new Fly()
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$http = fly
+/* eslint-disable */
+// Vue.prototype.compLink = function (imgUrl, version) {
+//   const characters = imgUrl.split('/')
+//   const comp = characters[characters.length - 1]
+//   let src = ''
+//   let firstComp = comp[0]
+//   if (firstComp == "G") {
+//       src = `http://img.fireleaves.cn/animReward/${comp}.png`
+//       wx.navigateTo({
+//         url: `/pages/natureInfoDetail/main?src=${imgUrl}&version=${this.version}`
+//       })
+//   } else if (firstComp == "S") {
+//       src = `http://img.fireleaves.cn/Sciences/${comp}.png`
+//       wx.navigateTo({
+//         url: `/pages/scienceTechnologyDetail/main?src=${src}&version=${this.version}`
+//       })
+//   } else if (firstComp == "A") {
+//     src = `http://img.fireleaves.cn/Creatures/${comp}.png`
+//     wx.navigateTo({
+//       url: `/pages/animInfoDetail/main?src=${src}&version=${this.version}`
+//     })
+//   } else if (firstComp == "F") {
+//     src = `http://img.fireleaves.cn/Foods/${comp}.png`
+//     wx.navigateTo({
+//       url: `/pages/recipeDetail/main?src=${src}&version=${this.version}`
+//     })
+//   }
+// }
+
 Vue.mixin(global)
 
 // Vue.use(AlertPlugin)

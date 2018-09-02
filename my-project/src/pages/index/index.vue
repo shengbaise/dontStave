@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class=" egg-shell">
-        <div class="left">
+        <div class="left" @click="toGeographicalList('map')">
           <!-- <upload-img imgUrl="/static/img/home/map_intro.png"></upload-img> -->
           <img src="/static/img/home/map_intro.png" class="egg-img" alt="" mode="widthFix">
           <div class="content">
@@ -26,7 +26,7 @@
             <p class="detail">地域特色，生物群落</p>
           </div>
         </div>
-        <div class="right">
+        <div class="right" @click="toGeographicalList('adventure')">
           <img src="/static/img/home/season_intro.png" class="egg-img" alt="" mode="widthFix">
           <!-- <upload-img imgUrl="/static/img/home/season_intro.png"></upload-img> -->
           <div class="content">
@@ -138,8 +138,15 @@ export default {
     this.data = res.data[0]
     this.banners = this.data.banner
     this.articles = this.data.article
+    // const result = await this.$http.get('https://www.fireleaves.cn/map')
+    // console.info(result, 'reeeeeeeee')
   },
   methods: {
+    toGeographicalList (type) {
+      wx.navigateTo({
+        url: `/pages/GeographicalList/main?type=${type}`
+      })
+    },
     toArticleDetail (id) {
       wx.navigateTo({
         url: `/pages/articleDetail/main?id=${id}`
