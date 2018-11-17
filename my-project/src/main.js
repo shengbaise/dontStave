@@ -8,39 +8,8 @@ const fly = new Fly()
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$http = fly
-/* eslint-disable */
-// Vue.prototype.compLink = function (imgUrl, version) {
-//   const characters = imgUrl.split('/')
-//   const comp = characters[characters.length - 1]
-//   let src = ''
-//   let firstComp = comp[0]
-//   if (firstComp == "G") {
-//       src = `http://img.fireleaves.cn/animReward/${comp}.png`
-//       wx.navigateTo({
-//         url: `/pages/natureInfoDetail/main?src=${imgUrl}&version=${this.version}`
-//       })
-//   } else if (firstComp == "S") {
-//       src = `http://img.fireleaves.cn/Sciences/${comp}.png`
-//       wx.navigateTo({
-//         url: `/pages/scienceTechnologyDetail/main?src=${src}&version=${this.version}`
-//       })
-//   } else if (firstComp == "A") {
-//     src = `http://img.fireleaves.cn/Creatures/${comp}.png`
-//     wx.navigateTo({
-//       url: `/pages/animInfoDetail/main?src=${src}&version=${this.version}`
-//     })
-//   } else if (firstComp == "F") {
-//     src = `http://img.fireleaves.cn/Foods/${comp}.png`
-//     wx.navigateTo({
-//       url: `/pages/recipeDetail/main?src=${src}&version=${this.version}`
-//     })
-//   }
-// }
 
 Vue.mixin(global)
-
-// Vue.use(AlertPlugin)
-// Vue.use(ToastPlugin)
 
 const app = new Vue(App)
 app.$mount()
@@ -56,6 +25,38 @@ export default {
       navigationBarTitleText: '掌上饥荒',
       navigationBarTextStyle: '#ffffff',
       backgroundColor: '#1a2933'
+    },
+    tabBar: {
+      fontSize: '12px',
+      color: '#666',
+      backgroundColor: '#263238',
+      selectedColor: '#398dee',
+      list: [{
+        pagePath: 'pages/index/main',
+        text: '首页',
+        iconPath: 'static/icon/home.png',
+        selectedIconPath: 'static/icon/home-selected.png'
+      }, {
+        pagePath: 'pages/mine/main',
+        text: '动态',
+        iconPath: 'static/icon/dynamic.png',
+        selectedIconPath: 'static/icon/dynamic-selected.png'
+      }, {
+        pagePath: 'pages/mine/main',
+        text: '找饥友',
+        iconPath: 'static/icon/find.png',
+        selectedIconPath: '/static/icon/find-selected.png'
+      }, {
+        pagePath: 'pages/mine/main',
+        text: '藏品',
+        iconPath: 'static/icon/skin.png',
+        selectedIconPath: 'static/icon/skin-selected.png'
+      }, {
+        pagePath: 'pages/mine/main',
+        text: '我的',
+        iconPath: 'static/icon/mine.png',
+        selectedIconPath: 'static/icon/mine-selected.png'
+      }]
     }
   }
 }

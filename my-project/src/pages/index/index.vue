@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="banner">
-      <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt="">
+    <!-- <div class="banner">
+      <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt=""> -->
       <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
         <block v-for="(item, index) in banners" :index="index" :key="index">
           <swiper-item>
@@ -9,8 +9,9 @@
           </swiper-item>
         </block>
       </swiper> -->
-    </div>
-    <div class="view">
+    <!-- </div> -->
+    <!-- <search-input></search-input> -->
+    <scroll-view :scroll-y="true" class="view">
       <div class="tabs">
         <div class="tab" v-for="(tab, index) in tabs" :key="index" @click="toTap(tab.toPath, tab.type)">
           <img class="tab-img" alt="" :src="tab.tabImgUrl" mode="aspectFill">
@@ -48,22 +49,13 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="footer">
-      <div @click="toTabPage(tab.label)" v-for="tab in footerTabs" :key="tab.label" :class="{ 'selected': currentLabel === tab.label }">
-        <i
-          class="iconfont icon icon-home"
-          :class="[tab.icon === 'icon-home' ? 'icon-home' : tab.icon === 'icon-xiaoxi'
-          ? 'icon-xiaoxi' : tab.icon === 'icon-shoucang-tianchong'
-          ? 'icon-shoucang-tianchong' : 'icon-mine']"></i>
-        <div class="label">{{tab.label}}</div>
-      </div>
-    </div>
+    </scroll-view>
     <select-version v-if="!version" @select-version="selectVersion($event)" listWidth="80%" :isHome="true"></select-version>
   </div>
 </template>
 
 <script>
+import searchInput from '@/components/searchInput'
 import uploadImg from '@/components/uploadImg'
 import selectVersion from '@/components/selectVersion.vue'
 
@@ -72,16 +64,20 @@ export default {
     return {
       footerTabs: [{
         label: '主页',
-        icon: 'icon-home'
+        icon: 'icon-home',
+        path: '/pages/index/main'
       }, {
         label: '动态',
-        icon: 'icon-xiaoxi'
+        icon: 'icon-xiaoxi',
+        path: '/pages/index/main'
       }, {
         label: '藏品',
-        icon: 'icon-shoucang-tianchong'
+        icon: 'icon-shoucang-tianchong',
+        path: '/pages/index/main'
       }, {
         label: '我的',
-        icon: 'icon-mine'
+        icon: 'icon-mine',
+        path: '/pages/login/main'
       }],
       motto: 'Hello World',
       userInfo: {},
@@ -125,7 +121,8 @@ export default {
   },
   components: {
     uploadImg,
-    selectVersion
+    selectVersion,
+    searchInput
   },
   onLoad () {
     wx.setNavigationBarTitle({
@@ -138,8 +135,6 @@ export default {
     this.data = res.data[0]
     this.banners = this.data.banner
     this.articles = this.data.article
-    // const result = await this.$http.get('https://www.fireleaves.cn/map')
-    // console.info(result, 'reeeeeeeee')
   },
   methods: {
     toGeographicalList (type) {
@@ -152,8 +147,11 @@ export default {
         url: `/pages/articleDetail/main?id=${id}`
       })
     },
-    toTabPage (label) {
-      this.currentLabel = label
+    toTabPage (tab) {
+      this.currentLabel = tab.label
+      wx.navigateTo({
+        url: tab.path
+      })
     },
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
@@ -163,31 +161,30 @@ export default {
       wx.navigateTo({
         url: `/pages/${path}/main?type=${type}`
       })
-    },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
     }
+    // getUserInfo () {
+    //   // 调用登录接口
+    //   wx.login({
+    //     success: () => {
+    //       wx.getUserInfo({
+    //         success: (res) => {
+    //           this.userInfo = res.userInfo
+    //         }
+    //       })
+    //     }
+    //   })
+    // }
     // clickHandle (msg, ev) {
     //   console.log('clickHandle:', msg, ev)
     // }
-  },
-
-  created () {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
   }
+  // created () {
+  // 调用应用实例的方法获取全局数据
+  // this.getUserInfo()
+  // }
 }
 </script>
-<style>
+<style lang="scss">
 page {
   width:100%;
   height:100%;
@@ -214,8 +211,11 @@ page {
     }
   }
   .view {
-    position: relative;
-    margin-bottom: 44px;
+    position: absolute;
+    // top: 68px;
+    // height: calc(100% - 68px);
+    overflow-y: scroll;
+    // margin-bottom: 44px;
     background-color: #37474f;
     // top: 172px;
     width: 100%;
@@ -318,28 +318,28 @@ page {
       }
     }
   }
-  .footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0px;
-    height: 56px;
-    background-color: #263238;
-    color: rgba(102,102,102,.54);
-    display: flex;
-    flex-flow: nowrap row;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 12px;
-    .icon {
-      font-size: 24px;
-      color: rgba(102,102,102,.54);
-    }
-    .icon-shoucang-tianchong {
-      font-size: 23px;
-    }
-    .icon-mine {
-      font-size: 28px;
-    }
-  }
+  // .footer {
+  //   position: fixed;
+  //   width: 100%;
+  //   bottom: 0px;
+  //   height: 56px;
+  //   background-color: #263238;
+  //   color: rgba(102,102,102,.54);
+  //   display: flex;
+  //   flex-flow: nowrap row;
+  //   justify-content: space-around;
+  //   align-items: center;
+  //   font-size: 12px;
+  //   .icon {
+  //     font-size: 24px;
+  //     color: rgba(102,102,102,.54);
+  //   }
+  //   .icon-shoucang-tianchong {
+  //     font-size: 23px;
+  //   }
+  //   .icon-mine {
+  //     font-size: 28px;
+  //   }
+  // }
 }
 </style>

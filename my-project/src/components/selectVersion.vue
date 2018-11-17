@@ -47,7 +47,8 @@ export default {
         {name: 'DST', value: '联机版(DST)'},
         {name: 'DS', value: '单机版(DS)'},
         {name: 'ROG', value: '巨人统治(ROG)'},
-        {name: 'SW', value: '船难(SW)'}
+        {name: 'SW', value: '船难(SW)'},
+        {name: 'HAMLET', value: '哈姆雷特(HAMLET)'}
       ],
       sortItems: [{
         name: 'fullOfFood',

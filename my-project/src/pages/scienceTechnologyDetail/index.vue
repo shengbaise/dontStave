@@ -154,7 +154,7 @@ export default {
         display: flex;
         flex-flow: nowrap row;
         justify-content: space-around;
-        align-items: center;
+        // align-items: center;
         .material {
           display: flex;
           flex-flow: nowrap row;

@@ -41,6 +41,9 @@ export default {
         label: '洞穴',
         type: 2
       }, {
+        label: '猪人',
+        type: 36
+      }, {
         label: '海洋',
         type: 24
       }, {
@@ -87,9 +90,11 @@ export default {
     },
     async initData () {
       if (this.version === 'SW') {
-        this.currentTabs = this.tabs.filter(item => item.type !== 2)
+        this.currentTabs = this.tabs.filter(item => [2, 36].indexOf(item.type) === -1)
+      } else if (this.version === 'HAMLET') {
+        this.currentTabs = this.tabs.filter(item => [2, 24].indexOf(item.type) === -1)
       } else {
-        this.currentTabs = this.tabs.filter(item => item.type !== 24)
+        this.currentTabs = this.tabs.filter(item => [24, 36].indexOf(item.type) === -1)
       }
       const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
       this.items = result.data

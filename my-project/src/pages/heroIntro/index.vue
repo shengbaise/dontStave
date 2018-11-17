@@ -8,7 +8,7 @@
   <div class="hero-intro">
     <div class="hero">
       <div class="top-picture">
-        <img class="picture" v-if="heroList[heroIndex]" :src="heroList[heroIndex].topImg" alt="" mode="aspectFit">
+        <img class="picture" v-if="heroList[imgIndex]" :src="heroList[imgIndex].topImg" alt="" mode="aspectFit">
         <div class="shade"></div>
         <div class="hero-message" v-if="hero._id">
           <div class="name">{{heros[heroIndex].name}}</div>
@@ -26,7 +26,7 @@
     <div class="select-hero" v-show="isSelect">
       <div class="hero-list">
         <div class="title">选择角色</div>
-        <div class="hero-item" v-for="(item, index) in heroList" :key="item.alis" @click="selectHero(index)">
+        <div class="hero-item" v-for="(item, index) in heroList" :key="item.alis" @click="selectHero(item.name, index)">
           <img class="picture" :src="item.src" alt="" mode="widthFix">
           <div class="item-name">
             <div class="name">{{item.name}}</div>
@@ -44,6 +44,7 @@ const url = 'http://img.fireleaves.cn/SomeLabel'
 export default {
   data () {
     return {
+      imgIndex: 0,
       heroIndex: 0,
       isSelect: false,
       type: '',
@@ -74,13 +75,13 @@ export default {
       },
       {
         src: `${url}/jqr.png`,
-        name: '机器人',
+        name: '机器人（WX-78）',
         alis: 'WX-78',
         topImg: `${url}/WX-78.jpg`
       },
       {
         src: `${url}/lnn.png`,
-        name: '老奶奶',
+        name: '薇克伯顿',
         alis: 'Wickerbottom',
         topImg: `${url}/Wickerbottom.jpg`
       },
@@ -142,7 +143,17 @@ export default {
         src: `${url}/winona.png`,
         name: '薇诺娜',
         alis: 'Winona',
-        topImg: `${url}/winona.png`
+        topImg: `${url}/winona-bg.png`
+      }, {
+        src: `${url}/warbucks.png`,
+        alis: 'Warbucks',
+        name: '沃巴克斯',
+        topImg: `${url}/warbucks_bg.png`
+      }, {
+        src: `${url}/wliba.png`,
+        alis: 'Wliba',
+        topImg: `${url}/wliba_bg.png`,
+        name: '薇儿芭'
       }]
     }
   },
@@ -161,8 +172,10 @@ export default {
     showSelectHero () {
       this.isSelect = true
     },
-    selectHero (index) {
-      this.heroIndex = index
+    selectHero (name, index) {
+      console.info(name, 'name')
+      this.imgIndex = index
+      this.heroIndex = this.heros.findIndex(item => item.name === name) || 0
       this.isSelect = false
     }
   }

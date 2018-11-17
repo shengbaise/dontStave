@@ -2,7 +2,8 @@
 <template>
   <div class="geographical-list">
     <div class="list">
-      <div class="item" v-for="item in list" :key="item._id">
+      <div class="item" v-for="item in list" :key="item._id" 
+      @click="toGeographicallyAdventures(item)">
         <!-- <div class="item-img-container"> -->
           <img class="item-img" :src="item.imgSrc" alt="" mode="widthFix">
         <!-- </div> -->
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -29,11 +31,16 @@ export default {
     wx.setNavigationBarTitle({
       title: '地域列表'
     })
-    // console.info(options.type, 'type.....')
     const result = await this.$http.get(`https://www.fireleaves.cn/${options.type}`)
     this.data = result.data
     this.list = this.data
-    console.info(this.list, 'reeeeeeeee')
+  },
+  methods: {
+    toGeographicallyAdventures (item) {
+      wx.navigateTo({
+        url: `/pages/geographicallyAdventures/main?item=${JSON.stringify(item)}`
+      })
+    }
   }
 }
 </script>

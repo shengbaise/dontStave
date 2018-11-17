@@ -19,7 +19,7 @@
             <img class="material-img"@click="toImgDetail(material)" :src="material" alt="" mode="aspectFit">
           </div>
         </div>
-        <div class="materials" v-if="type === '7'">
+        <div class="materials-need common-materials" v-if="type === '7'">
           <div class="need-materials">
             <div class="material-item" v-if="needs.length > 0">
               <div class="material" v-for="(material, index) in needs" :key="index">
@@ -27,7 +27,7 @@
                 <div>{{material.num}}</div>
               </div>
             </div>
-            <p class="material-item" v-else>无</p>
+            <p class="material-item none" v-else>无</p>
             <p class="need-desc">必须材料</p>
           </div>
           <div class="fail-materials">
@@ -37,7 +37,7 @@
                 <img class="material-img" :src="material.src" alt="" mode="aspectFit">
               </div>
             </div>
-            <p class="material-item" v-else>无</p>
+            <p class="material-item none" v-else>无</p>
             <p class="need-desc">不能添加材料</p>
           </div>
         </div>
@@ -202,39 +202,31 @@ export default {
           width: 32px;
         }
       }
-      .materials {
-        padding-top: 2px;
-        padding-bottom: 18px;
-        display: flex;
+      .materials-need {
         flex-flow: nowrap row;
-        justify-content: space-around;
-        align-items: center;
-        .material-item {
-          display: flex;
-          flex-flow: wrap row;
-          justify-content: space-around;
-          align-items: center;
-          padding-bottom: 60px;
-          font-size: 12px;
+        .none {
+          height: 36px;
         }
         .material {
           display: flex;
           flex-flow: nowrap row;
-          align-items: center;
           .material-img {
-            width: 48px;
+            width: 36px;
           }
         }
         .need-materials {
           border-right: 1px solid #999;
         }
         .fail-materials {
-          border-left: 1px solid #999;
           .material-img {
             margin-left: 2px;
           }
         }
         .need-materials, .fail-materials {
+          align-items:center;
+          display:flex;
+          justify-content: space-between;
+          flex-flow: column;
           text-align: center;
           width: 50%;
           .material-img {

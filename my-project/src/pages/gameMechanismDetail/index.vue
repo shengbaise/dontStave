@@ -2,10 +2,15 @@
   <div class="game-mechanism-detail">
     <div class="mechainsm-list">
       <div class="item" :class="{ 'item-spread': currentIndex === index }" v-for="(item, index) in currentRules" :key="item.id">
-        <div class="item-title">
+        <div class="item-title" @click="retract()" v-if="currentIndex === index">
           <p class="title">{{item.header}}</p>
-          <span class="retract" v-if="currentIndex === index" @click="retract()"><i class="icon-shouqi iconfont icon"></i></span>
-          <span @click="spread(index)" class="retract" v-else ><i class="icon-zhankai iconfont icon"></i></span>
+          <span class="retract"><i class="icon-shouqi iconfont icon"></i></span>
+          <!-- <span @click="spread(index)" class="retract" v-else ><i class="icon-zhankai iconfont icon"></i></span> -->
+        </div>
+        <div class="item-title" v-else @click="spread(index)">
+          <p class="title">{{item.header}}</p>
+          <!-- <span class="retract" v-if="currentIndex === index" @click="retract()"><i class="icon-shouqi iconfont icon"></i></span> -->
+          <span class="retract"><i class="icon-zhankai iconfont icon"></i></span>
         </div>
         <div class="desc" v-if="currentIndex === index">
           <p>{{item.desc}}</p>
@@ -200,7 +205,6 @@ export default {
   },
   methods: {
     spread (index) {
-      console.info(index, 'mish index')
       this.currentIndex = index
     },
     retract () {

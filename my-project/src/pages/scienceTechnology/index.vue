@@ -34,15 +34,15 @@ export default {
       tabs: [{
         label: '工具',
         type: 11,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '照明',
         type: 9,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '生存',
         type: 10,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '更多'
       }],
@@ -53,47 +53,47 @@ export default {
       moreTabs: [{
         label: '工具',
         type: 11,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '照明',
         type: 9,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '生存',
         type: 10,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '食物',
         type: 13,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '战斗',
         type: 12,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '科学',
         type: 14,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '魔法',
         type: 15,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '服装',
         type: 16,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '书本',
         type: 19,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '建筑',
         type: 25,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '合成',
         type: 26,
-        version: ['DST', 'DS', 'ROG', 'SW']
+        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
       }, {
         label: '远古',
         type: 27,
@@ -113,11 +113,15 @@ export default {
       }, {
         label: '航海',
         type: 18,
-        version: ['SW']
+        version: ['SW', 'HAMLET']
       }, {
         label: '火山',
         type: 32,
         version: ['SW']
+      }, {
+        label: '考古',
+        type: 34,
+        version: 'HAMLET'
       }],
       showMoreTab: false,
       version: 'DST',

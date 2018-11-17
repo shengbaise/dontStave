@@ -15,7 +15,10 @@ export default {
 @import "./static/font/iconfont.wxss";
 @import "./static/wxss/common.wxss";
 @import "./static/font_game/iconfont.wxss";
-
+page {
+  height: 100%;
+  width: 100%;
+}
 .container {
   height: 100%;
   display: flex;
@@ -64,33 +67,39 @@ export default {
     }
   }
 }
+.common-materials {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 60px;
+  font-size: 12px;
+}
 .materials {
   padding-top: 2px;
   padding-bottom: 18px;
   display: flex;
   flex-flow: wrap row;
   justify-content: space-around;
+  // align-items: center;
+}
+.material-item {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-around;
   align-items: center;
-  .material-item {
-    display: flex;
-    flex-flow: nowrap row;
-    justify-content: space-around;
-    align-items: center;
-    padding-bottom: 60px;
-    font-size: 12px;
+  padding-bottom: 30px;
+  font-size: 12px;
+}
+.material {
+  display: flex;
+  flex-flow: nowrap row;
+  align-items: center;
+  font-size: 16px;
+  .material-img {
+    height: 36px;
+    width: 36px;
   }
-  .material {
-    display: flex;
-    flex-flow: nowrap row;
-    align-items: center;
-    font-size: 16px;
-    .material-img {
-      height: 48px;
-      width: 48px;
-    }
-    .material-img-tool {
-      width: 32px;
-    }
+  .material-img-tool {
+    width: 32px;
   }
 }
 .top {

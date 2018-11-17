@@ -28,7 +28,8 @@ export default {
         'DST': 'http://img.fireleaves.cn/SomeLabel/C763C9B46AC4420F9F2107724A879221.png',
         'DS': 'http://img.fireleaves.cn/SomeLabel/250px-Logo.png',
         'ROG': 'http://img.fireleaves.cn/SomeLabel/Reign_of_Giants.png',
-        'SW': 'http://img.fireleaves.cn/SomeLabel/250px-Shipwrecked_Logo.png'
+        'SW': 'http://img.fireleaves.cn/SomeLabel/250px-Shipwrecked_Logo.png',
+        'HAMLET': 'http://img.fireleaves.cn/SomeLabel/250px-Shipwrecked_Logo.png'
       }
     }
   },
