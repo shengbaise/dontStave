@@ -31,7 +31,7 @@ export default {
     wx.setNavigationBarTitle({
       title: '地域列表'
     })
-    const result = await this.$http.get(`https://www.fireleaves.cn/${options.type}`)
+    const result = await this.$http.get(`/${options.type}`)
     this.data = result.data
     this.list = this.data
   },
@@ -44,7 +44,14 @@ export default {
   }
 }
 </script>
-
+<style>
+page {
+  height: 100%;
+  width: 100%;
+  background-color: #37474f;
+  font-family: Avenir,Helvetica,Arial,sans-serif;
+}
+</style>
 <style scoped lang="scss">
 .geographical-list {
   position: relative;

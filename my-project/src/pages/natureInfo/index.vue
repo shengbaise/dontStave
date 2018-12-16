@@ -11,7 +11,8 @@
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
     <div class="view">
-      <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
+      <common-good v-if="currentGoods.length > 0" @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
+      <p v-if="currentGoods.length === 0" class="no-data">暂无数据～～～</p>
     </div>
     <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
@@ -72,7 +73,7 @@ export default {
       this.isSelect = true
     },
     async initData () {
-      const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
+      const result = await this.$http.get(`/${this.type}?version=${this.version}`)
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },

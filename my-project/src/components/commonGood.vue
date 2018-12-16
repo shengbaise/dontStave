@@ -51,7 +51,7 @@ export default {
     type: {
       type: String,
       default () {
-        return ''
+        return 'animal'
       }
     }
   },

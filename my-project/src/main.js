@@ -4,7 +4,10 @@ import { global } from './mixin'
 // import { AlertPlugin, ToastPlugin } from 'vux'
 const Fly = require('flyio/dist/npm/wx')
 const fly = new Fly()
-
+fly.config = {
+  baseURL: 'https://fireleaves.cn'
+  // baseURL: 'http://47.107.130.106'
+}
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$http = fly
@@ -42,7 +45,7 @@ export default {
         iconPath: 'static/icon/dynamic.png',
         selectedIconPath: 'static/icon/dynamic-selected.png'
       }, {
-        pagePath: 'pages/mine/main',
+        pagePath: 'pages/findFriend/main',
         text: '找饥友',
         iconPath: 'static/icon/find.png',
         selectedIconPath: '/static/icon/find-selected.png'

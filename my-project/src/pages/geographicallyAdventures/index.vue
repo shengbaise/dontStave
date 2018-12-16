@@ -315,6 +315,9 @@ export default {
 <style>
 page {
   height: 100%;
+  width: 100%;
+  background-color: #37474f;
+  font-family: Avenir,Helvetica,Arial,sans-serif;
 }
 </style>
 <style lang="scss" scoped>

@@ -1,26 +1,58 @@
 <template>
-  <div class="search-input">
+  <div class="search-input" @click="handleClick">
     <div class="search">
       <div class="search-container">
-        <div class="search-type" @click="selectSearchType()">
-          <p class="search-type-value">{{currentSearchType}}</p>
-          <i v-if="!isSelectType" class="icon-zhankai iconfont icon"></i>
-          <i v-else class="icon-shouqi iconfont icon"></i>
-          <radio-group class="version-group" @change="searchTypeRadioChange" v-if="isSelectType">
-            <label class="radio" v-for="(item, index) in typeItems" :key="index">
-              <radio :checked="item.value === currentSearchType" class="input-item" color="#009688" type="radio" :value="item.value"/>{{item.value}}
-            </label>
-          </radio-group>
-        </div>
-        <input type="text" class="search-input" v-model="searchContent" placeholder="请输入搜索内容">
-        <i class="icon-sousuo icon iconfont" @click="toSearch()"></i>
+        <input @focus="handleFocus()"
+          @confirm="enter"
+          :disabled="isReadonly"
+          ref="searchInput"
+          type="text" class="search-input" v-model="searchContent" placeholder="请输入搜索内容">
+        <i class="icon-sousuo icon iconfont"></i>
+        <span class="search-text" @click="search()" v-if="!isReadonly">搜索</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// let timer
+// let start
+// const throttle = function (method, mustRunDelay) {
+//   // method()
+//   // console.info(method, mustRunDelay)
+//   // let args = arguments
+//   // console.info(args, 'args')
+//   return function () {
+//     // let self = this
+//     let now = Date.now()
+//     if (!start) {
+//       start = now
+//     }
+//     if (timer) {
+//       clearTimeout(timer)
+//     }
+//     // console.info(now - start)
+//     if (now - start >= mustRunDelay) {
+//       // method.apply(self, args)
+//       method()
+//       start = now
+//     } else {
+//       timer = setTimeout(function () {
+//         // loop.apply(self, args)
+//         method()
+//       }, 1000)
+//     }
+//   }
+// }
 export default {
+  props: {
+    isReadonly: {
+      type: Boolean,
+      default () {
+        return false
+      }
+    }
+  },
   data () {
     return {
       isSelectType: false,
@@ -31,10 +63,15 @@ export default {
         {name: 'recipe', value: '食谱'},
         {name: 'animInfo', value: '生物'},
         {name: 'nature', value: '自然'}
-      ]
+      ],
+      timer: null,
+      begin: null
     }
   },
   methods: {
+    handleClick () {
+      this.$emit('click')
+    },
     selectSearchType () {
       if (!this.isSelectType) {
         this.isSelectType = true
@@ -45,11 +82,18 @@ export default {
     searchTypeRadioChange (e) {
       this.currentSearchType = e.target.value
     },
-    toSearch () {
-      console.info(';;;;;')
-      wx.navigateTo({
-        url: `/pages/search/main?type=${this.currentSearchType}&searchContent=${this.searchContent}`
-      })
+    search () {
+      if (this.searchContent) {
+        this.$emit('search', this.searchContent)
+      }
+    },
+    handleFocus () {
+      this.$emit('handle-search')
+    },
+    enter () {
+      if (this.searchContent) {
+        this.$emit('search', this.searchContent)
+      }
     }
   }
 }
@@ -65,6 +109,7 @@ radio .wx-radio-input {
 
 <style lang="scss" scoped>
 .search-input {
+  user-select: none;
   width: 100%;
   .version-group {
     z-index: 3;
@@ -85,13 +130,14 @@ radio .wx-radio-input {
     }
   }
   .search {
-    width: 100%;
+    // width: 100%;
   }
   .search-container {
     position: absolute;
     height: 68px;
     top: 0;
     padding: 0 20px;
+    // width: 100%;
     position: relative;
     display: flex;
     flex-flow: nowrap row;
@@ -101,39 +147,45 @@ radio .wx-radio-input {
       text-align: right;
     }
     font-size: 14px;
-    .search-type {
-      position: relative;
-      padding: 0 5px 0 14px;
-      color: gray;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      display: flex;
-      flex-flow: nowrap row;
-      align-items: center;
-      justify-content: space-between;
-      width: 20%;
-      height: 33px;
-      line-height: 33px;
-      background-color: #1a2933;
-    }
     .search-input {
-      border-left: 1px solid #37474f;
-      padding-left: 10px;
-      font-size: 13px;
       width: 80%;
+      margin-right:40px;
+      -webkit-user-select: none;  /*webkit浏览器*/
+      -ms-user-select: none;   /*IE10*/
+      -khtml-user-select: none; /*早期浏览器*/
+      user-select: none;
+      // border-left: 1px solid #37474f;
+      padding-left: 34px;
+      font-size: 13px;
+      width: 100%;
       height: 33px;
       color: gray;
-      background-color: #1a2933;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      background-color: #f5f5f5;
+      border-radius: 20px;
+      // border-bottom-right-radius: 20px;
+    }
+    .search-text {
+      position: absolute;
+      right: 0;
+      display: inline-block;
+      font-size: 14px;
+      color: gray;
+      z-index: 10;
+      padding:20px 30px 20px 20px;
+      user-select: none;
+      padding:20px;
+      color:#009688;
     }
     .icon-sousuo {
       position: absolute;
-      right: 8%;
+      // right: 0;
       display: inline-block;
       font-size: 18px;
       color: gray;
       z-index: 10;
+      padding-left: 10px;
+      // padding:20px 30px 20px 20px;
+      user-select: none;
     }
   }
 }

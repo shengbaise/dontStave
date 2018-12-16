@@ -1,20 +1,21 @@
+<!-- 机制 -->
 <template>
   <div class="game-mechanism">
-    <div class="role mechanism" @click="toDetail('roleRule', '角色')">
+    <div class="role mechanism" @click="toDetail(0)">
       <i class="iconfont icon icon-xindiantu"></i>
       <section class="section">
         <h1 class="title">角色</h1>
         <p class="content">饱食度，血量，湿度 & 体温，中毒，人物解锁...</p>
       </section>
     </div>
-    <div class="food mechanism" @click="toDetail('foodRule', '食物')">
+    <div class="food mechanism" @click="toDetail(1)">
       <i class="iconfont icon icon-shiwu-"></i>
       <section class="section">
         <h1 class="title">食物</h1>
         <p class="content">营养度，优先级 & 温度，速度，照明...</p>
       </section>
     </div>
-    <div class="mechanism nature" @click="toDetail('natureRule', '自然')">
+    <div class="mechanism nature" @click="toDetail(2)">
       <i class="iconfont icon icon-ziran-1"></i>
       <section class="section">
         <h1 class="title">自然</h1>
@@ -43,9 +44,9 @@ export default {
     })
   },
   methods: {
-    toDetail (type, title) {
+    toDetail (type) {
       wx.navigateTo({
-        url: `/pages/gameMechanismDetail/main?type=${type}&title=${title}`
+        url: `/pages/gameMechanismDetail/main?type=${type}`
       })
     }
   }

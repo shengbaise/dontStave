@@ -15,10 +15,7 @@ export default {
 @import "./static/font/iconfont.wxss";
 @import "./static/wxss/common.wxss";
 @import "./static/font_game/iconfont.wxss";
-page {
-  height: 100%;
-  width: 100%;
-}
+
 .container {
   height: 100%;
   display: flex;
@@ -113,6 +110,74 @@ page {
   }
   .top-img {
     width: 32px;
+  }
+}
+.no-data, .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #999;
+}
+.switch {
+  position:absolute;
+  padding:12px 24px;
+  top:0;
+  right:0;
+  height:32rpx;
+  width:32rpx;
+}
+.select-sort {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.3);
+  .sort-list {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 6px rgba(0,0,0,.16), 0 6px 12px rgba(0,0,0,.32);
+    // height: 40%;
+    overflow: scroll;
+    background-color: white;
+    border-radius: 4px;
+    .title {
+      padding: 16px 0 12px 10px;
+      border-bottom: 1px solid #DCDFE6;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      box-sizing: content-box;
+    }
+    .sort-group {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      .radio {
+        padding: 12px;
+        padding-bottom: 0;
+        color: rgba(0,0,0,.54);
+      }
+    }
+    .ok {
+      text-align: right;
+      color: #43a047;
+      font-size: 14px;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      padding-right: 25px;
+    }
+  }
+}
+.select-sort {
+  radio .wx-radio-input{
+    border-radius: 30rpx;
+    height: 30rpx;
+    width: 30rpx;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="home-container">
     <!-- <div class="banner">
       <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt=""> -->
       <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
@@ -10,17 +10,16 @@
         </block>
       </swiper> -->
     <!-- </div> -->
-    <!-- <search-input></search-input> -->
-    <scroll-view :scroll-y="true" class="view">
+    <search-input @click="toSearch" :isReadonly="true"></search-input>
+    <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div class="tabs">
         <div class="tab" v-for="(tab, index) in tabs" :key="index" @click="toTap(tab.toPath, tab.type)">
           <img class="tab-img" alt="" :src="tab.tabImgUrl" mode="aspectFill">
           <div class="tab-name">{{tab.name}}</div>
         </div>
       </div>
-      <div class=" egg-shell">
+      <!-- <div class=" egg-shell">
         <div class="left" @click="toGeographicalList('map')">
-          <!-- <upload-img imgUrl="/static/img/home/map_intro.png"></upload-img> -->
           <img src="/static/img/home/map_intro.png" class="egg-img" alt="" mode="widthFix">
           <div class="content">
             <p class="map">地图百科</p>
@@ -29,25 +28,26 @@
         </div>
         <div class="right" @click="toGeographicalList('adventure')">
           <img src="/static/img/home/season_intro.png" class="egg-img" alt="" mode="widthFix">
-          <!-- <upload-img imgUrl="/static/img/home/season_intro.png"></upload-img> -->
           <div class="content">
             <p class="location">地标 & 奇遇</p>
             <p class="detail">地标建筑，趣味彩蛋</p>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="articles">
         <div class="article" v-for="item in articles" :key="item.id" @click="toArticleDetail(item.id)">
           <img class="article-img" :src="item.src" alt="" mode="aspectFill">
           <div class="text">
             <h1 class="title">{{item.title}}</h1>
-            <p class="content">{{item.content}}</p>
+            <!-- <p class="content" v-html="item.content"></p> -->
             <div class="article-footer">
               <div class="time">{{item.time}}</div>
               <div class="author">{{item.author}}</div>
             </div>
           </div>
         </div>
+        <p class="bottom-tip" v-if="loading">加载中...</p>
+        <p class="bottom-tip" v-if="loaded && pageDatas.length === 0">没有更多数据</p>
       </div>
     </scroll-view>
     <select-version v-if="!version" @select-version="selectVersion($event)" listWidth="80%" :isHome="true"></select-version>
@@ -90,7 +90,7 @@ export default {
         tabImgUrl: '/static/img/home/entry-icon-thing.png',
         name: '科技',
         toPath: 'scienceTechnology',
-        type: 'material?version=DST'
+        type: 'materials?version=DST'
       }, {
         tabImgUrl: '/static/img/home/entry-icon_food.png',
         name: '食谱',
@@ -112,11 +112,16 @@ export default {
         toPath: 'gameMechanism',
         type: ''
       }],
-      data: {},
+      pageDatas: [],
       banners: [],
       articles: [],
       version: '',
-      currentLabel: '主页'
+      currentLabel: '主页',
+      total: 0,
+      pageNum: 0,
+      loading: false,
+      loaded: false,
+      scrollTop: 50
     }
   },
   components: {
@@ -131,12 +136,31 @@ export default {
     this.version = wx.getStorageSync('currentVersion')
   },
   async mounted () {
-    const res = await this.$http.get('https://www.fireleaves.cn/init')
-    this.data = res.data[0]
-    this.banners = this.data.banner
-    this.articles = this.data.article
+    this.setArticles()
   },
   methods: {
+    loadMore () {
+      if (this.pageDatas.length !== 0) {
+        this.pageNum = this.pageNum + 1
+        this.setArticles()
+      }
+    },
+    toSearch () {
+      wx.navigateTo({
+        url: `/pages/search/main?type=${this.currentSearchType}&searchContent=${this.searchContent}`
+      })
+    },
+    async setArticles () {
+      this.loading = true
+      this.loaded = false
+      this.pageDatas = []
+      const res = await this.$http.get(`/article?pageSize=10&pageNum=${this.pageNum}`)
+      this.pageDatas = res.data.data
+      this.total = res.data.total
+      this.articles.push(...this.pageDatas)
+      this.loading = false
+      this.loaded = true
+    },
     toGeographicalList (type) {
       wx.navigateTo({
         url: `/pages/GeographicalList/main?type=${type}`
@@ -144,7 +168,7 @@ export default {
     },
     toArticleDetail (id) {
       wx.navigateTo({
-        url: `/pages/articleDetail/main?id=${id}`
+        url: `/pages/articleDetail/main?id=${id}&type=article`
       })
     },
     toTabPage (tab) {
@@ -184,19 +208,22 @@ export default {
   // }
 }
 </script>
-<style lang="scss">
+
+<style>
 page {
-  width:100%;
-  height:100%;
+  height: 100%;
+  width: 100%;
   background-color: #37474f;
   font-family: Avenir,Helvetica,Arial,sans-serif;
 }
 </style>
 
 <style lang="scss" scoped>
-.container {
+.home-container {
+  position: relative;
   padding-top: 0;
   width: 100%;
+  height: 100%;
   background-color: #37474f;
   .selected {
     color: rgb(40, 116, 240) !important;
@@ -211,15 +238,12 @@ page {
     }
   }
   .view {
+    top: 68px;
+    height: calc(100vh - 68px);
     position: absolute;
-    // top: 68px;
-    // height: calc(100% - 68px);
     overflow-y: scroll;
-    // margin-bottom: 44px;
     background-color: #37474f;
-    // top: 172px;
     width: 100%;
-    // overflow: scroll;
     .tabs {
       height: 40px;
       padding: 10px;
@@ -275,6 +299,9 @@ page {
       }
     }
     .articles {
+      position: relative;
+      padding-top: 12px;
+      padding-bottom: 0;
       .article {
         position: relative;
         margin: 10px;
@@ -285,8 +312,9 @@ page {
         background-color: #1a2933;
         font-size: 14px;
         .article-img {
-          width: 120px;
-          height: 120px;
+          border-radius: 10px;
+          width: 60px;
+          height: 60px;
           margin: 10px;
         }
         .text {
@@ -309,37 +337,27 @@ page {
         .article-footer {
           position: absolute;
           bottom: 15px;
-          right: 30px;
+          right: 15px;
           display: flex;
           flex-flow: row nowrap;
+          align-items:center;
           font-size: 12px;
           color: #4f5555;
+          .time {
+            padding-right: 10px;
+          }
         }
       }
     }
   }
-  // .footer {
-  //   position: fixed;
-  //   width: 100%;
-  //   bottom: 0px;
-  //   height: 56px;
-  //   background-color: #263238;
-  //   color: rgba(102,102,102,.54);
-  //   display: flex;
-  //   flex-flow: nowrap row;
-  //   justify-content: space-around;
-  //   align-items: center;
-  //   font-size: 12px;
-  //   .icon {
-  //     font-size: 24px;
-  //     color: rgba(102,102,102,.54);
-  //   }
-  //   .icon-shoucang-tianchong {
-  //     font-size: 23px;
-  //   }
-  //   .icon-mine {
-  //     font-size: 28px;
-  //   }
-  // }
+  .bottom-tip {
+    position: absolute;
+    bottom:-41px;
+    width:100%;
+    font-size:12px;
+    color:#999;
+    text-align:center;
+    padding:12px 0;
+  }
 }
 </style>

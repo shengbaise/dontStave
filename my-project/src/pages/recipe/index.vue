@@ -117,7 +117,7 @@ export default {
       })
     },
     async initData () {
-      const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}?version=${this.version}`)
+      const result = await this.$http.get(`/${this.type}?version=${this.version}`)
       this.items = result.data
       this.sortRecipe(this.sortType)
       this.currentItems = this.itemsSort.filter(item => item.type === this.currentTabType)

@@ -1,21 +1,32 @@
-function formatNumber (n) {
-  const str = n.toString()
-  return str[1] ? str : `0${str}`
+// function formatNumber (n) {
+//   const str = n.toString()
+//   return str[1] ? str : `0${str}`
+// }
+
+export const getCurrentDay = () => {
+  // 获取当前时间
+  const date = new Date()
+  const year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (day < 10) {
+    day = '0' + day
+  }
+  const nowDate = year + '-' + month + '-' + day
+  return nowDate
 }
 
-export function formatTime (date) {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
+/* eslint-disable */
+export const isEmail = (email) => {
+  return RegExp(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(email)
+}
+/* eslint-enable */
 
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  const t1 = [year, month, day].map(formatNumber).join('/')
-  const t2 = [hour, minute, second].map(formatNumber).join(':')
-
-  return `${t1} ${t2}`
+export const isPhone = (phone) => {
+  return RegExp(/^1[34578]\d{9}$/.test(phone))
 }
 
 export const getImgDetail = (src) => {

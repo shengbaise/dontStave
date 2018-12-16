@@ -8,26 +8,26 @@
   <div class="hero-intro">
     <div class="hero">
       <div class="top-picture">
-        <img class="picture" v-if="heroList[imgIndex]" :src="heroList[imgIndex].topImg" alt="" mode="aspectFit">
+        <img class="picture" v-if="currentHero.src" :src="currentHero.src" alt="" mode="aspectFit">
         <div class="shade"></div>
-        <div class="hero-message" v-if="hero._id">
-          <div class="name">{{heros[heroIndex].name}}</div>
-          <div class="motto">{{heros[heroIndex].motto}}</div>
-          <div class="attr">饥饿： {{heros[heroIndex].attr[0]}} 生命： {{heros[heroIndex].attr[1]}} 精神： {{heros[heroIndex].attr[2]}}</div>
-          <div class="hurt">空手伤害： {{heros[heroIndex].attr[3]}}倍</div>
+        <div class="hero-message" v-if="currentHero._id">
+          <div class="name">{{currentHero.name}}</div>
+          <div class="motto">{{currentHero.motto}}</div>
+          <div class="attr">饥饿： {{currentHero.attr[0]}} 生命： {{currentHero.attr[1]}} 精神： {{currentHero.attr[2]}}</div>
+          <div class="hurt">空手伤害： {{currentHero.attr[3]}}倍</div>
         </div>
       </div>
-      <div class="content-body" v-if="heros[heroIndex]">
+      <div class="content-body" v-if="currentHero.src">
         <h3 class="program">简介</h3>
-        <div v-html="heros[heroIndex].ability"></div>
+        <div class="ability" v-html="currentHero.ability"></div>
       </div>
     </div>
     <img @click="showSelectHero()" class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
     <div class="select-hero" v-show="isSelect">
       <div class="hero-list">
         <div class="title">选择角色</div>
-        <div class="hero-item" v-for="(item, index) in heroList" :key="item.alis" @click="selectHero(item.name, index)">
-          <img class="picture" :src="item.src" alt="" mode="widthFix">
+        <div class="hero-item" v-for="(item, index) in heroList" :key="item.alis" @click="setCurrentHero(item._id)">
+          <img class="picture" :src="item.avatarSrc" alt="" mode="widthFix">
           <div class="item-name">
             <div class="name">{{item.name}}</div>
             <div class="english-name">{{item.alis}}</div>
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-const url = 'http://img.fireleaves.cn/SomeLabel'
 
 export default {
   data () {
@@ -48,113 +47,8 @@ export default {
       heroIndex: 0,
       isSelect: false,
       type: '',
-      hero: {},
-      heros: [],
-      heroList: [{
-        src: `${url}/wex.png`,
-        name: '威尔森',
-        alis: 'Wilson',
-        topImg: `${url}/Wilson.jpg`
-      }, {
-        src: `${url}/huonv.png`,
-        name: '薇洛',
-        alis: 'Willow',
-        topImg: `${url}/willow.jpg`
-      },
-      {
-        src: `${url}/dls.png`,
-        name: '沃尔夫冈',
-        alis: 'Wolfgang',
-        topImg: `${url}/Wolfgang.jpg`
-      },
-      {
-        src: `${url}/wendi.png`,
-        name: '温蒂',
-        alis: 'Wendy',
-        topImg: `${url}/Wendy.jpg`
-      },
-      {
-        src: `${url}/jqr.png`,
-        name: '机器人（WX-78）',
-        alis: 'WX-78',
-        topImg: `${url}/WX-78.jpg`
-      },
-      {
-        src: `${url}/lnn.png`,
-        name: '薇克伯顿',
-        alis: 'Wickerbottom',
-        topImg: `${url}/Wickerbottom.jpg`
-      },
-      {
-        src: `${url}/fmg.png`,
-        name: '伍迪',
-        alis: 'Woodie',
-        topImg: `${url}/Woodie.jpg`
-      },
-      {
-        src: `${url}/xiaochou.png`,
-        name: '韦斯',
-        alis: 'Wes',
-        topImg: `${url}/Wes.jpg`
-      },
-      {
-        src: `${url}/mswe.png`,
-        name: '麦斯威尔',
-        alis: 'Maxwell',
-        topImg: `${url}/Maxwell.jpg`
-      },
-      {
-        src: `${url}/wns.png`,
-        name: '薇格弗德',
-        alis: 'Wigfrid',
-        topImg: `${url}/Wigfrid.jpg`
-      },
-      {
-        src: `${url}/walani.png`,
-        name: '瓦拉尼',
-        alis: 'Walani',
-        topImg: `${url}/Walani.png`
-      },
-      {
-        src: `${url}/weibo.png`,
-        name: '韦伯',
-        alis: 'Webber',
-        topImg: `${url}/Webber.jpg`
-      },
-      {
-        src: `${url}/woli.png`,
-        name: '沃利',
-        alis: 'Warly',
-        topImg: `${url}/Warly.png`
-      },
-      {
-        src: `${url}/weierbo.png`,
-        name: '威尔伯',
-        alis: 'Wilbur',
-        topImg: `${url}/Wilbur.png`
-      },
-      {
-        src: `${url}/mtcz.png`,
-        name: '木腿船长',
-        alis: 'Woodlegs',
-        topImg: `${url}/Woodlegs.png`
-      },
-      {
-        src: `${url}/winona.png`,
-        name: '薇诺娜',
-        alis: 'Winona',
-        topImg: `${url}/winona-bg.png`
-      }, {
-        src: `${url}/warbucks.png`,
-        alis: 'Warbucks',
-        name: '沃巴克斯',
-        topImg: `${url}/warbucks_bg.png`
-      }, {
-        src: `${url}/wliba.png`,
-        alis: 'Wliba',
-        topImg: `${url}/wliba_bg.png`,
-        name: '薇儿芭'
-      }]
+      heroList: [],
+      currentHero: {}
     }
   },
   onLoad (options) {
@@ -164,16 +58,25 @@ export default {
     this.type = options.type
   },
   async mounted () {
-    const result = await this.$http.get(`https://www.fireleaves.cn/${this.type}`)
-    this.heros = result.data
-    this.hero = this.heros[0]
+    const result = await this.$http.get(`/${this.type}`)
+    console.info(result.data, 'data')
+    this.heroList = result.data
+    this.setCurrentHero(this.heroList[0]._id)
   },
   methods: {
+    async setCurrentHero (id) {
+      const hero = await this.$http.get('hero/single', {
+        id: id
+      })
+      this.currentHero = hero.data
+      /* eslint-disable */
+      this.currentHero.ability = this.currentHero.ability.replace(/\<h3/g, '<h3 style="line-height: 48px;letter-spacing: normal;margin-bottom: 16px;font-size: 20px;color: #333;border-bottom: 1px solid #e0e0e0;"').replace(/\<p/g, '<p style="text-align: justify;font-size: 14px;color: #333;letter-spacing: 2px;"').replace(/\<li/g, '<li style="margin-bottom: 4px;color: #333;"')
+      this.isSelect = false
+    },
     showSelectHero () {
       this.isSelect = true
     },
     selectHero (name, index) {
-      console.info(name, 'name')
       this.imgIndex = index
       this.heroIndex = this.heros.findIndex(item => item.name === name) || 0
       this.isSelect = false
@@ -199,6 +102,7 @@ export default {
         height: 250px;
         width: 100%;
         background: radial-gradient(rgba(255, 255, 255, 0) 6%, rgba(0, 0, 0, 0.9) 80%);
+        box-shadow: 0 0 6px rgba(0,0,0,.16), 0 6px 12px rgba(0,0,0,.32);
       }
       .hero-message {
         position: absolute;
@@ -227,8 +131,14 @@ export default {
       box-shadow: 0 0 6px rgba(0,0,0,.16), 0 6px 12px rgba(0,0,0,.32);
       border-radius: 4px;
       .program {
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+        border-width: thin;
+        border-bottom: 1px solid #e0e0e0;
+        line-height: 48px;
+        letter-spacing: normal;
+        margin-bottom: 16px;
       }
       rich-text {
         font-size: 15px;
@@ -281,6 +191,7 @@ export default {
           width: 48px;
         }
         .item-name {
+          padding-left: 12px;
           text-align: left;
           .english-name {
             font-size: 12px;
@@ -290,6 +201,9 @@ export default {
         }
       }
     }
+  }
+  .ability {
+    font-size: 14px;
   }
 }
 </style>

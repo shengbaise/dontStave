@@ -65,6 +65,8 @@ page {
   width: 100%;
 }
 .mine {
+  color: #ffffff;
+  font-size: 14px;
   height: 100%;
   width: 100%;
   display: flex;

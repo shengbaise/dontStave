@@ -24,8 +24,9 @@ export default {
     wx.setNavigationBarTitle({
       title: '文章详情'
     })
-    const result = await this.$http.get(`https://www.fireleaves.cn/article?id=${options.id}`)
-    this.article = result.data[0]
+    const type = options.type
+    const result = await this.$http.get(`/${type}/single?id=${options.id}`)
+    this.article = result.data
     const content = this.article.content
     /* eslint-disable */
     this.content = content.replace(/\<img/g, '<img style="width: 100%;height: 100%;" mode="aspectFit"')

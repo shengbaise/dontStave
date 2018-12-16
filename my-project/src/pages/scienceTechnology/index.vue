@@ -10,7 +10,7 @@
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
-    <div class="more-tabs-container" v-show="showMoreTab">
+    <div class="more-tabs-container" v-show="showMoreTab" @click="hideSelect">
       <div class="more-tabs">
         <div class="tab" @click="selectTab(item.type)" :class="{ 'more-tab-selected': currentTabType === item.type }"  v-for="item in currentMoreTabs" :key="item.label">{{item.label}}</div>
       </div>
@@ -120,7 +120,7 @@ export default {
         version: ['SW']
       }, {
         label: '考古',
-        type: 34,
+        type: 37,
         version: 'HAMLET'
       }],
       showMoreTab: false,
@@ -144,6 +144,9 @@ export default {
     this.initData()
   },
   methods: {
+    hideSelect () {
+      this.showMoreTab = false
+    },
     setCurrentMoreTabs () {
       this.currentMoreTabs = this.moreTabs.filter(item => {
         return item.version.indexOf(this.version) > -1
@@ -163,7 +166,7 @@ export default {
       })
     },
     async initData () {
-      const result = await this.$http.get(`https://www.fireleaves.cn/${this.technologyType}?version=${this.version}`)
+      const result = await this.$http.get(`/${this.technologyType}?version=${this.version}`)
       this.items = result.data
       this.setCurrentMoreTabs()
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)

@@ -43,8 +43,9 @@
         </div>
         <div class="materials" v-if="features.length > 0">
           <div class="material" v-for="(feature, index) in features" :key="index">
-            <img class="material-img" :src="feature.src" alt="" mode="aspectFit">
-            <div>{{feature.num}}</div>
+            <div v-if="feature.src === '荤' || feature.src === '素'">{{feature.src}}</div>
+            <img v-if="feature.src !== '荤' && feature.src !== '素'" class="material-img" :src="feature.src" alt="" mode="aspectFit">
+            <div v-if="feature.num">{{feature.num}}</div>
           </div>
         </div>
       </div>
@@ -124,9 +125,9 @@ export default {
     },
     async initData (options) {
       this.version = options.version
-      const result = await this.$http.get(`https://www.fireleaves.cn/food/single?version=${this.version}&src=${options.src}`)
+      const result = await this.$http.get(`/food/single?version=${this.version}&src=${options.src}`)
       this.type = options.type
-      this.item = result.data[0]
+      this.item = result.data
       this.composites = []
       this.needs = []
       this.fails = []
@@ -165,7 +166,7 @@ export default {
         const features = this.item.feature.map((feature, index) => {
           if (index % 2 === 0) {
             return {
-              src: formatUrl(feature),
+              src: ['荤', '素'].indexOf(feature) > -1 ? feature : formatUrl(feature),
               num: this.item.feature[index + 1]
             }
           }

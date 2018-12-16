@@ -84,8 +84,8 @@ export default {
   },
   methods: {
     async initData (options) {
-      const result = await this.$http.get(`https://www.fireleaves.cn/material/single?version=${this.version}&src=${options.src}`)
-      this.item = result.data[0]
+      const result = await this.$http.get(`/material/single?version=${this.version}&src=${options.src}`)
+      this.item = result.data
       if (this.item.attr) {
         this.reason = this.item.attr[3]
         this.moisture = this.item.attr[4]
