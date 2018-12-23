@@ -1,16 +1,10 @@
 <template>
   <div class="find-friend">
     <scroll-view :scroll-y="true" class="view">
-      <div class="add">
-        <i class="icon-bianji icon iconfont" @click="toNew()"></i>
-        <span class="switch-container">
-          <img @click="filter()" class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
-        </span>
-      </div>
       <div class="friends">
         <div class="friend"
           v-for="friend in friends"
-          :key="_id"
+          :key="friend._id"
           :style="{'border-color': friend.sex === 1 ? '#795548' : '#ff80ab'}">
           <img class="logo" v-if="friend.type === 2" mode="aspectFit" src="/static/img/home/wegameLogo.jpg" />
           <img class="logo" v-if="friend.type === 1" mode="aspectFit" src="/static/img/home/steamLogo.png" />
@@ -31,11 +25,17 @@
       <p class="bottom-tip-friend" v-if="loading">加载中...</p>
       <p class="bottom-tip-friend" v-if="loaded && allFriends.length === 0">没有更多数据</p>
     </scroll-view>
-    <div class="select-sort" v-if="isSelect">
-      <div class="sort-list">
+    <div class="edit-button" @click="toNew()">
+      <i class="icon-bianji icon iconfont"></i>
+    </div>
+    <span class="switch-button" @click="filter()">
+      <img class="switch-icon" src="/static/icon/switch.png" alt="" mode="aspectFit">
+    </span>
+    <div class="select-sort" v-if="isSelect" @click="isSelect = false">
+      <div class="sort-list" @click.stop.prevent>
         <div class="title">游戏平台</div>
         <radio-group class="sort-group" @change="platformRadioChange">
-          <label class="radio" v-for="(item, index) in platforms" :key="item._id">
+          <label class="radio" v-for="item in platforms" :key="item._id">
             <radio :checked="item.value === currentPlatform" class="input-item" color="#009688" type="radio" :value="item.value"/>{{item.name}}
           </label>
         </radio-group>
@@ -155,32 +155,25 @@ page {
 <style lang="scss" scoped>
 .find-friend {
   height: 100%;
+  width: 100%;
   box-sizing: content-box;
   background-color: #37474f;
+  position: relative;
   .view {
     position: absolute;
     overflow-y: scroll;
     background-color: #37474f;
     width: 100%;
-  }
-  .icon-bianji {
-    box-sizing: border-box;
-    padding-left: 20px;
-    width: 40px;
-    position: absolute;
-    right: 55px;
-    top: 20rpx;
-    color: #fff;
+    top: 0;
+    height: 100%;
   }
   .add {
     height: 20px;
   }
   .friends {
-    // height: calc(100% - 20px);
     padding: 12px;
     .friend {
       position: relative;
-      // border-left: 4px solid #ff80ab;
       border-left: 4px solid;
       background-color: #212121;
       padding: 12px;
@@ -232,13 +225,6 @@ page {
     width: 40px;
     height: 40px;
   }
-  .switch-container {
-    display: inline-block;
-    width: 50px;
-    height: 30px;
-    position: absolute;
-    right: 0;
-  }
   .bottom-tip-friend {
     position:absolute;
     bottom: -24px;
@@ -247,6 +233,36 @@ page {
     color:#999;
     text-align:center;
     padding-bottom:12px;
+  }
+  .edit-button, .switch-button {
+    position: absolute;
+    background-color: #ff80ab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 50%;
+  }
+  .edit-button {
+    width: 32px;
+    height: 32px;
+    bottom: 20px;
+    right: 20px;
+    .icon-bianji {
+      font-size: 24px;
+      color: #fff;
+    }
+  }
+  .switch-button {
+    right: 27px;
+    width: 18px;
+    height: 18px;
+    bottom: 90px;
+    .switch-icon {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
   }
 }
 </style>

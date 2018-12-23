@@ -2,13 +2,14 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 19:14:08
+ * @Last Modified time: 2018-12-23 17:10:13
  */
 <template>
   <div class="recipe">
-    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs-container">
-      <div class="food" @click="selectTab(food.type)">{{food.label}}</div>
+      <div class="food"
+        :class="{ 'selected-tab': currentTabType === food.type }"
+        @click="selectTab(food.type)">{{food.label}}</div>
       <div class="tabs">
         <div class="tab" :key="tab.label" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs">{{tab.label}}</div>
       </div>
@@ -16,14 +17,11 @@
     <div class="view">
       <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
     </div>
-    <select-version @select-sort="selectSort($event)" :isRecipe="true" v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
-import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
-import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
@@ -62,9 +60,7 @@ export default {
     }
   },
   components: {
-    topImgs,
-    commonGood,
-    selectVersion
+    commonGood
   },
   onLoad (options) {
     if (wx.getStorageSync('currentSort')) {
@@ -102,14 +98,6 @@ export default {
           return b.attr[2] - a.attr[2]
         })
       }
-    },
-    async selectVersion (item) {
-      await wx.setStorageSync('currentVersion', item)
-      this.version = wx.getStorageSync('currentVersion')
-      this.isSelect = false
-    },
-    switchVersion () {
-      this.isSelect = true
     },
     toDetail (item) {
       wx.navigateTo({
@@ -174,7 +162,7 @@ export default {
       .food {
         width: 159px;
         height: 80px;
-        background-color: #2c3e50;
+        // background-color: #2c3e50;
         color: white;
         text-align: center;
         line-height: 80px;

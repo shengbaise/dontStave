@@ -6,7 +6,6 @@
  */
 <template>
   <div class="nature-info">
-    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -14,14 +13,11 @@
       <common-good v-if="currentGoods.length > 0" @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
       <p v-if="currentGoods.length === 0" class="no-data">暂无数据～～～</p>
     </div>
-    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
-import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
-import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
@@ -44,9 +40,7 @@ export default {
     }
   },
   components: {
-    topImgs,
-    commonGood,
-    selectVersion
+    commonGood
   },
   onLoad (options) {
     this.version = wx.getStorageSync('currentVersion')
@@ -63,14 +57,6 @@ export default {
       wx.navigateTo({
         url: `/pages/natureInfoDetail/main?src=${item.src}&version=${this.version}`
       })
-    },
-    async selectVersion (item) {
-      await wx.setStorageSync('currentVersion', item)
-      this.version = wx.getStorageSync('currentVersion')
-      this.isSelect = false
-    },
-    switchVersion () {
-      this.isSelect = true
     },
     async initData () {
       const result = await this.$http.get(`/${this.type}?version=${this.version}`)

@@ -2,11 +2,11 @@
  * @Author: chenxu
  * @Date: 2018-08-09 15:04:43
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-10 15:57:44
+ * @Last Modified time: 2018-12-23 18:13:28
  */
 <template>
   <div class="hero-intro">
-    <div class="hero">
+    <scroll-view :scroll-y="true" class="hero">
       <div class="top-picture">
         <img class="picture" v-if="currentHero.src" :src="currentHero.src" alt="" mode="aspectFit">
         <div class="shade"></div>
@@ -21,12 +21,14 @@
         <h3 class="program">简介</h3>
         <div class="ability" v-html="currentHero.ability"></div>
       </div>
+    </scroll-view>
+    <div class="select-version-button" @click.stop.prevent="showSelectHero()">
+      <img class="switch-icon" src="/static/icon/switch.png" alt="" mode="aspectFit">
     </div>
-    <img @click="showSelectHero()" class="switch" src="/static/icon/switch.png" alt="" mode="aspectFit">
-    <div class="select-hero" v-show="isSelect">
-      <div class="hero-list">
+    <div class="select-hero" v-show="isSelect" @click.stop.prevent="isSelect = false">
+      <div class="hero-list" @click.stop.prevent>
         <div class="title">选择角色</div>
-        <div class="hero-item" v-for="(item, index) in heroList" :key="item.alis" @click="setCurrentHero(item._id)">
+        <div class="hero-item" v-for="item in heroList" :key="item.alis" @click="setCurrentHero(item._id)">
           <img class="picture" :src="item.avatarSrc" alt="" mode="widthFix">
           <div class="item-name">
             <div class="name">{{item.name}}</div>
@@ -87,7 +89,13 @@ export default {
 
 <style lang="scss" scoped>
 .hero-intro {
+  height: 100%;
+  width: 100%;
   .hero {
+    position:absolute;
+    height:100%;
+    top:0;
+    overflow-y:scroll;
     .top-picture {
       position: relative;
       text-align: center;
@@ -204,6 +212,23 @@ export default {
   }
   .ability {
     font-size: 14px;
+  }
+  .select-version-button {
+    position: absolute;
+    background-color: #009688;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    right: 20px;
+    bottom: 20px;
+    .switch-icon {
+      height:24px;
+      width:24px;
+    }
   }
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <i class="iconfont icon-chakantiezigengduo"></i>
     <!-- <div class="banner">
       <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt=""> -->
       <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
@@ -35,14 +36,17 @@
         </div>
       </div> -->
       <div class="articles">
-        <div class="article" v-for="item in articles" :key="item.id" @click="toArticleDetail(item.id)">
+        <div class="article"
+          v-for="item in articles"
+          :key="item.id"
+          @click="toArticleDetail(item._id)"
+          :style="{'border-color': borderColors[index % 6]}">
           <img class="article-img" :src="item.src" alt="" mode="aspectFill">
           <div class="text">
             <h1 class="title">{{item.title}}</h1>
-            <!-- <p class="content" v-html="item.content"></p> -->
             <div class="article-footer">
-              <div class="time">{{item.time}}</div>
-              <div class="author">{{item.author}}</div>
+              <i class="icon-geren iconfont icon"></i><p class="author">{{item.author}}</p>
+              <i class="icon-rili iconfont icon" style="padding-left:4px;"></i><p class="time">{{item.time}}</p>
             </div>
           </div>
         </div>
@@ -50,7 +54,15 @@
         <p class="bottom-tip" v-if="loaded && pageDatas.length === 0">没有更多数据</p>
       </div>
     </scroll-view>
-    <select-version v-if="!version" @select-version="selectVersion($event)" listWidth="80%" :isHome="true"></select-version>
+    <div class="select-version-button" @click="showSelectVersion">
+      <img class="switch-icon" src="/static/icon/switch.png" alt="" mode="aspectFit">
+    </div>
+    <select-version
+      @hide-select="hideSelect"
+      v-if="isSelectVersion"
+      @select-version="selectVersion($event)"
+      listWidth="80%"
+      :isHome="true"></select-version>
   </div>
 </template>
 
@@ -121,7 +133,9 @@ export default {
       pageNum: 0,
       loading: false,
       loaded: false,
-      scrollTop: 50
+      scrollTop: 50,
+      borderColors: ['#dc1454', '#ae63e4', '#47cf73', '#ffdd40', '#0ebeff', '#4a4c53'],
+      isSelectVersion: false
     }
   },
   components: {
@@ -139,6 +153,12 @@ export default {
     this.setArticles()
   },
   methods: {
+    hideSelect () {
+      this.isSelectVersion = false
+    },
+    showSelectVersion () {
+      this.isSelectVersion = true
+    },
     loadMore () {
       if (this.pageDatas.length !== 0) {
         this.pageNum = this.pageNum + 1
@@ -180,6 +200,7 @@ export default {
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
       this.version = wx.getStorageSync('currentVersion')
+      this.isSelectVersion = false
     },
     toTap (path, type) {
       wx.navigateTo({
@@ -238,20 +259,21 @@ page {
     }
   }
   .view {
-    top: 68px;
-    height: calc(100vh - 68px);
+    top: 48px;
+    height: calc(100vh - 48px);
     position: absolute;
     overflow-y: scroll;
     background-color: #37474f;
     width: 100%;
     .tabs {
-      height: 40px;
-      padding: 10px;
+      border-bottom:8px solid #2d3b42;
+      padding-bottom:12px;
+      padding: 0 10px 12px 10px;
       display: flex;
       flex-flow: nowrap row;
       font-size:14px;
       justify-content: space-around;
-      color: white;
+      color: #a6a9b0;
       .tab-img {
         height: 32px;
         width: 32px;
@@ -300,51 +322,58 @@ page {
     }
     .articles {
       position: relative;
-      padding-top: 12px;
-      padding-bottom: 0;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      padding: 12px 12px 0 12px;
       .article {
         position: relative;
-        margin: 10px;
-        display: flex;
-        flex-flow: nowrap row;
-        border-radius: 4px;
-        // align-items: center;
+        width: calc(50% - 6px);
+        margin-bottom: 12px;
         background-color: #1a2933;
         font-size: 14px;
+        background-color: #191a1d;
+        border-radius: 4px;
+        box-sizing: border-box;
+        border-top: 4px solid;
         .article-img {
-          border-radius: 10px;
-          width: 60px;
-          height: 60px;
-          margin: 10px;
+          border-radius: 4px;
+          width: 100%;
+          height: 100px;
         }
         .text {
-          width: calc(100% - 140px);
           .title {
-            margin: 10px 0;
-            color: white;
-            font-size: 16px;
-          }
-          .content {
-            color: #4f5555;
-            margin-bottom: 10px;
+            width:calc(100% - 26px);
+            margin-top: 12px;
+            padding-left: 12px;
+            padding-right: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #fff;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
             overflow: hidden;
-            text-overflow: ellipsis;
           }
         }
         .article-footer {
-          position: absolute;
-          bottom: 15px;
-          right: 15px;
           display: flex;
-          flex-flow: row nowrap;
-          align-items:center;
+          align-items: center;
+          margin-top: 6px;
+          margin-bottom: 6px;
+          padding-right: 12px;
+          padding-left: 12px;
+          color: #a6a9b0;
           font-size: 12px;
-          color: #4f5555;
-          .time {
-            padding-right: 10px;
+          .author, .time {
+            margin-left: 8px;
+            max-width: 65px;
+            min-width: 30px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            text-align: left;
+            overflow: hidden;
           }
         }
       }
@@ -352,12 +381,29 @@ page {
   }
   .bottom-tip {
     position: absolute;
-    bottom:-41px;
+    bottom:-30px;
     width:100%;
     font-size:12px;
     color:#999;
     text-align:center;
-    padding:12px 0;
+    padding-bottom: 12px;
+  }
+  .select-version-button {
+    position: absolute;
+    background-color: #ae63e4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    right: 20px;
+    bottom: 20px;
+    .switch-icon {
+      height:24px;
+      width:24px;
+    }
   }
 }
 </style>

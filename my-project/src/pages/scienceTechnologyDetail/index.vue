@@ -2,39 +2,43 @@
  * @Author: chenxu
  * @Date: 2018-08-14 15:01:38
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 20:05:12
+ * @Last Modified time: 2018-12-23 20:28:16
  */
 <template>
   <div class="science-technology-detail">
-    <common-good :good="item" type="science"></common-good>
-    <div class="detail-container">
-      <div class="detail">
-        <div class="science">
-          <div class="no-science" v-if="item.technology === 0">不需要科技</div>
-          <img class="science-img" v-else :src="sciencesImgs[item.technology]" alt="test" mode="widthFix">
-        </div>
-        <div class="materials">
-          <div class="material" v-for="(material, index) in item.composition" :key="index">
-            <img @click="toImgDetail(material.src)" class="material-img" :src="material.src" alt="" mode="aspectFit">
-            <div>x {{material.num}}</div>
+    <scroll-view :scroll-y="true" class="view">
+      <common-good :good="item" type="science"></common-good>
+      <div class="detail-container">
+        <div class="detail">
+          <div class="science">
+            <div class="no-science" v-if="item.technology === 0">不需要科技</div>
+            <img class="science-img" v-else :src="sciencesImgs[item.technology]" alt="test" mode="widthFix">
           </div>
+          <div class="materials">
+            <div class="material" v-for="(material, index) in item.composition" :key="index">
+              <img @click="toImgDetail(material.src)" class="material-img" :src="material.src" alt="" mode="aspectFit">
+              <div>x {{material.num}}</div>
+            </div>
+          </div>
+          <common-detail
+            :warm="warm"
+            :heat="heat"
+            :moistureCloth="moistureCloth"
+            :reason="reason"
+            :moisture="moisture"
+            :defense="defense"
+            :type="item.type"
+            :console="item.console"
+            :desc="item.desc"></common-detail>
         </div>
-        <common-detail
-          :warm="warm"
-          :heat="heat"
-          :moistureCloth="moistureCloth"
-          :reason="reason"
-          :moisture="moisture"
-          :defense="defense"
-          :type="item.type"
-          :console="item.console"
-          :desc="item.desc"></common-detail>
       </div>
-    </div>
+    </scroll-view>
+    <feed-back-button :item="item"></feed-back-button>
   </div>
 </template>
 
 <script>
+import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import { getImgDetail, formatUrl } from '@/utils/index.js'
@@ -65,7 +69,8 @@ export default {
   },
   components: {
     commonGood,
-    commonDetail
+    commonDetail,
+    feedBackButton
   },
   onLoad (options) {
     wx.setNavigationBarTitle({
@@ -123,8 +128,22 @@ export default {
 }
 </script>
 
+<style>
+page {
+  height: 100%;
+}
+</style>
+
 <style lang="scss" scoped>
 .science-technology-detail {
+  position: relative;
+  height: 100%;
+  .view {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
   .detail-container {
     padding: 12px;
     .detail {

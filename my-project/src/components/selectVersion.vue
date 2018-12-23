@@ -1,6 +1,6 @@
 <template>
-  <div class="select-sort">
-    <div class="sort-list" :style="{ width: listWidth }">
+  <div class="select-sort" @click="hideSelect">
+    <div class="sort-list" :style="{ width: listWidth }" @click.prevent.stop>
       <div class="title" v-if="isRecipe">食谱排序</div>
       <radio-group v-if="isRecipe" class="sort-group" @change="sortRadioChange">
         <label class="radio" v-for="(item, index) in sortItems" :key="index">
@@ -84,6 +84,9 @@ export default {
     },
     sortRadioChange (e) {
       this.currentSort = e.target.value
+    },
+    hideSelect () {
+      this.$emit('hide-select')
     }
   }
 }

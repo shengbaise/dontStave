@@ -2,11 +2,10 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 17:07:18
+ * @Last Modified time: 2018-12-23 17:10:25
  */
 <template>
   <div class="science-technology">
-    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
@@ -18,14 +17,11 @@
     <div class="view">
       <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
     </div>
-    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
-import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
-import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
@@ -129,9 +125,7 @@ export default {
     }
   },
   components: {
-    topImgs,
-    commonGood,
-    selectVersion
+    commonGood
   },
   onLoad (options) {
     this.version = wx.getStorageSync('currentVersion')
@@ -151,14 +145,6 @@ export default {
       this.currentMoreTabs = this.moreTabs.filter(item => {
         return item.version.indexOf(this.version) > -1
       })
-    },
-    async selectVersion (item) {
-      await wx.setStorageSync('currentVersion', item)
-      this.version = wx.getStorageSync('currentVersion')
-      this.isSelect = false
-    },
-    switchVersion () {
-      this.isSelect = true
     },
     toDetail (item) {
       wx.navigateTo({

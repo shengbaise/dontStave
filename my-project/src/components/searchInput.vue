@@ -134,7 +134,7 @@ radio .wx-radio-input {
   }
   .search-container {
     position: absolute;
-    height: 68px;
+    height: 48px;
     top: 0;
     padding: 0 20px;
     // width: 100%;
@@ -158,7 +158,7 @@ radio .wx-radio-input {
       padding-left: 34px;
       font-size: 13px;
       width: 100%;
-      height: 33px;
+      height: 24px;
       color: gray;
       background-color: #f5f5f5;
       border-radius: 20px;

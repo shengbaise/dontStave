@@ -2,23 +2,28 @@
   <div class="article-detail">
     <img class="article-img" v-if="article.src" :src="article.src" alt="" mode="widthFix">
     <div class="article-content">
-      <h1 class="title">{{article.title}}</h1>
+      <h3 class="title">{{article.title}}</h3>
       <div class="time-author">
-        <p><i class="icon-geren iconfont icon"></i></span> {{article.author}}</p>
-        <p><i class="icon-rili iconfont icon"></i></span> {{article.time}}</p>
+        <p><i class="icon-geren iconfont icon"></i>{{article.author}}</p>
+        <p><i class="icon-rili iconfont icon"></i>{{article.time}}</p>
       </div>
-      <rich-text :nodes="content"></rich-text>
+      <!-- <rich-text :nodes="content"></rich-text> -->
+      <marked-content :mdString="this.article.content"></marked-content>
       </div>
   </div>
 </template>
 
 <script>
+import markedContent from '@/components/markedContent.vue'
 export default {
   data () {
     return {
       article: {},
       content: ''
     }
+  },
+  components: {
+    markedContent
   },
   async onLoad (options) {
     wx.setNavigationBarTitle({
@@ -27,10 +32,6 @@ export default {
     const type = options.type
     const result = await this.$http.get(`/${type}/single?id=${options.id}`)
     this.article = result.data
-    const content = this.article.content
-    /* eslint-disable */
-    this.content = content.replace(/\<img/g, '<img style="width: 100%;height: 100%;" mode="aspectFit"')
-    /* eslint-enable */
   }
 }
 </script>
@@ -52,12 +53,11 @@ export default {
       line-height: 30px;
     }
     .title {
+      font-size: 1.25em;
       margin-top: 12px;
-      color: #333;
-      font-size: 26px;
-      font-weight: 500;
-      text-align: left;
-      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
     }
     .time-author {
       display: flex;

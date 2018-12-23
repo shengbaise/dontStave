@@ -107,8 +107,8 @@ page {
   }
   .view {
     position: absolute;
-    top: 102px;
-    height: calc(100% - 102px);
+    top: 82px;
+    height: calc(100% - 82px);
   }
 }
 </style>

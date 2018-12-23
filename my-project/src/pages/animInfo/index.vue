@@ -6,7 +6,6 @@
  */
 <template>
   <div class="anim-info">
-    <top-imgs @switch-version="switchVersion()" :currentVersion="version"></top-imgs>
     <div class="tabs">
       <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in currentTabs" :key="tab.type">{{tab.label}}</div>
     </div>
@@ -14,14 +13,11 @@
       <common-good v-if="currentGoods.length > 0" @click="toDetail(item)" v-for="item in currentGoods" :good="item" :key="item._id" type="animal"></common-good>
       <p class="no-data" v-if="currentGoods.length === 0">暂无数据～～～</p>
     </div>
-    <select-version v-if="isSelect" @select-version="selectVersion($event)"></select-version>
   </div>
 </template>
 
 <script>
-import topImgs from '@/components/topImgs.vue'
 import commonGood from '@/components/commonGood.vue'
-import selectVersion from '@/components/selectVersion.vue'
 
 export default {
   data () {
@@ -61,9 +57,7 @@ export default {
     }
   },
   components: {
-    topImgs,
-    commonGood,
-    selectVersion
+    commonGood
   },
   onLoad (options) {
     this.version = wx.getStorageSync('currentVersion')
@@ -76,14 +70,6 @@ export default {
     this.initData()
   },
   methods: {
-    async selectVersion (item) {
-      await wx.setStorageSync('currentVersion', item)
-      this.version = wx.getStorageSync('currentVersion')
-      this.isSelect = false
-    },
-    switchVersion () {
-      this.isSelect = true
-    },
     toDetail (item) {
       wx.navigateTo({
         url: `/pages/animInfoDetail/main?src=${item.src}&version=${this.version}`

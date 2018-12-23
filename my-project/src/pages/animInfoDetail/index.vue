@@ -1,54 +1,58 @@
 <template>
   <div class="anim-info-detail">
-    <common-good :good="item" type="animal"></common-good>
-    <div class="detail-container">
-      <div class="detail">
-        <div class="top">
-          <div class="top-tip">战利品</div>
-          <!-- <img class="science-img" v-else src="/static/img/food/pot.png" alt="" mode="widthFix"> -->
-        </div>
-        <div class="materials" v-if="rewards.length > 0">
-          <div class="material" v-for="(reward, index) in rewards" :key="index">
-            <img class="material-img" @click="toImgDetail(reward.src)" :src="reward.src" alt="" mode="widthFix">
-            <div v-if="reward.num[0] !== '×'">(<img @click="toImgDetail(reward.src)" class="material-img-tool" :src="reward.num" alt="" mode="widthFix">)</div>
-            <div v-else="reward.num[0] === '×'">{{reward.num}}</div>
+    <scroll-view :scroll-y="true" class="view">
+      <common-good :good="item" type="animal"></common-good>
+      <div class="detail-container">
+        <div class="detail">
+          <div class="top">
+            <div class="top-tip">战利品</div>
+            <!-- <img class="science-img" v-else src="/static/img/food/pot.png" alt="" mode="widthFix"> -->
           </div>
-        </div>
-        <div class="materials-collection common-materials" v-if="collections.length > 0 && item.type === 36">
-          <div class="need-materials">
-            <div class="material-item" v-if="collections.length > 0">
-              <div class="material" v-for="(material, index) in collections" :key="index">
-                <img class="material-img" :src="material" alt="" mode="aspectFit">
-              </div>
+          <div class="materials" v-if="rewards.length > 0">
+            <div class="material" v-for="(reward, index) in rewards" :key="index">
+              <img class="material-img" @click="toImgDetail(reward.src)" :src="reward.src" alt="" mode="widthFix">
+              <div v-if="reward.num[0] !== '×'">(<img @click="toImgDetail(reward.src)" class="material-img-tool" :src="reward.num" alt="" mode="widthFix">)</div>
+              <div v-if="reward.num[0] === '×'">{{reward.num}}</div>
             </div>
-            <p class="material-item none" v-else>无</p>
-            <p class="need-desc">收集</p>
           </div>
-          <div class="fail-materials">
-            <div class="material-item" v-if="feedBack">
-              <div class="material" v-for="(feed, index) in feedBack" :key="index">
-                <img class="material-img" :src="feed.src" alt="" mode="aspectFit">
-                <div>{{feed.num}}</div>
+          <div class="materials-collection common-materials" v-if="collections.length > 0 && item.type === 36">
+            <div class="need-materials">
+              <div class="material-item" v-if="collections.length > 0">
+                <div class="material" v-for="(material, index) in collections" :key="index">
+                  <img class="material-img" :src="material" alt="" mode="aspectFit">
+                </div>
               </div>
+              <p class="material-item none" v-else>无</p>
+              <p class="need-desc">收集</p>
             </div>
-            <p class="material-item none" v-else>无</p>
-            <p class="need-desc">赠品</p>
+            <div class="fail-materials">
+              <div class="material-item" v-if="feedBack">
+                <div class="material" v-for="(feed, index) in feedBack" :key="index">
+                  <img class="material-img" :src="feed.src" alt="" mode="aspectFit">
+                  <div>{{feed.num}}</div>
+                </div>
+              </div>
+              <p class="material-item none" v-else>无</p>
+              <p class="need-desc">赠品</p>
+            </div>
           </div>
+          <div class="ability" v-show="item.Ability && item.Ability.length > 0">
+            <h3 class="title">特殊能力</h3>
+            <ul>
+              <li class="content" v-for="(ability, index) in item.Ability" :key="index">{{ability}}</li>
+            </ul>
+          </div>
+          <common-attr :attrs="attrs"></common-attr>
+          <common-detail :console="item.console" :desc="item.desc"></common-detail>
         </div>
-        <div class="ability" v-show="item.Ability && item.Ability.length > 0">
-          <h3 class="title">特殊能力</h3>
-          <ul>
-            <li class="content" v-for="(ability, index) in item.Ability" :key="index">{{ability}}</li>
-          </ul>
-        </div>
-        <common-attr :attrs="attrs"></common-attr>
-        <common-detail :console="item.console" :desc="item.desc"></common-detail>
       </div>
-    </div>
+    </scroll-view>
+    <feed-back-button :item="item"></feed-back-button>
   </div>
 </template>
 
 <script>
+import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import commonAttr from '@/components/commonAttr.vue'
@@ -67,7 +71,8 @@ export default {
   components: {
     commonGood,
     commonDetail,
-    commonAttr
+    commonAttr,
+    feedBackButton
   },
   computed: {
     attrs () {
@@ -133,7 +138,7 @@ export default {
       this.feedBack = null
     }
     // 战利品
-    this.rewards = this.item.reward
+    this.rewards = this.item.reward.filter(item => item.src && item.num)
     this.rewards.forEach(item => {
       if (item.num[0] !== '×') {
         item.num = formatUrl(item.num)
@@ -153,9 +158,22 @@ export default {
   }
 }
 </script>
+<style>
+page {
+  height: 100%;
+}
+</style>
 
 <style scoped lang="scss">
 .anim-info-detail {
+  position: relative;
+  height: 100%;
+  .view {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
   .ability {
     .title {
       font-size: 16px;

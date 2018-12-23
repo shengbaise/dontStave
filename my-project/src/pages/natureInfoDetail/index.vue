@@ -1,27 +1,31 @@
 <template>
   <div class="nature-intro-detail">
-    <common-good :good="item"></common-good>
-    <div class="detail-container">
-      <div class="detail">
-        <div class="origin-tip" v-if="origins.length > 0">来源</div>
-        <div class="materials" v-if="origins.length > 0">
-          <div class="material" v-for="(origin, index) in origins" :key="index">
-            <img class="material-img" @click="toImgDetail(origin)" :src="origin" alt="" mode="aspectFit">
+    <scroll-view :scroll-y="true" class="view">
+      <common-good :good="item"></common-good>
+      <div class="detail-container">
+        <div class="detail">
+          <div class="origin-tip" v-if="origins.length > 0">来源</div>
+          <div class="materials" v-if="origins.length > 0">
+            <div class="material" v-for="(origin, index) in origins" :key="index">
+              <img class="material-img" @click="toImgDetail(origin)" :src="origin" alt="" mode="aspectFit">
+            </div>
           </div>
-        </div>
-        <div class="science-tip" v-if="createSciences.length > 0">可制作科技</div>
-        <div class="materials" v-if="createSciences.length > 0">
-          <div class="material" v-for="(science, index) in createSciences" :key="index">
-            <img class="material-img" @click="toImgDetail(science)" :src="science" alt="" mode="aspectFit">
+          <div class="science-tip" v-if="createSciences.length > 0">可制作科技</div>
+          <div class="materials" v-if="createSciences.length > 0">
+            <div class="material" v-for="(science, index) in createSciences" :key="index">
+              <img class="material-img" @click="toImgDetail(science)" :src="science" alt="" mode="aspectFit">
+            </div>
           </div>
+          <common-detail :console="item.console" :desc="item.desc"></common-detail>
         </div>
-        <common-detail :console="item.console" :desc="item.desc"></common-detail>
       </div>
-    </div>
+    </scroll-view>
+    <feed-back-button :item="item"></feed-back-button>
   </div>
 </template>
 
 <script>
+import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import { getImgDetail, formatUrl } from '@/utils/index.js'
@@ -36,8 +40,8 @@ export default {
   },
   components: {
     commonGood,
-    commonDetail
-    // detailContainer
+    commonDetail,
+    feedBackButton
   },
   onLoad (options) {
     this.version = options.version
@@ -93,9 +97,22 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+page {
+  height: 100%;
+}
+</style>
 
 <style scoped lang="scss">
 .nature-intro-detail {
+  position: relative;
+  height: 100%;
+  .view {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
   .science-tip, .origin-tip {
     height: 24px;
     margin-top: -12px;

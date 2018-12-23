@@ -2,75 +2,79 @@
  * @Author: chenxu
  * @Date: 2018-08-14 19:14:31
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-15 14:44:51
+ * @Last Modified time: 2018-12-23 20:29:43
  */
 <template>
   <div class="recipe-detail">
-    <common-good :good="item" type="recipe"></common-good>
-    <div class="detail-container">
-      <div class="food-detail">
-        <div class="science">
-          <div class="no-science" v-if="type !== '7'">食物属性</div>
-          <img class="science-img" v-if="type === '7' && item.pot" :src="potItem[item.pot]" alt="" mode="widthFix">
-          <img class="science-img" v-if="type === '7' && !item.pot" src="/static/img/food/pot.png" alt="" mode="widthFix">
-        </div>
-        <div class="materials" v-if="composites.length > 0">
-          <div class="material" v-for="(material, index) in composites" :key="index">
-            <img class="material-img"@click="toImgDetail(material)" :src="material" alt="" mode="aspectFit">
+    <scroll-view :scroll-y="true" class="view">
+      <common-good :good="item" type="recipe"></common-good>
+      <div class="detail-container">
+        <div class="food-detail">
+          <div class="science">
+            <div class="no-science" v-if="type !== '7'">食物属性</div>
+            <img class="science-img" v-if="type === '7' && item.pot" :src="potItem[item.pot]" alt="" mode="widthFix">
+            <img class="science-img" v-if="type === '7' && !item.pot" src="/static/img/food/pot.png" alt="" mode="widthFix">
           </div>
-        </div>
-        <div class="materials-need common-materials" v-if="type === '7'">
-          <div class="need-materials">
-            <div class="material-item" v-if="needs.length > 0">
-              <div class="material" v-for="(material, index) in needs" :key="index">
-                <img class="material-img" :src="material.src" alt="" mode="aspectFit">
-                <div>{{material.num}}</div>
-              </div>
+          <div class="materials" v-if="composites.length > 0">
+            <div class="material" v-for="(material, index) in composites" :key="index">
+              <img class="material-img"@click="toImgDetail(material)" :src="material" alt="" mode="aspectFit">
             </div>
-            <p class="material-item none" v-else>无</p>
-            <p class="need-desc">必须材料</p>
           </div>
-          <div class="fail-materials">
-            <div class="material-item" v-if="fails.length > 0">
-              <div class="material" v-for="(material, index) in fails" :key="index">
-                <div>{{material.num}}</div>
-                <img class="material-img" :src="material.src" alt="" mode="aspectFit">
+          <div class="materials-need common-materials" v-if="type === '7'">
+            <div class="need-materials">
+              <div class="material-item" v-if="needs.length > 0">
+                <div class="material" v-for="(material, index) in needs" :key="index">
+                  <img class="material-img" :src="material.src" alt="" mode="aspectFit">
+                  <div>{{material.num}}</div>
+                </div>
               </div>
+              <p class="material-item none" v-else>无</p>
+              <p class="need-desc">必须材料</p>
             </div>
-            <p class="material-item none" v-else>无</p>
-            <p class="need-desc">不能添加材料</p>
+            <div class="fail-materials">
+              <div class="material-item" v-if="fails.length > 0">
+                <div class="material" v-for="(material, index) in fails" :key="index">
+                  <div>{{material.num}}</div>
+                  <img class="material-img" :src="material.src" alt="" mode="aspectFit">
+                </div>
+              </div>
+              <p class="material-item none" v-else>无</p>
+              <p class="need-desc">不能添加材料</p>
+            </div>
           </div>
-        </div>
-        <div class="materials" v-if="features.length > 0">
-          <div class="material" v-for="(feature, index) in features" :key="index">
-            <div v-if="feature.src === '荤' || feature.src === '素'">{{feature.src}}</div>
-            <img v-if="feature.src !== '荤' && feature.src !== '素'" class="material-img" :src="feature.src" alt="" mode="aspectFit">
-            <div v-if="feature.num">{{feature.num}}</div>
+          <div class="materials" v-if="features.length > 0">
+            <div class="material" v-for="(feature, index) in features" :key="index">
+              <div v-if="feature.src === '荤' || feature.src === '素'">{{feature.src}}</div>
+              <img v-if="feature.src !== '荤' && feature.src !== '素'" class="material-img" :src="feature.src" alt="" mode="aspectFit">
+              <div v-if="feature.num">{{feature.num}}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="detail-container">
-      <div class="food-detail">
-        <div class="attr-text">
-          <div class="key">优先级</div>
-          <div class="value">{{item.priority}}</div>
+      <div class="detail-container">
+        <div class="food-detail">
+          <div class="attr-text">
+            <div class="key">优先级</div>
+            <div class="value">{{item.priority}}</div>
+          </div>
+          <div class="attr-text">
+            <div class="key">烹饪</div>
+            <div class="value">{{item.time}}</div>
+          </div>
+          <div class="attr-text">
+            <div class="key">温度</div>
+            <div class="value">不影响</div>
+          </div>
+          <common-detail :console="item.console" :desc="item.desc"></common-detail>
         </div>
-        <div class="attr-text">
-          <div class="key">烹饪</div>
-          <div class="value">{{item.time}}</div>
-        </div>
-        <div class="attr-text">
-          <div class="key">温度</div>
-          <div class="value">不影响</div>
-        </div>
-        <common-detail :console="item.console" :desc="item.desc"></common-detail>
       </div>
-    </div>
+    </scroll-view>
+    <feed-back-button :item="item"></feed-back-button>
   </div>
 </template>
 
 <script>
+import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import detailContainer from '@/components/detailContainer.vue'
@@ -95,7 +99,8 @@ export default {
   components: {
     commonGood,
     commonDetail,
-    detailContainer
+    detailContainer,
+    feedBackButton
   },
   onLoad (options) {
     wx.setNavigationBarTitle({
@@ -178,8 +183,22 @@ export default {
 }
 </script>
 
+<style>
+page {
+  height: 100%;
+}
+</style>
+
 <style lang="scss" scoped>
 .recipe-detail {
+  position: relative;
+  height: 100%;
+  .view {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
   .detail-container {
     padding: 12px;
     .food-detail {
