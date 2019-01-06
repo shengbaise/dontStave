@@ -1,6 +1,5 @@
 <template>
   <div class="home-container">
-    <i class="iconfont icon-chakantiezigengduo"></i>
     <!-- <div class="banner">
       <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt=""> -->
       <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">

@@ -40,7 +40,7 @@ export default {
         iconPath: 'static/icon/home.png',
         selectedIconPath: 'static/icon/home-selected.png'
       }, {
-        pagePath: 'pages/mine/main',
+        pagePath: 'pages/news/main',
         text: '动态',
         iconPath: 'static/icon/dynamic.png',
         selectedIconPath: 'static/icon/dynamic-selected.png'
@@ -49,12 +49,14 @@ export default {
         text: '找饥友',
         iconPath: 'static/icon/find.png',
         selectedIconPath: '/static/icon/find-selected.png'
-      }, {
-        pagePath: 'pages/mine/main',
-        text: '藏品',
-        iconPath: 'static/icon/skin.png',
-        selectedIconPath: 'static/icon/skin-selected.png'
-      }, {
+      },
+      // {
+      //   pagePath: 'pages/mine/main',
+      //   text: '藏品',
+      //   iconPath: 'static/icon/skin.png',
+      //   selectedIconPath: 'static/icon/skin-selected.png'
+      // },
+      {
         pagePath: 'pages/mine/main',
         text: '我的',
         iconPath: 'static/icon/mine.png',

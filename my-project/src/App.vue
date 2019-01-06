@@ -15,6 +15,7 @@ export default {
 @import "./static/font/iconfont.wxss";
 @import "./static/wxss/common.wxss";
 @import "./static/font_game/iconfont.wxss";
+@import "./static/font_game/font.wxss";
 
 .container {
   height: 100%;

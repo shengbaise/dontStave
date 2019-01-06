@@ -3,9 +3,9 @@
 //   return str[1] ? str : `0${str}`
 // }
 
-export const getCurrentDay = () => {
+export const formatDate = (time) => {
   // 获取当前时间
-  const date = new Date()
+  const date = time ? new Date(parseInt(time)) : new Date()
   const year = date.getFullYear()
   let month = date.getMonth() + 1
   let day = date.getDate()

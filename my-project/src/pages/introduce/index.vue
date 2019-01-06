@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import { isEmail, isPhone, getCurrentDay } from '../../utils/index.js'
+  import { isEmail, isPhone, formatDate } from '../../utils/index.js'
   export default {
     data () {
       return {
@@ -116,7 +116,7 @@
           return
         }
         const item = {
-          time: getCurrentDay(),
+          time: formatDate(),
           contact: this.qq || this.weixin,
           contactType: this.qq ? 1 : 2,
           desc: this.introduce,

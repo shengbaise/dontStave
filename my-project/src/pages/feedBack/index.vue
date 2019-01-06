@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getCurrentDay } from '../../utils/index.js'
+import { formatDate } from '../../utils/index.js'
 export default {
   data () {
     return {
@@ -40,7 +40,7 @@ export default {
       }
       const item = {
         type: this.item.type,
-        time: getCurrentDay(),
+        time: formatDate(),
         name: this.item.name,
         alis: this.item.alis,
         status: 0,
