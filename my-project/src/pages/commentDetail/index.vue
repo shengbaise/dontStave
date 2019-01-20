@@ -1,8 +1,8 @@
 // 评论详情
 <template>
-  <div class="comment-detail">
+  <div class="comment-detail" :style="{'margin-top': - bottom + 'px'}">
     <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
-      <div class="single-comment" v-for="comment in comments" :key="comment.id">
+      <div @click="setCurrentComment(comment)" class="single-comment" v-for="comment in comments" :key="comment.id">
         <div class="user-tag">
           <div class="user">
             <img v-if="comment.imgsrc" style="width: 30px;height: 30px;border-radius: 50%;" :src="comment.imgsrc" alt="">
@@ -24,6 +24,17 @@
     <!-- <div class="hover-button" @click="addReplay" :style="{'background-color': backgroundColor}">
       <i :style="{'font-size': fontSize, 'color': color}" class="iconfont">&#xe891;</i>
     </div> -->
+    <view class="new-comment">
+      <textarea
+        auto-height
+        :adjust-position="false"
+        @blur="textAreaBlur"
+        @focus="textAreaFocus"
+        class="comment-content"
+        v-model="comment"
+        :placeholder="currentComment.placeholder" />
+      <p class="submit">发布</p>
+    </view>
   </div>
 </template>
 
@@ -40,7 +51,11 @@ export default {
       pageNum: 0,
       fontSize: '24px',
       color: '#fff',
-      backgroundColor: '#009688'
+      backgroundColor: '#009688',
+      bottom: 0,
+      currentComment: {
+        placeholder: '评论楼主'
+      }
     }
   },
   onLoad (options) {
@@ -54,9 +69,19 @@ export default {
     this.setComments()
   },
   methods: {
+    setCurrentComment (comment) {
+      this.currentComment = comment
+      this.currentComment.placeholder = `回复${this.currentComment.firstName}`
+    },
     // addReplay () {
     //   console.info('增加回复')
     // },
+    textAreaBlur () {
+      this.bottom = 0
+    },
+    textAreaFocus (event) {
+      this.bottom = event.mp.detail.height
+    },
     loadMore () {},
     async setComments () {
       const result = await this.$http.get(`https://api.fireleaves.cn/api/replysec?id=${this.id}`)
@@ -160,6 +185,34 @@ export default {
     font-size:14px;
     text-align:center;
     margin:12px;
+  }
+  .new-comment {
+    border-top: 1px solid #ededed;
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    .comment-content {
+      height: 24px;
+      max-height: 48px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+  }
+  .submit {
+    border-radius: 4px;
+    right: 12px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 12px;
+    position: absolute;
+    background-color: #009688;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
   }
 }
 </style>

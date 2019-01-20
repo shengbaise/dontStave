@@ -1,6 +1,6 @@
 // 消息详情
 <template>
-  <div class="news-detail">
+  <div class="news-detail" :style="{'margin-top': - bottom + 'px'}">
     <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div style="padding: 12px;padding-top: 0;">
         <div class="news">
@@ -49,9 +49,13 @@
         </div>
       </div>
     </scroll-view>
-    <div class="hover-button" @click="addComment" :style="{'background-color': backgroundColor}">
+    <!-- <div class="hover-button" @click="addComment" :style="{'background-color': backgroundColor}">
       <i :style="{'font-size': fontSize, 'color': color}" class="iconfont">&#xe891;</i>
-    </div>
+    </div> -->
+    <view class="new-comment">
+      <textarea auto-height :adjust-position="false" @blur="textAreaBlur" @focus="textAreaFocus" class="comment-content" v-model="comment" placeholder="评论" />
+      <p class="submit">发布</p>
+    </view>
   </div>
 </template>
 
@@ -72,7 +76,9 @@ export default {
       comments: [],
       fontSize: '24px',
       color: '#fff',
-      backgroundColor: '#009688'
+      backgroundColor: '#009688',
+      comment: '',
+      bottom: 0
     }
   },
   onLoad (options) {
@@ -86,6 +92,12 @@ export default {
     this.setComments()
   },
   methods: {
+    textAreaBlur () {
+      this.bottom = 0
+    },
+    textAreaFocus (event) {
+      this.bottom = event.mp.detail.height
+    },
     addComment () {
       console.info('增加评论')
     },
@@ -223,7 +235,7 @@ page {
           color: #999;
         }
         .single-comment {
-          border-bottom: 1px solid #ededed;
+          // border-bottom: 1px solid #ededed;
           margin-top: 8px;
           .name-container {
             .name {
@@ -259,6 +271,33 @@ page {
       font-size: 14px;
       text-align: center;
     }
+  }
+  .new-comment {
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    .comment-content {
+      height: 24px;
+      max-height: 48px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+  }
+  .submit {
+    border-radius: 4px;
+    right: 12px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 12px;
+    position: absolute;
+    background-color: #009688;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
   }
 }
 </style>

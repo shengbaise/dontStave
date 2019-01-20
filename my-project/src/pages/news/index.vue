@@ -107,7 +107,9 @@ export default {
   },
   methods: {
     addNews () {
-      console.info('添加动态')
+      wx.navigateTo({
+        url: `/pages/addNews/main`
+      })
     },
     selectTab (tag) {
       this.tag = tag
