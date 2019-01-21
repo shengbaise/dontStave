@@ -3,35 +3,32 @@
   <div class="add-news">
     <view class="comment">
       <textarea :adjust-position="false" class="comment-content" v-model="news" placeholder="评论" />
-      <!-- <oss-upload
-        :imgName="randomName"
-        :imageUrl="titleSrc"
-        dirName="Article"
-        @upload-img="handler"></oss-upload> -->
-      <!-- <input type="file"> -->
-      <view class="weui-uploader__input-box">
-        +
-        <input class="weui-uploader__input js_file" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="" bindtap='uploader' name="images"></input>
-      </view>
+      <mp-uploader
+        @click.native="test"
+        class="upload-img"
+        :maxLength=1
+        @upLoadSuccess="upLoadSuccess"
+        @upLoadFail="upLoadFail"
+        @uploadDelete="uploadDelete"
+        :showTip=false :count=1></mp-uploader>
     </view>
   </div>
 </template>
 
 <script>
-import md5 from 'md5-js'
-// import { quillEditor } from 'vue-quill-editor'
-import ossUpload from '@/components/ossUpload.vue'
+import mpUploader from 'mpvue-weui/src/uploader'
 
 export default {
   data () {
     return {
       content: null,
       editorOption: {},
-      news: ''
+      news: '',
+      file: null
     }
   },
   components: {
-    ossUpload
+    mpUploader
   },
   onLoad (options) {
     wx.setNavigationBarTitle({
@@ -40,11 +37,36 @@ export default {
   },
   computed: {
     randomName () {
-      let time = new Date()
-      return md5(time)
+      // let time = new Date()
+      // return md5(time)
     }
   },
   methods: {
+    test () {
+      wx.chooseImage({
+        success (res) {
+          const tempFilePaths = res.tempFilePaths
+          wx.uploadFile({
+            url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            formData: {
+              user: 'test'
+            },
+            success (res) {
+              const data = res.data
+              console.info(121, data)
+              // do something
+            }
+          })
+        }
+      })
+    },
+    uploadDelete () {},
+    upLoadFail () {},
+    upLoadSuccess (successRes) {
+      console.info(successRes)
+    },
     onEditorBlur () { // 失去焦点事件
     },
     onEditorFocus () { // 获得焦点事件
@@ -54,6 +76,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.add-news {
+  .weui-uploader {
+    margin-top: 20px;
+    .weui-uploader__input {
+      width: 68px;
+      height: 68px;
+    }
+  }
+}
+</style>
+
 
 <style lang="scss" scoped>
 .add-news {

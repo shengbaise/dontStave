@@ -13,7 +13,7 @@
 
 
 <script>
-import OSS from 'ali-oss'
+// import OSS from 'ali-oss'
 
 export default {
   name: 'ossUpload',
@@ -53,24 +53,24 @@ export default {
      */
     toUpload (file) {
       // oss配置
-      const client = new OSS({
-        endpoint: 'oss-cn-beijing.aliyuncs.com',
-        accessKeyId: 'LTAIhKopVjzlM2aM',
-        accessKeySecret: 'y36JkWELbKx1AjUMHfT64KPEMfWIqs',
-        bucket: 'stavebox'
-      })
-      // 图片路径拼接，dirName其实就是定义存在oss的哪个虚拟文件夹下的
-      let imgType = file.type.split('/')[1]
-      let fileName = this.dirName + '/' + this.imgName + '.' + imgType
-      // 将文件流上传至oss
-      client.put(fileName, file)
-        .then(res => {
-          const imageUrl = 'http://img.fireleaves.cn/' + res.name
-          this.$emit('upload-img', imageUrl)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      // const client = new OSS({
+      //   endpoint: 'oss-cn-beijing.aliyuncs.com',
+      //   accessKeyId: 'LTAIhKopVjzlM2aM',
+      //   accessKeySecret: 'y36JkWELbKx1AjUMHfT64KPEMfWIqs',
+      //   bucket: 'stavebox'
+      // })
+      // // 图片路径拼接，dirName其实就是定义存在oss的哪个虚拟文件夹下的
+      // let imgType = file.type.split('/')[1]
+      // let fileName = this.dirName + '/' + this.imgName + '.' + imgType
+      // // 将文件流上传至oss
+      // client.put(fileName, file)
+      //   .then(res => {
+      //     const imageUrl = 'http://img.fireleaves.cn/' + res.name
+      //     this.$emit('upload-img', imageUrl)
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
     }
   }
 }
