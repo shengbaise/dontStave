@@ -1,7 +1,8 @@
 // 动态
 <template>
   <div class="news">
-    <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
+    <p style="text-align: center;color: #fff;font-size: 12px;padding: 12px;">开发中敬请期待～～</p>
+    <scroll-view v-if="false" :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div style="padding: 12px;padding-top: 0;">
         <div class="top">
           <div class="count-text">
@@ -69,7 +70,7 @@
         </div>
       </div>
     </scroll-view>
-    <div class="hover-button" @click="addNews" :style="{'background-color': backgroundColor}">
+    <div v-if="false" class="hover-button" @click="addNews" :style="{'background-color': backgroundColor}">
       <i :style="{'font-size': fontSize, 'color': color}" class="iconfont">&#xe71c;</i>
     </div>
   </div>

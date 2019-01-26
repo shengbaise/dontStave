@@ -3,14 +3,14 @@
   <div class="add-news">
     <view class="comment">
       <textarea :adjust-position="false" class="comment-content" v-model="news" placeholder="评论" />
-      <mp-uploader
+      <!-- <mp-uploader
         @click.native="test"
         class="upload-img"
         :maxLength=1
         @upLoadSuccess="upLoadSuccess"
         @upLoadFail="upLoadFail"
         @uploadDelete="uploadDelete"
-        :showTip=false :count=1></mp-uploader>
+        :showTip=false :count=1></mp-uploader> -->
     </view>
   </div>
 </template>

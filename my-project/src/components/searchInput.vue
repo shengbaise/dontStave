@@ -1,8 +1,9 @@
 <template>
   <div class="search-input" @click="handleClick">
     <div class="search">
-      <div class="search-container">
+      <div class="search-container" :style="{'top': top + 'px'}">
         <input @focus="handleFocus()"
+          :style="{'width': width, 'margin-right': marginRight}"
           @confirm="enter"
           :disabled="isReadonly"
           ref="searchInput"
@@ -15,35 +16,6 @@
 </template>
 
 <script>
-// let timer
-// let start
-// const throttle = function (method, mustRunDelay) {
-//   // method()
-//   // console.info(method, mustRunDelay)
-//   // let args = arguments
-//   // console.info(args, 'args')
-//   return function () {
-//     // let self = this
-//     let now = Date.now()
-//     if (!start) {
-//       start = now
-//     }
-//     if (timer) {
-//       clearTimeout(timer)
-//     }
-//     // console.info(now - start)
-//     if (now - start >= mustRunDelay) {
-//       // method.apply(self, args)
-//       method()
-//       start = now
-//     } else {
-//       timer = setTimeout(function () {
-//         // loop.apply(self, args)
-//         method()
-//       }, 1000)
-//     }
-//   }
-// }
 export default {
   props: {
     isReadonly: {
@@ -51,6 +23,20 @@ export default {
       default () {
         return false
       }
+    },
+    top: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    width: {
+      type: [Number, String],
+      default: '80%'
+    },
+    marginRight: {
+      type: [Number, String],
+      default: '40px'
     }
   },
   data () {
@@ -109,6 +95,9 @@ radio .wx-radio-input {
 
 <style lang="scss" scoped>
 .search-input {
+  input::input-placeholder {
+    color: #999;
+  }
   user-select: none;
   width: 100%;
   .version-group {
@@ -135,7 +124,6 @@ radio .wx-radio-input {
   .search-container {
     position: absolute;
     height: 48px;
-    top: 0;
     padding: 0 20px;
     // width: 100%;
     position: relative;
@@ -149,7 +137,6 @@ radio .wx-radio-input {
     font-size: 14px;
     .search-input {
       width: 80%;
-      margin-right:40px;
       -webkit-user-select: none;  /*webkit浏览器*/
       -ms-user-select: none;   /*IE10*/
       -khtml-user-select: none; /*早期浏览器*/
@@ -161,7 +148,7 @@ radio .wx-radio-input {
       height: 24px;
       color: gray;
       background-color: #f5f5f5;
-      border-radius: 20px;
+      border-radius: 4px;
       // border-bottom-right-radius: 20px;
     }
     .search-text {

@@ -1,6 +1,6 @@
 <template>
   <div class="find-friend">
-    <scroll-view :scroll-y="true" class="view">
+    <scroll-view :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div class="friends">
         <div class="friend"
           v-for="friend in friends"
@@ -95,23 +95,24 @@
       this.pageNum = 0
       this.setFriends()
     },
-    async onReachBottom () {
-      if (this.allFriends.length !== 0) {
-        this.loading = true
-        this.loaded = false
-        this.pageNum = this.pageNum + 1
-        await this.setFriends()
-        this.loading = false
-        this.loaded = true
-      }
-    },
     methods: {
+      async loadMore () {
+        if (this.allFriends.length !== 0) {
+          this.loading = true
+          this.loaded = false
+          this.pageNum = this.pageNum + 1
+          await this.setFriends()
+          this.loading = false
+          this.loaded = true
+        }
+      },
       async setFriends () {
         const result = await this.$http.get(`message?pageSize=10&pageNum=${this.pageNum}`, {
           type: parseInt(this.currentPlatform),
           sex: parseInt(this.currentSex)
         })
         this.allFriends = result.data.data
+        console.info(this.allFriends, 'addd')
         this.friends.push(...this.allFriends)
       },
       filter () {

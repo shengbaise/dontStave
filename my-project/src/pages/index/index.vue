@@ -1,16 +1,7 @@
 <template>
   <div class="home-container">
-    <!-- <div class="banner">
-      <img class="banner-home" src="https://images.weserv.nl/?url=img1.gamersky.com/upimg/pic/2017/04/13/201704131606415972_tiny.jpg" alt=""> -->
-      <!-- <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-        <block v-for="(item, index) in banners" :index="index" :key="index">
-          <swiper-item>
-            <img :src="item.src" class="slide-image" mode="aspectFill">
-          </swiper-item>
-        </block>
-      </swiper> -->
-    <!-- </div> -->
-    <search-input @click="toSearch" :isReadonly="true"></search-input>
+    <ad class="banner" unit-id="adunit-e7a57fa768a06808"></ad>
+    <search-input @click="toSearch" marginRight="0" :top="107" width="100%" :isReadonly="true"></search-input>
     <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div class="tabs">
         <div class="tab" v-for="(tab, index) in tabs" :key="index" @click="toTap(tab.toPath, tab.type)">
@@ -252,14 +243,14 @@ page {
     }
   }
   .banner {
-    .banner-home {
-      margin-top: 12px;
-      height: 160px;
-    }
+    position: absolute;
+    height: 107px;
+    top: 0;
+    left: 0;
   }
   .view {
-    top: 48px;
-    height: calc(100vh - 48px);
+    top: 155px;
+    height: calc(100vh - 155px);
     position: absolute;
     overflow-y: scroll;
     background-color: #37474f;
