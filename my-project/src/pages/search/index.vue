@@ -36,7 +36,7 @@ export default {
     wx.setNavigationBarTitle({
       title: '搜索'
     })
-    this.version = wx.getStorageSync('currentVersion')
+    this.version = wx.getStorageSync('currentVersion') || 'DST'
     console.info(options, 'mish options')
   },
   filters: {

@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-12-23 17:10:13
+ * @Last Modified time: 2019-01-26 10:28:53
  */
 <template>
   <div class="recipe">
@@ -67,7 +67,7 @@ export default {
       this.sortType = wx.getStorageSync('currentSort')
     }
     if (wx.getStorageSync('currentVersion')) {
-      this.version = wx.getStorageSync('currentVersion')
+      this.version = wx.getStorageSync('currentVersion') || 'DST'
     }
 
     wx.setNavigationBarTitle({

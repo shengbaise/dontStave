@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 13:34:53
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 14:21:35
+ * @Last Modified time: 2019-01-26 10:27:32
  */
 <template>
   <div class="anim-info">
@@ -60,7 +60,7 @@ export default {
     commonGood
   },
   onLoad (options) {
-    this.version = wx.getStorageSync('currentVersion')
+    this.version = wx.getStorageSync('currentVersion') || 'DST'
     wx.setNavigationBarTitle({
       title: `生物资料(${this.version})`
     })

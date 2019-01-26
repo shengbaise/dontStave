@@ -113,7 +113,7 @@ export default {
     wx.setNavigationBarTitle({
       title: '生物详细资料'
     })
-    this.version = options.version
+    this.version = options.version || 'DST'
     const result = await this.$http.get(`/anim/single?version=${this.version}&src=${options.src}`)
     this.item = result.data
     // 收集

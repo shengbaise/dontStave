@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 19:14:31
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-12-23 20:29:43
+ * @Last Modified time: 2019-01-26 10:29:08
  */
 <template>
   <div class="recipe-detail">
@@ -129,7 +129,7 @@ export default {
       }
     },
     async initData (options) {
-      this.version = options.version
+      this.version = options.version || 'DST'
       const result = await this.$http.get(`/food/single?version=${this.version}&src=${options.src}`)
       this.type = options.type
       this.item = result.data

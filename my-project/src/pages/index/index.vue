@@ -137,7 +137,7 @@ export default {
     wx.setNavigationBarTitle({
       title: '掌上饥荒'
     })
-    this.version = wx.getStorageSync('currentVersion')
+    this.version = wx.getStorageSync('currentVersion') || 'DST'
   },
   async mounted () {
     this.setArticles()
@@ -189,7 +189,7 @@ export default {
     },
     async selectVersion (item) {
       await wx.setStorageSync('currentVersion', item)
-      this.version = wx.getStorageSync('currentVersion')
+      this.version = wx.getStorageSync('currentVersion') || 'DST'
       this.isSelectVersion = false
     },
     toTap (path, type) {

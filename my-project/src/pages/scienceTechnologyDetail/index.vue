@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 15:01:38
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-12-23 20:28:16
+ * @Last Modified time: 2019-01-26 10:29:23
  */
 <template>
   <div class="science-technology-detail">
@@ -76,7 +76,7 @@ export default {
     wx.setNavigationBarTitle({
       title: '物品详情'
     })
-    this.version = options.version
+    this.version = options.version || 'DST'
     this.initData(options)
   },
   mounted () {

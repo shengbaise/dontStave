@@ -43,7 +43,7 @@ export default {
     commonGood
   },
   onLoad (options) {
-    this.version = wx.getStorageSync('currentVersion')
+    this.version = wx.getStorageSync('currentVersion') || 'DST'
     wx.setNavigationBarTitle({
       title: ` 自然(${this.version})`
     })

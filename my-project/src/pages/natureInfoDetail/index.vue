@@ -44,7 +44,7 @@ export default {
     feedBackButton
   },
   onLoad (options) {
-    this.version = options.version
+    this.version = options.version || 'DST'
     wx.setNavigationBarTitle({
       title: '自然详情'
     })

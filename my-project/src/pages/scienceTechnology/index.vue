@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-12-23 17:10:25
+ * @Last Modified time: 2019-01-26 10:29:15
  */
 <template>
   <div class="science-technology">
@@ -128,7 +128,7 @@ export default {
     commonGood
   },
   onLoad (options) {
-    this.version = wx.getStorageSync('currentVersion')
+    this.version = wx.getStorageSync('currentVersion') || 'DST'
     wx.setNavigationBarTitle({
       title: `物品资料(${this.version})`
     })
