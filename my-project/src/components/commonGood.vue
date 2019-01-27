@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:25:27
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 17:16:44
+ * @Last Modified time: 2019-01-26 12:00:31
  */
 <template>
   <div class="common-good" @click="toDetail()">
@@ -28,7 +28,7 @@
           <span class="hurt">伤害：<span v-show="good.attr[0] || good.attr[0] === 0">{{good.attr[0]}} </span></span>
           <span class="live">生命值：<span v-show="good.attr[1] || good.attr[1] === 0">{{good.attr[1]}}</span></span>
         </div>
-        <div class="speed">
+        <div class="speed" v-if="hasSpeed">
           <span class="speed-item">行走速度：<span v-show="good.attr[2] || good.attr[2] === 0">{{good.attr[2]}} </span> </span>
           <span class="speed-item">奔跑速度：<span v-show="good.attr[3] || good.attr[3] === 0">{{good.attr[3]}}</span></span>
         </div>
@@ -42,6 +42,10 @@ import uploadImg from '@/components/uploadImg'
 
 export default {
   props: {
+    hasSpeed: {
+      type: Boolean,
+      default: true
+    },
     good: {
       type: Object,
       default () {

@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 14:32:16
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-08-14 14:46:37
+ * @Last Modified time: 2019-01-26 12:00:45
  */
 <template>
   <div class="nature-info">
@@ -10,7 +10,7 @@
       <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
     </div>
     <div class="view">
-      <common-good v-if="currentGoods.length > 0" @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
+      <common-good :hasSpeed="false" v-if="currentGoods.length > 0" @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
       <p v-if="currentGoods.length === 0" class="no-data">暂无数据～～～</p>
     </div>
   </div>

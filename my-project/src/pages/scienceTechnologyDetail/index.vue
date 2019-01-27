@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 15:01:38
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-26 10:29:23
+ * @Last Modified time: 2019-01-27 17:13:36
  */
 <template>
   <div class="science-technology-detail">
@@ -41,7 +41,7 @@
 import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
-import { getImgDetail, formatUrl } from '@/utils/index.js'
+import { getDetailItem, formatUrl } from '@/utils/index.js'
 
 export default {
   data () {
@@ -106,11 +106,12 @@ export default {
       })
     },
     toImgDetail (src) {
-      const detailItem = getImgDetail(src)
-      if (!detailItem) {
+      const detailItem = getDetailItem(src)
+      console.info(src, detailItem)
+      if (!detailItem.src || !detailItem.urlParam) {
         return
       }
-      if (src === 'scienceTechnologyDetail') {
+      if (detailItem.urlParam === 'scienceTechnologyDetail') {
         this.item = {}
         setTimeout(() => {
           this.initData({
@@ -120,7 +121,7 @@ export default {
         }, 0)
       } else {
         wx.navigateTo({
-          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+          url: `/pages/${detailItem.urlParam}/main?src=${detailItem.src}&version=${this.version}`
         })
       }
     }

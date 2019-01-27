@@ -91,3 +91,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.select-sort {
+  z-index: 9999;
+}
+</style>

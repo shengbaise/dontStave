@@ -66,13 +66,35 @@ export const formatUrl = (src) => {
   if (['F'].indexOf(src[0]) > -1) {
     urlParam = 'Foods'
   }
-  if (['G', 'N'].indexOf(src[0]) > -1) {
-    urlParam = 'animReward'
-  }
-  if (['A'].indexOf(src[0]) > -1) {
+  if (['N'].indexOf(src[0]) > -1) {
     urlParam = 'Creatures'
   }
+  if (['A', 'G'].indexOf(src[0]) > -1) {
+    urlParam = 'animReward'
+  }
   return `http://img.fireleaves.cn/${urlParam}/${src}.png`
+}
+
+export const getDetailItem = (comp) => {
+  let urlParam = ''
+  let src = ''
+  if (['S'].indexOf(comp[0]) > -1) {
+    urlParam = 'scienceTechnologyDetail'
+    src = `http://img.fireleaves.cn/Sciences/${comp}.png`
+  }
+  if (['F'].indexOf(comp[0]) > -1) {
+    urlParam = 'recipeDetail'
+    src = `http://img.fireleaves.cn/Foods/${comp}.png`
+  }
+  if (['G'].indexOf(comp[0]) > -1) {
+    urlParam = 'natureInfoDetail'
+    src = `http://img.fireleaves.cn/animReward/${comp}.png`
+  }
+  if (['A'].indexOf(comp[0]) > -1) {
+    urlParam = 'animInfoDetail'
+    src = `http://img.fireleaves.cn/Creatures/${comp}.png`
+  }
+  return {urlParam, src}
 }
 
 // export default {

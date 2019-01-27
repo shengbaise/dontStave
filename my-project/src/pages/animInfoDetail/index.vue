@@ -56,7 +56,7 @@ import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import commonAttr from '@/components/commonAttr.vue'
-import { getImgDetail, formatUrl } from '@/utils/index.js'
+import { getDetailItem, formatUrl } from '@/utils/index.js'
 
 export default {
   data () {
@@ -114,44 +114,57 @@ export default {
       title: '生物详细资料'
     })
     this.version = options.version || 'DST'
-    const result = await this.$http.get(`/anim/single?version=${this.version}&src=${options.src}`)
-    this.item = result.data
-    // 收集
-    if (this.item.collection) {
-      this.collections = this.item.collection.map(item => formatUrl(item))
-    } else {
-      this.collections = []
-    }
-    // 赠品
-    const feedBack = this.item.feedBack
-    this.feedBack = []
-    if (feedBack.length > 0) {
-      feedBack.forEach((feed, index) => {
-        if (index % 2 === 0) {
-          this.feedBack.push({
-            src: formatUrl(feed),
-            num: feedBack[index + 1]
-          })
-        }
-      })
-    } else {
-      this.feedBack = null
-    }
-    // 战利品
-    this.rewards = this.item.reward.filter(item => item.src && item.num)
-    this.rewards.forEach(item => {
-      if (item.num[0] !== '×') {
-        item.num = formatUrl(item.num)
-      }
-      item.src = formatUrl(item.src)
-    })
+    this.initData(options.src)
   },
   methods: {
+    async initData (src) {
+      const result = await this.$http.get(`/anim/single?version=${this.version}&src=${src}`)
+      this.item = result.data
+      // 收集
+      if (this.item.collection) {
+        this.collections = this.item.collection.map(item => formatUrl(item))
+      } else {
+        this.collections = []
+      }
+      // 赠品
+      const feedBack = this.item.feedBack
+      this.feedBack = []
+      if (feedBack.length > 0) {
+        feedBack.forEach((feed, index) => {
+          if (index % 2 === 0) {
+            this.feedBack.push({
+              src: formatUrl(feed),
+              num: feedBack[index + 1]
+            })
+          }
+        })
+      } else {
+        this.feedBack = null
+      }
+      // 战利品
+      this.rewards = this.item.reward.filter(item => item.src && item.num)
+      this.rewards.forEach(item => {
+        if (item.num[0] !== '×') {
+          item.num = formatUrl(item.num)
+        }
+        item.src = formatUrl(item.src)
+      })
+    },
     toImgDetail (src) {
-      const detailItem = getImgDetail(src)
-      if (detailItem) {
+      const detailItem = getDetailItem(src)
+      if (!detailItem.src || !detailItem.urlParam) {
+        return
+      }
+      if (detailItem.urlParam === 'animInfoDetail') {
+        this.item = {}
+        setTimeout(() => {
+          this.initData({
+            src: detailItem.src
+          })
+        }, 0)
+      } else {
         wx.navigateTo({
-          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+          url: `/pages/${detailItem.urlParam}/main?src=${detailItem.src}&version=${this.version}`
         })
       }
     }

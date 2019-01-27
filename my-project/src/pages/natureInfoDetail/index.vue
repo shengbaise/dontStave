@@ -7,13 +7,13 @@
           <div class="origin-tip" v-if="origins.length > 0">来源</div>
           <div class="materials" v-if="origins.length > 0">
             <div class="material" v-for="(origin, index) in origins" :key="index">
-              <img class="material-img" @click="toImgDetail(origin)" :src="origin" alt="" mode="aspectFit">
+              <img class="material-img" @click="toImgDetail(item.origin[index])" :src="origin" alt="" mode="aspectFit">
             </div>
           </div>
           <div class="science-tip" v-if="createSciences.length > 0">可制作科技</div>
           <div class="materials" v-if="createSciences.length > 0">
             <div class="material" v-for="(science, index) in createSciences" :key="index">
-              <img class="material-img" @click="toImgDetail(science)" :src="science" alt="" mode="aspectFit">
+              <img class="material-img" @click="toImgDetail(item.createScience[index])" :src="science" alt="" mode="aspectFit">
             </div>
           </div>
           <common-detail :console="item.console" :desc="item.desc"></common-detail>
@@ -28,7 +28,8 @@
 import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
-import { getImgDetail, formatUrl } from '@/utils/index.js'
+import { formatUrl, getDetailItem } from '@/utils/index.js'
+// getImgDetail
 
 export default {
   data () {
@@ -56,21 +57,21 @@ export default {
   },
   methods: {
     toImgDetail (src) {
-      const detailItem = getImgDetail(src)
-      if (!detailItem) {
+      const detailItem = getDetailItem(src)
+      if (!detailItem.src || !detailItem.urlParam) {
         return
       }
-      if (src === 'natureInfoDetail') {
+      if (detailItem.urlParam === 'natureInfoDetail') {
         this.item = {}
         setTimeout(() => {
           this.initData({
-            src: src,
+            src: detailItem.src,
             version: this.version
           })
         }, 0)
       } else {
         wx.navigateTo({
-          url: `/pages/${detailItem}/main?src=${src}&version=${this.version}`
+          url: `/pages/${detailItem.urlParam}/main?src=${detailItem.src}&version=${this.version}`
         })
       }
     },
