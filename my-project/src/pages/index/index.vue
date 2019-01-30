@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
-    <ad class="banner" unit-id="adunit-e7a57fa768a06808"></ad>
-    <search-input @click="toSearch" marginRight="0" :top="107" width="100%" :isReadonly="true"></search-input>
+    <ad unit-id="adunit-e7a57fa768a06808"></ad>
+    <search-input class="search-item" @click="toSearch" marginRight="0" :top="0" width="100%" :isReadonly="true"></search-input>
     <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div class="tabs">
         <div class="tab" v-for="(tab, index) in tabs" :key="index" @click="toTap(tab.toPath, tab.type)">
@@ -231,6 +231,8 @@ page {
 
 <style lang="scss" scoped>
 .home-container {
+  display: flex;
+  flex-flow: nowrap column;
   position: relative;
   padding-top: 0;
   width: 100%;
@@ -243,16 +245,18 @@ page {
     }
   }
   .banner {
-    position: absolute;
-    height: 107px;
-    top: 0;
-    left: 0;
+    height: auto;
+    flex-shrink: 0;
+  }
+  .search-item {
+    position: relative;
+    flex-shrink: 0;
   }
   .view {
-    top: 155px;
-    height: calc(100vh - 155px);
-    position: absolute;
-    overflow-y: scroll;
+    position: relative;
+    flex-grow: 1;
+    height: 200px;
+    overflow:scroll;
     background-color: #37474f;
     width: 100%;
     .tabs {

@@ -39,12 +39,14 @@ export default {
         text: '首页',
         iconPath: 'static/icon/home.png',
         selectedIconPath: 'static/icon/home-selected.png'
-      }, {
-        pagePath: 'pages/news/main',
-        text: '动态',
-        iconPath: 'static/icon/dynamic.png',
-        selectedIconPath: 'static/icon/dynamic-selected.png'
-      }, {
+      },
+      // {
+      //   pagePath: 'pages/news/main',
+      //   text: '动态',
+      //   iconPath: 'static/icon/dynamic.png',
+      //   selectedIconPath: 'static/icon/dynamic-selected.png'
+      // }
+      {
         pagePath: 'pages/findFriend/main',
         text: '找饥友',
         iconPath: 'static/icon/find.png',
