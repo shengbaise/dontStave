@@ -11,10 +11,13 @@
           <div class="detail">
             <div class="personal-message">
               <div class="name">{{friend.name}}</div>
+              <div class="time">{{friend.time}}</div>
+            </div>
+            <div class="personal-contact">
               <div class="contact-logo" v-if="friend.contactType === 1" key="qq">QQ</div>
               <div class="contact-logo" v-else key="weixin">微信</div>
               <div class="contact-number">{{friend.contact}}</div>
-              <div class="time">{{friend.time}}</div>
+              <div class="copy-number" @click="copyNumber(friend.contact)">复制</div>
             </div>
             <div class="personal-talk">
               {{friend.desc}}
@@ -48,95 +51,119 @@
         <div class="ok" @click="select()">确定</div>
       </div>
     </div>
+    <mp-toast :type="toastType" v-model="showToast" content="复制成功" duration="200"></mp-toast>
   </div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        isSelect: false,
-        friends: [],
-        allFriends: [],
-        platforms: [
-          {value: '1', name: 'Steam'},
-          {value: '2', name: 'WeGame'},
-          {value: '0', name: '不限'}
-        ],
-        sexs: [{
-          value: '1',
-          name: '只看男生'
-        }, {
-          value: '2',
-          name: '只看女生'
-        }, {
-          value: '0',
-          name: '不限'
-        }],
-        currentPlatform: '0',
-        currentSex: '0',
-        pageNum: 0,
-        loading: false,
-        loaded: false
-      }
-    },
-    config: {
-      'enablePullDownRefresh': true,
-      'onReachBottomDistance': 30
-    },
-    async onLoad () {
-      wx.setNavigationBarTitle({
-        title: '找饥友'
+import mpToast from 'mpvue-weui/src/toast'
+// const sleep = (ms) => {
+//   return new Promise(resolve => setTimeout(resolve, ms))
+// }
+
+export default {
+  data () {
+    return {
+      isSelect: false,
+      friends: [],
+      allFriends: [],
+      platforms: [
+        {value: '1', name: 'Steam'},
+        {value: '2', name: 'WeGame'},
+        {value: '0', name: '不限'}
+      ],
+      sexs: [{
+        value: '1',
+        name: '只看男生'
+      }, {
+        value: '2',
+        name: '只看女生'
+      }, {
+        value: '0',
+        name: '不限'
+      }],
+      currentPlatform: '0',
+      currentSex: '0',
+      pageNum: 0,
+      loading: false,
+      loaded: false,
+      showToast: false
+    }
+  },
+  config: {
+    'enablePullDownRefresh': true,
+    'onReachBottomDistance': 30
+  },
+  components: {
+    mpToast
+  },
+  async onLoad () {
+    wx.setNavigationBarTitle({
+      title: '找饥友'
+    })
+  },
+  async onShow () {
+    this.currentSex = '0'
+    this.currentPlatform = '0'
+    this.pageNum = 0
+    this.setFriends()
+  },
+  methods: {
+    copyNumber (contact) {
+      const self = this
+      wx.setClipboardData({
+        data: contact,
+        success (res) {
+          wx.getClipboardData({
+            async success (res) {
+              self.setData({showToast: true})
+              // await sleep(300)
+              // self.setData({showToast: false})
+            }
+          })
+        }
       })
     },
-    async onShow () {
-      this.currentSex = '0'
-      this.currentPlatform = '0'
-      this.pageNum = 0
-      this.setFriends()
-    },
-    methods: {
-      async loadMore () {
-        if (this.allFriends.length !== 0) {
-          this.loading = true
-          this.loaded = false
-          this.pageNum = this.pageNum + 1
-          await this.setFriends()
-          this.loading = false
-          this.loaded = true
-        }
-      },
-      async setFriends () {
-        const result = await this.$http.get(`message?pageSize=10&pageNum=${this.pageNum}`, {
-          type: parseInt(this.currentPlatform),
-          sex: parseInt(this.currentSex)
-        })
-        this.allFriends = result.data.data
-        console.info(this.allFriends, 'addd')
-        this.friends.push(...this.allFriends)
-      },
-      filter () {
-        this.isSelect = true
-      },
-      toNew () {
-        wx.navigateTo({
-          url: '/pages/introduce/main'
-        })
-      },
-      sexRadioChange (e) {
-        this.currentSex = e.target.value
-      },
-      select () {
-        this.pageNum = 0
-        this.friends = []
-        this.setFriends()
-        this.isSelect = false
-      },
-      platformRadioChange (e) {
-        this.currentPlatform = e.target.value
+    async loadMore () {
+      if (this.allFriends.length !== 0) {
+        this.loading = true
+        this.loaded = false
+        this.pageNum = this.pageNum + 1
+        await this.setFriends()
+        this.loading = false
+        this.loaded = true
       }
+    },
+    async setFriends () {
+      const result = await this.$http.get(`message?pageSize=10&pageNum=${this.pageNum}`, {
+        type: parseInt(this.currentPlatform),
+        sex: parseInt(this.currentSex)
+      })
+      this.allFriends = result.data.data
+      this.friends.push(...this.allFriends)
+    },
+    filter () {
+      this.isSelect = true
+    },
+    toNew () {
+      wx.navigateTo({
+        url: '/pages/introduce/main'
+      })
+    },
+    sexRadioChange (e) {
+      this.currentSex = e.target.value
+    },
+    select () {
+      this.pageNum = 0
+      this.friends = []
+      this.setFriends()
+      this.isSelect = false
+    },
+    platformRadioChange (e) {
+      this.currentPlatform = e.target.value
     }
   }
+}
 </script>
 
 <style lang="scss">
@@ -193,19 +220,22 @@ page {
             font-size: 16px;
             color: #fff;
           }
+          .time {
+            position: absolute;
+            right: 12px;
+            font-size: 12px;
+            color: #666;
+          }
+        }
+        .personal-contact {
+          display: flex;
+          align-items: center;
           .contact-logo {
             font-size: 12px;
             margin: 0 8px;
             color: #666;
           }
           .contact-number {
-            font-size: 12px;
-            color: #666;
-          }
-          .time {
-            position: absolute;
-            right: 12px;
-            top: 12px;
             font-size: 12px;
             color: #666;
           }
@@ -217,6 +247,11 @@ page {
           padding-top: 4px;
           font-size: 14px;
           color: #999;
+        }
+        .copy-number {
+          padding: 0 24px;
+          color: #009688;
+          font-size: 12px;
         }
       }
     }
