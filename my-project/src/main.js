@@ -64,6 +64,15 @@ export default {
         iconPath: 'static/icon/mine.png',
         selectedIconPath: 'static/icon/mine-selected.png'
       }]
+    },
+    'plugins': {
+      'wxparserPlugin': {
+        'version': '0.2.1',
+        'provider': 'wx9d4d4ffa781ff3ac'
+      }
+    },
+    'usingComponents': {
+      'wxparser': 'plugin://wxparserPlugin/wxparser'
     }
   }
 }

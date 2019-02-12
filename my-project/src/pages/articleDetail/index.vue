@@ -1,6 +1,6 @@
 <template>
   <div class="article-detail">
-    <img class="article-img" v-if="article.src" :src="article.src" alt="" mode="widthFix">
+    <img class="article-img" v-if="article.src" :src="article.src" alt="" mode="aspectFill">
     <div class="article-content">
       <h3 class="title">{{article.title}}</h3>
       <div class="time-author">

@@ -73,7 +73,7 @@ module.exports = {
             options: {
               checkMPEntry: true
             }
-          },
+          }
         ]
       },
       {

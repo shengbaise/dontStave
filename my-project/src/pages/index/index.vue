@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <ad unit-id="adunit-e7a57fa768a06808"></ad>
-    <search-input class="search-item" @click="toSearch" marginRight="0" :top="0" width="100%" :isReadonly="true"></search-input>
+    <search-input @click="toSearch" marginRight="0" :top="0" width="100%" :isReadonly="true"></search-input>
     <scroll-view :scroll-top="scrollTop" :scroll-y="true" class="view" @scrolltolower="loadMore">
       <div class="tabs">
         <div class="tab" v-for="(tab, index) in tabs" :key="index" @click="toTap(tab.toPath, tab.type)">
