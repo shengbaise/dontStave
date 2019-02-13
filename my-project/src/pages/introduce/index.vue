@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import { isEmail, isPhone, formatDate } from '../../utils/index.js'
+  import { isEmail, isPhone, formatDate, shareApp } from '../../utils/index.js'
   export default {
     data () {
       return {
@@ -57,6 +57,9 @@
         hasNickname: true,
         hasIntroduce: true
       }
+    },
+    onShareAppMessage (res) {
+      return shareApp(res)
     },
     async onLoad () {
       wx.setNavigationBarTitle({

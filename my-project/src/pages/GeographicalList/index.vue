@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -26,6 +27,9 @@ export default {
       data: [],
       total: 3
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   async onLoad (options) {
     wx.setNavigationBarTitle({

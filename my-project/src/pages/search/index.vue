@@ -18,6 +18,7 @@
 <script>
 import searchInput from '@/components/searchInput'
 import commonGood from '@/components/commonGood.vue'
+import { shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -27,6 +28,9 @@ export default {
       loading: false,
       loaded: false
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   components: {
     searchInput,

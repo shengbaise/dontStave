@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { formatDate } from '../../utils/index.js'
+import { formatDate, shareApp } from '../../utils/index.js'
 export default {
   data () {
     return {
@@ -21,6 +21,9 @@ export default {
       hasClickCommit: false,
       item: {}
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad (options) {
     wx.setNavigationBarTitle({

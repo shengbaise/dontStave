@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { formatDate } from '../../utils/index.js'
+import { formatDate, shareApp } from '../../utils/index.js'
 
 export default {
   data () {
@@ -94,6 +94,9 @@ export default {
       color: '#fff',
       backgroundColor: '#009688'
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad () {
     wx.setNavigationBarTitle({

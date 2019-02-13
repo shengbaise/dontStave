@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 15:01:38
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-27 17:13:36
+ * @Last Modified time: 2019-02-12 22:26:49
  */
 <template>
   <div class="science-technology-detail">
@@ -41,7 +41,7 @@
 import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
-import { getDetailItem, formatUrl } from '@/utils/index.js'
+import { getDetailItem, formatUrl, shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -66,6 +66,9 @@ export default {
       heat: 0,
       warm: 0
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   components: {
     commonGood,

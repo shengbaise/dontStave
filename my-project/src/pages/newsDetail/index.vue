@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { formatDate } from '../../utils/index.js'
+import { formatDate, shareApp } from '../../utils/index.js'
 
 export default {
   data () {
@@ -80,6 +80,9 @@ export default {
       comment: '',
       bottom: 0
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad (options) {
     this.id = options.id

@@ -28,7 +28,7 @@
 import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
-import { formatUrl, getDetailItem } from '@/utils/index.js'
+import { formatUrl, getDetailItem, shareApp } from '@/utils/index.js'
 // getImgDetail
 
 export default {
@@ -54,6 +54,9 @@ export default {
   mounted () {
     this.origins = []
     this.createSciences = []
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   methods: {
     toImgDetail (src) {

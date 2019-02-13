@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { formatDate } from '../../utils/index.js'
+import { formatDate, shareApp } from '../../utils/index.js'
 
 export default {
   data () {
@@ -64,6 +64,9 @@ export default {
     wx.setNavigationBarTitle({
       title: '评论详情'
     })
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   mounted () {
     this.setComments()

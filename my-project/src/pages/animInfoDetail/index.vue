@@ -56,7 +56,7 @@ import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import commonAttr from '@/components/commonAttr.vue'
-import { getDetailItem, formatUrl } from '@/utils/index.js'
+import { getDetailItem, formatUrl, shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -73,6 +73,9 @@ export default {
     commonDetail,
     commonAttr,
     feedBackButton
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   computed: {
     attrs () {

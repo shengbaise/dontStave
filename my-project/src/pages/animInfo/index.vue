@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 13:34:53
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-26 10:27:32
+ * @Last Modified time: 2019-02-12 22:19:25
  */
 <template>
   <div class="anim-info">
@@ -18,6 +18,7 @@
 
 <script>
 import commonGood from '@/components/commonGood.vue'
+import {shareApp} from '@/utils/index.js'
 
 export default {
   data () {
@@ -58,6 +59,9 @@ export default {
   },
   components: {
     commonGood
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad (options) {
     this.version = wx.getStorageSync('currentVersion') || 'DST'

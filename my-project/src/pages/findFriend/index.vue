@@ -57,6 +57,7 @@
 
 <script>
 import mpToast from 'mpvue-weui/src/toast'
+import { shareApp } from '@/utils/index.js'
 // const sleep = (ms) => {
 //   return new Promise(resolve => setTimeout(resolve, ms))
 // }
@@ -93,6 +94,9 @@ export default {
   config: {
     'enablePullDownRefresh': true,
     'onReachBottomDistance': 30
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   components: {
     mpToast

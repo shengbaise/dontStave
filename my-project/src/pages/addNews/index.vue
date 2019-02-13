@@ -17,6 +17,7 @@
 
 <script>
 import mpUploader from 'mpvue-weui/src/uploader'
+import {shareApp} from '@/utils/index.js'
 
 export default {
   data () {
@@ -40,6 +41,9 @@ export default {
       // let time = new Date()
       // return md5(time)
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   methods: {
     test () {

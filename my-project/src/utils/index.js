@@ -97,6 +97,18 @@ export const getDetailItem = (comp) => {
   return {urlParam, src}
 }
 
+export const shareApp = (res) => {
+  if (res.from === 'button') {
+    // 来自页面内转发按钮
+    console.log(res.target)
+  }
+  return {
+    title: '掌上饥荒',
+    path: '/pages/index/main',
+    imageUrl: 'http://img.fireleaves.cn/SomeLabel/share.png'
+  }
+}
+
 // export default {
 //   formatNumber,
 //   formatTime,

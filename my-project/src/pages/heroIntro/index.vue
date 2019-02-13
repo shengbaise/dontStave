@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-09 15:04:43
  * @Last Modified by: chenxu
- * @Last Modified time: 2018-12-23 18:13:28
+ * @Last Modified time: 2019-02-12 22:30:01
  */
 <template>
   <div class="hero-intro">
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -52,6 +53,9 @@ export default {
       heroList: [],
       currentHero: {}
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad (options) {
     wx.setNavigationBarTitle({

@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { shareApp } from '@/utils/index.js'
+
 export default {
   data () {
     return {}
@@ -44,6 +46,9 @@ export default {
     })
   },
   methods: {
+    onShareAppMessage (res) {
+      return shareApp(res)
+    },
     toDetail (type) {
       wx.navigateTo({
         url: `/pages/gameMechanismDetail/main?type=${type}`

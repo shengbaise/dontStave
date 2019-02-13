@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 14:32:16
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-26 12:00:45
+ * @Last Modified time: 2019-02-12 22:28:48
  */
 <template>
   <div class="nature-info">
@@ -18,6 +18,7 @@
 
 <script>
 import commonGood from '@/components/commonGood.vue'
+import { shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -70,6 +71,9 @@ export default {
         this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
       }, 0)
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   watch: {
     version (value) {

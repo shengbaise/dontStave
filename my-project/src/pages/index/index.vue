@@ -60,6 +60,7 @@
 import searchInput from '@/components/searchInput'
 import uploadImg from '@/components/uploadImg'
 import selectVersion from '@/components/selectVersion.vue'
+import {shareApp} from '@/utils/index.js'
 
 export default {
   data () {
@@ -138,6 +139,9 @@ export default {
       title: '掌上饥荒'
     })
     this.version = wx.getStorageSync('currentVersion') || 'DST'
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   async mounted () {
     this.setArticles()

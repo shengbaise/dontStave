@@ -24,7 +24,7 @@
 <script>
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
-import { getImgDetail, formatUrl } from '@/utils/index.js'
+import { getImgDetail, formatUrl, shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -38,6 +38,9 @@ export default {
     commonGood,
     commonDetail
     // detailContainer
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad (options) {
     this.version = options.version || 'DST'

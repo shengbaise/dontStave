@@ -15,6 +15,8 @@
 
 <script>
 import markedContent from '@/components/markedContent.vue'
+import { shareApp } from '@/utils/index.js'
+
 export default {
   data () {
     return {
@@ -24,6 +26,9 @@ export default {
   },
   components: {
     markedContent
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   async onLoad (options) {
     wx.setNavigationBarTitle({

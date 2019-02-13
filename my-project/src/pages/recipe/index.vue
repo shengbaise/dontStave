@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-26 10:28:53
+ * @Last Modified time: 2019-02-12 22:28:21
  */
 <template>
   <div class="recipe">
@@ -22,6 +22,7 @@
 
 <script>
 import commonGood from '@/components/commonGood.vue'
+import { shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -61,6 +62,9 @@ export default {
   },
   components: {
     commonGood
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onLoad (options) {
     if (wx.getStorageSync('currentSort')) {

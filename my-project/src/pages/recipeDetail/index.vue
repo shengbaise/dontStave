@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 19:14:31
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-27 17:05:11
+ * @Last Modified time: 2019-02-12 22:25:59
  */
 <template>
   <div class="recipe-detail">
@@ -78,7 +78,7 @@ import feedBackButton from '@/components/feedBackButton.vue'
 import commonGood from '@/components/commonGood.vue'
 import commonDetail from '@/components/commonDetail.vue'
 import detailContainer from '@/components/detailContainer.vue'
-import { getDetailItem, formatUrl } from '@/utils/index.js'
+import { getDetailItem, formatUrl, shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -95,6 +95,9 @@ export default {
         2: '/static/img/food/wolyPot.png'
       }
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   components: {
     commonGood,

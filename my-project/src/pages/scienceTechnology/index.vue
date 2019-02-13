@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-01-26 10:29:15
+ * @Last Modified time: 2019-02-12 22:28:03
  */
 <template>
   <div class="science-technology">
@@ -22,6 +22,7 @@
 
 <script>
 import commonGood from '@/components/commonGood.vue'
+import { shareApp } from '@/utils/index.js'
 
 export default {
   data () {
@@ -136,6 +137,9 @@ export default {
   },
   mounted () {
     this.initData()
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   methods: {
     hideSelect () {

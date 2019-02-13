@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { shareApp } from '@/utils/index.js'
+
 export default {
   data () {
     return {
@@ -42,6 +44,9 @@ export default {
       common: {},
       rare: {}
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   methods: {
     /* eslint-disable */

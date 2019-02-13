@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { shareApp } from '@/utils/index.js'
+
 export default {
   data () {
     return {}
@@ -13,6 +15,9 @@ export default {
     wx.setNavigationBarTitle({
       title: '登陆'
     })
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   }
 }
 </script>

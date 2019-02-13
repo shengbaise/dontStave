@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { shareApp } from '@/utils/index.js'
+
 export default {
   data () {
     return {
@@ -37,6 +39,9 @@ export default {
         2: '#f56c6c'
       }
     }
+  },
+  onShareAppMessage (res) {
+    return shareApp(res)
   },
   onShow () {
     this.pageNum = 0
