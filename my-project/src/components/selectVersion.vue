@@ -7,14 +7,15 @@
           <radio :checked="item.name === currentSort" class="input-item" color="#009688" type="radio" :value="item.name"/>{{item.value}}
         </label>
       </radio-group>
-      <div class="title" v-if="!isHome">版本选择</div>
-      <div class="title" v-else>选择你当前游戏的版本，我们会优先展示这些数据</div>
-      <radio-group class="sort-group" @change="versionRadioChange">
+      <div class="ok" v-if="isRecipe" @click="selectVersion()">确定</div>
+
+      <div class="title" v-if="hasVersionSelect">版本选择</div>
+      <radio-group v-if="hasVersionSelect" class="sort-group" @change="versionRadioChange">
         <label class="radio" v-for="(item, index) in items" :key="index">
           <radio :checked="item.name === currentVersion" class="input-item" color="#009688" type="radio" :value="item.name"/>{{item.value}}
         </label>
       </radio-group>
-      <div class="ok" @click="selectVersion()">确定</div>
+      <div v-if="hasVersionSelect" class="ok" @click="selectVersion()">确定</div>
     </div>
   </div>
 </template>
@@ -26,6 +27,12 @@ export default {
       type: String,
       default () {
         return '70%'
+      }
+    },
+    hasVersionSelect: {
+      type: Boolean,
+      default () {
+        return true
       }
     },
     isHome: {
@@ -77,7 +84,10 @@ export default {
       this.currentVersion = e.target.value
     },
     selectVersion () {
-      this.$emit('select-version', this.currentVersion)
+      if (this.hasVersionSelect) {
+        this.$emit('select-version', this.currentVersion)
+      }
+
       if (this.isRecipe) {
         this.$emit('select-sort', this.currentSort)
       }

@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-12 22:28:21
+ * @Last Modified time: 2019-02-13 20:45:44
  */
 <template>
   <div class="recipe">
@@ -14,13 +14,24 @@
         <div class="tab" :key="tab.label" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs">{{tab.label}}</div>
       </div>
     </div>
-    <div class="view">
+    <scroll-view :scroll-y="true" class="view">
       <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
+    </scroll-view>
+    <div class="select-version-button" @click="showSelectVersion">
+      <img class="switch-icon" src="/static/icon/switch.png" alt="" mode="aspectFit">
     </div>
+    <select-version
+      @hide-select="hideSelect"
+      v-if="isSelect"
+      @select-sort="selectSort"
+      listWidth="80%"
+      :hasVersionSelect="false"
+      :isRecipe="true"></select-version>
   </div>
 </template>
 
 <script>
+import selectVersion from '@/components/selectVersion.vue'
 import commonGood from '@/components/commonGood.vue'
 import { shareApp } from '@/utils/index.js'
 
@@ -61,7 +72,8 @@ export default {
     }
   },
   components: {
-    commonGood
+    commonGood,
+    selectVersion
   },
   onShareAppMessage (res) {
     return shareApp(res)
@@ -83,6 +95,12 @@ export default {
     this.initData()
   },
   methods: {
+    hideSelect () {
+      this.isSelect = false
+    },
+    showSelectVersion () {
+      this.isSelect = true
+    },
     async selectSort (item) {
       await wx.setStorageSync('currentSort', item)
       this.sortType = wx.getStorageSync('currentSort')
@@ -153,13 +171,34 @@ export default {
 }
 </script>
 
+<style lang="scss">
+page {
+  height: 100%;
+  width: 100%;
+  font-family: Avenir,Helvetica,Arial,sans-serif;
+}
+</style>
+
+
 <style scoped lang="scss">
   .recipe {
+    position: relative;
+    display: flex;
+    flex-flow: nowrap column;
+    width: 100%;
+    height: 100%;
+    .view {
+      position: relative;
+      flex-grow: 1;
+      overflow:scroll;
+      width: 100%;
+    }
     .selected-tab {
       background-color: #2c3e50 !important;
       color: #fff !important;
     }
     .tabs-container {
+      flex-shrink: 0;
       display: flex;
       flex-flow: nowrap row;
       background-color: #34495e;
@@ -193,6 +232,22 @@ export default {
         }
       }
     }
-    
+    .select-version-button {
+      position: absolute;
+      background-color: #ae63e4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      right: 20px;
+      bottom: 20px;
+      .switch-icon {
+        height:24px;
+        width:24px;
+      }
+    }
   }
 </style>
