@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-09 15:04:43
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-12 22:30:01
+ * @Last Modified time: 2019-02-13 20:04:46
  */
 <template>
   <div class="hero-intro">
@@ -19,7 +19,7 @@
       </div>
       <div class="content-body" v-if="currentHero.src">
         <h3 class="program">简介</h3>
-        <div class="ability" v-html="currentHero.ability"></div>
+        <marked-content :mdString="currentHero.ability"></marked-content>
       </div>
     </scroll-view>
     <div class="select-version-button" @click.stop.prevent="showSelectHero()">
@@ -42,6 +42,7 @@
 
 <script>
 import { shareApp } from '@/utils/index.js'
+import markedContent from '@/components/markedContent.vue'
 
 export default {
   data () {
@@ -53,6 +54,9 @@ export default {
       heroList: [],
       currentHero: {}
     }
+  },
+  components: {
+    markedContent
   },
   onShareAppMessage (res) {
     return shareApp(res)
@@ -76,7 +80,9 @@ export default {
       })
       this.currentHero = hero.data
       /* eslint-disable */
-      this.currentHero.ability = this.currentHero.ability.replace(/\<h3/g, '<h3 style="line-height: 48px;letter-spacing: normal;margin-bottom: 16px;font-size: 20px;color: #333;border-bottom: 1px solid #e0e0e0;"').replace(/\<p/g, '<p style="text-align: justify;font-size: 14px;color: #333;letter-spacing: 2px;"').replace(/\<li/g, '<li style="margin-bottom: 4px;color: #333;"')
+      this.currentHero.ability = this.currentHero.ability
+        .replace(/\<h3/g,'<h3 style="line-height: 48px;letter-spacing: normal;margin-bottom: 16px;font-size: 20px;color: #333;border-bottom: 1px solid #e0e0e0;"')
+        .replace(/\<p/g, '<p style="text-align: justify;font-size: 14px;color: #333;letter-spacing: 2px;"')
       this.isSelect = false
     },
     showSelectHero () {
@@ -90,6 +96,26 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.hero-intro{
+  .wxparser--wxParser-li-text,
+  .wxparser--wxParser-ol-li-text {
+    line-height: 1.5em;
+  }
+  .wxparser--wxParser-ol-li {
+    margin: 0 !important;
+    color: #333;
+    font-size: 14px;
+  }
+  .wxparser--wxParser-li{
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;
+    letter-spacing: 2px;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .hero-intro {
