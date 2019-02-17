@@ -124,7 +124,7 @@ export default {
       pageNum: 0,
       loading: false,
       loaded: false,
-      scrollTop: 50,
+      scrollTop: 0,
       borderColors: ['#dc1454', '#ae63e4', '#47cf73', '#ffdd40', '#0ebeff', '#4a4c53'],
       isSelectVersion: false
     }
