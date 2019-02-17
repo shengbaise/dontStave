@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-13 20:45:44
+ * @Last Modified time: 2019-02-13 21:15:00
  */
 <template>
   <div class="recipe">
@@ -15,7 +15,9 @@
       </div>
     </div>
     <scroll-view :scroll-y="true" class="view">
-      <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
+      <div class="list">
+        <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
+      </div>
     </scroll-view>
     <div class="select-version-button" @click="showSelectVersion">
       <img class="switch-icon" src="/static/icon/switch.png" alt="" mode="aspectFit">
@@ -188,10 +190,17 @@ page {
     width: 100%;
     height: 100%;
     .view {
-      position: relative;
+      position: absolute;
+      top: 82px;
       flex-grow: 1;
       overflow:scroll;
       width: 100%;
+    }
+    .list {
+      // position: relative;
+      // flex-grow: 1;
+      // overflow:scroll;
+      // width: 100%;
     }
     .selected-tab {
       background-color: #2c3e50 !important;
@@ -233,7 +242,7 @@ page {
       }
     }
     .select-version-button {
-      position: absolute;
+      position: fixed;
       background-color: #ae63e4;
       display: flex;
       align-items: center;

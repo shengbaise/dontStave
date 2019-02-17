@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-12 22:28:03
+ * @Last Modified time: 2019-02-17 11:19:26
  */
 <template>
   <div class="science-technology">
@@ -119,6 +119,18 @@ export default {
         label: '考古',
         type: 37,
         version: 'HAMLET'
+      }, {
+        label: '月体',
+        type: 42,
+        version: ['DST']
+      }, {
+        label: '炼金',
+        type: 43,
+        version: ['DST']
+      }, {
+        label: '年货',
+        type: 44,
+        version: ['DST']
       }],
       showMoreTab: false,
       version: 'DST',

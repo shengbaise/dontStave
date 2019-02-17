@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-14 14:32:16
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-12 22:28:48
+ * @Last Modified time: 2019-02-17 11:13:42
  */
 <template>
   <div class="nature-info">
@@ -36,6 +36,9 @@ export default {
       }, {
         label: '树苗',
         type: 35
+      }, {
+        label: '其他',
+        type: 41
       }],
       currentGoods: []
     }
