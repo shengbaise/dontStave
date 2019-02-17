@@ -3,13 +3,13 @@
     <img class="article-img" v-if="article.src" :src="article.src" alt="" mode="aspectFill">
     <div class="article-content">
       <h3 class="title">{{article.title}}</h3>
+      <ad unit-id="adunit-6ef8df293fa6394f"></ad>
       <div class="time-author">
         <p><i class="icon-geren iconfont icon"></i>{{article.author}}</p>
         <p><i class="icon-rili iconfont icon"></i>{{article.time}}</p>
       </div>
-      <!-- <rich-text :nodes="content"></rich-text> -->
       <marked-content :mdString="this.article.content"></marked-content>
-      </div>
+    </div>
   </div>
 </template>
 
