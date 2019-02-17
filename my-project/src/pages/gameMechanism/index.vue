@@ -22,12 +22,18 @@
         <p class="content">昼夜，月相 & 四季，天气，气温</p>
       </section>
     </div>
-    <div class="mechanism animal">
+    <div class="mechanism animal" @click="toDetail(3)">
       <i class="iconfont icon icon-github"></i>
       <section class="section">
         <h1 class="title">动物</h1>
-        <!--<p style="color:#666666;">仇恨，罪恶，习性 & 攻击间隔，理智影响(暂未开放)</p>-->
-        <p class="content">暂未开放</p>
+        <p class="content">仇恨，罪恶，习性 & 攻击间隔，理智影响(暂未开放)</p>
+      </section>
+    </div>
+    <div class="mechanism equipment" @click="toDetail(4)">
+      <i class="iconfont icon">&#xe609;</i>
+      <section class="section">
+        <h1 class="title">装备</h1>
+        <p class="content">攻击，耐久，防御，防潮 & 照明，温度影响,精神影响(暂未开放)</p>
       </section>
     </div>
   </div>
@@ -138,10 +144,26 @@ export default {
       color: #333333;
     }
     .content {
-      color: #666666;
+      font-size: 12px;
+      color: rgb(102, 102, 102);
     }
     .icon {
       color: rgb(33, 33, 33);
+    }
+  }
+  .equipment {
+    background-color: #dcd9d4;
+    background-image: linear-gradient(135deg,#c79081,#dfa579);
+    background-blend-mode: soft-light,screen;
+    .title {
+      color: rgb(142, 36, 2);
+    }
+    .content {
+      font-size: 12px;
+      color: rgb(177, 68, 33);
+    }
+    .icon {
+      color: rgb(142, 36, 2);
     }
   }
 }
