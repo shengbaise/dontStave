@@ -2,11 +2,11 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-18 21:38:05
+ * @Last Modified time: 2019-02-18 22:03:13
  */
 <template>
   <div class="recipe">
-    <scroll-view :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
+    <scroll-view :scroll-with-animation="true" :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
       <div class="tab" :key="tab.label" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs">{{tab.label}}</div>
     </scroll-view>
     <scroll-view :scroll-y="true" class="view">
@@ -196,7 +196,7 @@ page {
     .tabs {
       flex-shrink: 0;
       width: 100%;
-      height: 38px;
+      height: 42px;
       width:100%;
       overflow-x:scroll;
       white-space: nowrap;
@@ -208,9 +208,9 @@ page {
       .tab {
         display: inline-block;
         width: 64px;
-        height: 38px;
+        height: 42px;
         margin-right: 12px;
-        line-height: 38px;
+        line-height: 42px;
         text-align: center;
         white-space: nowrap;
       } 

@@ -2,11 +2,11 @@
  * @Author: chenxu
  * @Date: 2018-08-14 14:32:16
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-18 21:46:44
+ * @Last Modified time: 2019-02-18 22:02:59
  */
 <template>
   <div class="nature-info">
-    <scroll-view :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
+    <scroll-view :scroll-with-animation="true" :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
       <div class="tab" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="tab.type">{{tab.label}}</div>
     </scroll-view>
     <scroll-view class="view" scroll-y>
@@ -116,7 +116,7 @@ page {
   .tabs {
     // flex-shrink: 0;
     width: 100%;
-    height: 38px;
+    height: 42px;
     width:100%;
     overflow-x:scroll;
     white-space: nowrap;
@@ -128,9 +128,9 @@ page {
     .tab {
       display: inline-block;
       width: 64px;
-      height: 38px;
+      height: 42px;
       margin-right: 12px;
-      line-height: 38px;
+      line-height: 42px;
       text-align: center;
       white-space: nowrap;
     } 

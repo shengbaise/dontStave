@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:25:27
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-13 20:42:33
+ * @Last Modified time: 2019-02-18 21:58:02
  */
 <template>
   <div class="common-good" @click="toDetail()">
@@ -20,7 +20,7 @@
       <div v-if="good.attr && type === 'recipe'" class="food-attrs">
         <div class="food-attr" v-for="(foodAttrImg, index) in foodAttrImgs" :key="index">
           <img class="food-attr-img" :src="foodAttrImg" alt="" mode="aspectFit">
-          <div class="attr-content" v-if="good.attr[index] > 10000">无限</div>
+          <div class="attr-content" v-if="good.attr[index] === 10001">无限</div>
           <div class="attr-content" v-else>{{good.attr[index]}}</div>
         </div>
       </div>
