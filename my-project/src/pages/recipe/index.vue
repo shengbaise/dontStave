@@ -2,18 +2,13 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-13 21:15:00
+ * @Last Modified time: 2019-02-18 21:38:05
  */
 <template>
   <div class="recipe">
-    <div class="tabs-container">
-      <div class="food"
-        :class="{ 'selected-tab': currentTabType === food.type }"
-        @click="selectTab(food.type)">{{food.label}}</div>
-      <div class="tabs">
-        <div class="tab" :key="tab.label" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in tabs">{{tab.label}}</div>
-      </div>
-    </div>
+    <scroll-view :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
+      <div class="tab" :key="tab.label" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs">{{tab.label}}</div>
+    </scroll-view>
     <scroll-view :scroll-y="true" class="view">
       <div class="list">
         <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
@@ -45,32 +40,33 @@ export default {
       version: 'DST',
       items: [],
       currentItems: [],
-      food: {
-        label: '料理',
-        type: 7
-      },
-      tabs: [{
-        label: '肉类',
-        type: 4
-      }, {
-        label: '蔬菜',
-        type: 6
-      }, {
-        label: '水果',
-        type: 5
-      }, {
-        label: '蛋类',
-        type: 8
-      }, {
-        label: '其他',
-        type: 20
-      }, {
-        label: '非食材',
-        type: 21
-      }],
+      tabs: [
+        {
+          label: '料理',
+          type: 7
+        }, {
+          label: '肉类',
+          type: 4
+        }, {
+          label: '蔬菜',
+          type: 6
+        }, {
+          label: '水果',
+          type: 5
+        }, {
+          label: '蛋类',
+          type: 8
+        }, {
+          label: '其他',
+          type: 20
+        }, {
+          label: '非食材',
+          type: 21
+        }],
       currentTabType: 7,
       sortType: 'fullOfFood',
-      itemsSort: []
+      itemsSort: [],
+      scrollLeft: 0
     }
   },
   components: {
@@ -138,7 +134,12 @@ export default {
       this.sortRecipe(this.sortType)
       this.currentItems = this.itemsSort.filter(item => item.type === this.currentTabType)
     },
-    selectTab (type) {
+    selectTab (type, index) {
+      if (index > 2) {
+        this.scrollLeft = 76 * (index - 2)
+      } else {
+        this.scrollLeft = 0
+      }
       this.currentItems = []
       this.currentTabType = type
       setTimeout(() => {
@@ -189,57 +190,35 @@ page {
     flex-flow: nowrap column;
     width: 100%;
     height: 100%;
-    .view {
-      position: absolute;
-      top: 82px;
-      flex-grow: 1;
-      overflow:scroll;
-      width: 100%;
+    .tab-selected {
+      color: #b7ba6b !important;
     }
-    .list {
-      // position: relative;
-      // flex-grow: 1;
-      // overflow:scroll;
-      // width: 100%;
-    }
-    .selected-tab {
-      background-color: #2c3e50 !important;
-      color: #fff !important;
-    }
-    .tabs-container {
+    .tabs {
       flex-shrink: 0;
-      display: flex;
-      flex-flow: nowrap row;
-      background-color: #34495e;
-      .food {
-        width: 159px;
-        height: 80px;
-        // background-color: #2c3e50;
-        color: white;
+      width: 100%;
+      height: 38px;
+      width:100%;
+      overflow-x:scroll;
+      white-space: nowrap;
+      font-size: 14px;
+      background-color: #263238;
+      color: #999;
+      justify-content: space-around;
+      align-items: center;
+      .tab {
+        display: inline-block;
+        width: 64px;
+        height: 38px;
+        margin-right: 12px;
+        line-height: 38px;
         text-align: center;
-        line-height: 80px;
-        box-shadow: inset 0 0 4px #212121;
-        font-size: 16px;
-        border-top: 1px solid #2c3e50;
-        border-bottom: 1px solid #2c3e50;
-      }
-      .tabs {
-        display: flex;
-        flex-flow: wrap row;
-        width: calc(100% - 159px);
-        height: 80px;
-        .tab {
-          width: calc(33% - 2px);
-          height: 40px;
-          background-color: #34495e;
-          border-bottom: 1px solid #2c3e50;
-          border-left: 1px solid #2c3e50;
-          font-size: 12px;
-          color: #bdc3c7;
-          text-align: center;
-          line-height: 40px;
-        }
-      }
+        white-space: nowrap;
+      } 
+    }
+    .view {
+      flex-grow: 1;
+      overflow: scroll;
+      height: 100%;
     }
     .select-version-button {
       position: fixed;

@@ -2,17 +2,17 @@
  * @Author: chenxu
  * @Date: 2018-08-14 14:32:16
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-17 11:13:42
+ * @Last Modified time: 2019-02-18 21:46:44
  */
 <template>
   <div class="nature-info">
-    <div class="tabs">
-      <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
-    </div>
-    <div class="view">
+    <scroll-view :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
+      <div class="tab" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="tab.type">{{tab.label}}</div>
+    </scroll-view>
+    <scroll-view class="view" scroll-y>
       <common-good :hasSpeed="false" v-if="currentGoods.length > 0" @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id"></common-good>
       <p v-if="currentGoods.length === 0" class="no-data">暂无数据～～～</p>
-    </div>
+    </scroll-view>
   </div>
 </template>
 
@@ -40,7 +40,8 @@ export default {
         label: '其他',
         type: 41
       }],
-      currentGoods: []
+      currentGoods: [],
+      scrollLeft: 0
     }
   },
   components: {
@@ -67,7 +68,12 @@ export default {
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },
-    selectTab (type) {
+    selectTab (type, index) {
+      if (index > 2) {
+        this.scrollLeft = 76 * (index - 2)
+      } else {
+        this.scrollLeft = 0
+      }
       this.currentGoods = []
       this.currentTabType = type
       setTimeout(() => {
@@ -93,20 +99,46 @@ export default {
 }
 </script>
 
+<style lang="scss">
+page {
+  height: 100%;
+}
+</style>
+
 <style lang="scss" scoped>
 .nature-info {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
   .tab-selected {
     color: #b7ba6b !important;
   }
   .tabs {
+    // flex-shrink: 0;
+    width: 100%;
     height: 38px;
-    display: flex;
-    flex-flow: nowrap row;
+    width:100%;
+    overflow-x:scroll;
+    white-space: nowrap;
     font-size: 14px;
     background-color: #263238;
-    color: white;
+    color: #999;
     justify-content: space-around;
     align-items: center;
+    .tab {
+      display: inline-block;
+      width: 64px;
+      height: 38px;
+      margin-right: 12px;
+      line-height: 38px;
+      text-align: center;
+      white-space: nowrap;
+    } 
+  }
+  .view {
+    flex-grow: 1;
+    overflow: scroll;
+    height: 100%;
   }
 }
 </style>

@@ -2,21 +2,16 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-17 11:19:26
+ * @Last Modified time: 2019-02-18 21:14:25
  */
 <template>
   <div class="science-technology">
-    <div class="tabs">
-      <div @click="selectTab(tab.type)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in tabs" :key="index">{{tab.label}}</div>
-    </div>
-    <div class="more-tabs-container" v-show="showMoreTab" @click="hideSelect">
-      <div class="more-tabs">
-        <div class="tab" @click="selectTab(item.type)" :class="{ 'more-tab-selected': currentTabType === item.type }"  v-for="item in currentMoreTabs" :key="item.label">{{item.label}}</div>
-      </div>
-    </div>
-    <div class="view">
+    <scroll-view :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
+      <div class="tab" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in currentMoreTabs" :key="tab.type">{{tab.label}}</div>
+    </scroll-view>
+    <scroll-view class="view" scroll-y>
       <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
-    </div>
+    </scroll-view>
   </div>
 </template>
 
@@ -47,94 +42,96 @@ export default {
       currentGoods: [],
       currentTabType: 11,
       items: [],
-      moreTabs: [{
-        label: '工具',
-        type: 11,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '照明',
-        type: 9,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '生存',
-        type: 10,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '食物',
-        type: 13,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '战斗',
-        type: 12,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '科学',
-        type: 14,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '魔法',
-        type: 15,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '服装',
-        type: 16,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '书本',
-        type: 19,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '建筑',
-        type: 25,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '合成',
-        type: 26,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '远古',
-        type: 27,
-        version: ['DST', 'DS', 'ROG']
-      }, {
-        label: '暗影',
-        type: 28,
-        version: ['DST']
-      }, {
-        label: '宠物',
-        type: 29,
-        version: ['DST']
-      }, {
-        label: '雕塑',
-        type: 30,
-        version: ['DST']
-      }, {
-        label: '航海',
-        type: 18,
-        version: ['SW', 'HAMLET']
-      }, {
-        label: '火山',
-        type: 32,
-        version: ['SW']
-      }, {
-        label: '考古',
-        type: 37,
-        version: 'HAMLET'
-      }, {
-        label: '月体',
-        type: 42,
-        version: ['DST']
-      }, {
-        label: '炼金',
-        type: 43,
-        version: ['DST']
-      }, {
-        label: '年货',
-        type: 44,
-        version: ['DST']
-      }],
+      moreTabs: [
+        {
+          label: '工具',
+          type: 11,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '照明',
+          type: 9,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '生存',
+          type: 10,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '食物',
+          type: 13,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '战斗',
+          type: 12,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '科学',
+          type: 14,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '魔法',
+          type: 15,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '服装',
+          type: 16,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '书本',
+          type: 19,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '建筑',
+          type: 25,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '合成',
+          type: 26,
+          version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
+        }, {
+          label: '远古',
+          type: 27,
+          version: ['DST', 'DS', 'ROG']
+        }, {
+          label: '暗影',
+          type: 28,
+          version: ['DST']
+        }, {
+          label: '宠物',
+          type: 29,
+          version: ['DST']
+        }, {
+          label: '雕塑',
+          type: 30,
+          version: ['DST']
+        }, {
+          label: '航海',
+          type: 18,
+          version: ['SW', 'HAMLET']
+        }, {
+          label: '火山',
+          type: 32,
+          version: ['SW']
+        }, {
+          label: '考古',
+          type: 37,
+          version: 'HAMLET'
+        }, {
+          label: '月体',
+          type: 42,
+          version: ['DST']
+        }, {
+          label: '炼金',
+          type: 43,
+          version: ['DST']
+        }, {
+          label: '年货',
+          type: 44,
+          version: ['DST']
+        }],
       showMoreTab: false,
       version: 'DST',
-      currentMoreTabs: []
+      currentMoreTabs: [],
+      scrollLeft: 0
     }
   },
   components: {
@@ -173,7 +170,12 @@ export default {
       this.setCurrentMoreTabs()
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },
-    selectTab (type) {
+    selectTab (type, index) {
+      if (index > 2) {
+        this.scrollLeft = 76 * (index - 2)
+      } else {
+        this.scrollLeft = 0
+      }
       if (type) {
         this.currentGoods = []
         this.currentTabType = type
@@ -202,66 +204,46 @@ export default {
 }
 </script>
 
+<style lang="scss">
+page {
+  height: 100%;
+}
+</style>
+
 <style lang="scss" scoped>
 .science-technology {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
   .tab-selected {
     color: #b7ba6b !important;
   }
-  .more-tab-selected {
-    background-color: #2F4F4F !important;
-    color: white !important;
-  }
   .tabs {
+    flex-shrink: 0;
+    width: 100%;
     height: 38px;
-    display: flex;
-    flex-flow: nowrap row;
+    width:100%;
+    overflow-x:scroll;
+    white-space: nowrap;
     font-size: 14px;
     background-color: #263238;
-    color: white;
+    color: #999;
     justify-content: space-around;
     align-items: center;
-  }
-  .more-tabs-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9;
-    background-color: rgba(0,0,0,.65);
-    .more-tabs {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      padding: 15px;
-      box-sizing: border-box;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-flow: wrap row;
-      justify-content: flex-start;
-      width: 90%;
-      height: 180px;
-      background-color: white;
-      border-radius: 6px;
-      .tab {
-        font-size: 14px;
-        width: 64px;
-        height: 30px;
-        margin-right: 12px;
-        line-height: 30px;
-        text-align: center;
-        background-color: #F5F5F5;
-        color: gray;
-        border-radius: 4px;
-      }
-    }
+    .tab {
+      display: inline-block;
+      width: 64px;
+      height: 38px;
+      margin-right: 12px;
+      line-height: 38px;
+      text-align: center;
+      white-space: nowrap;
+    } 
   }
   .view {
-    // position: absolute;
-    // top: 198px;
-    // height: calc(100% - 198px);
-    // width: 100%;
-    // overflow: scroll;
+    flex-grow: 1;
+    overflow: scroll;
+    height: 100%;
   }
 }
 </style>

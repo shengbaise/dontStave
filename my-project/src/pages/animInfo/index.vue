@@ -2,17 +2,17 @@
  * @Author: chenxu
  * @Date: 2018-08-14 13:34:53
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-12 22:19:25
+ * @Last Modified time: 2019-02-18 21:35:50
  */
 <template>
   <div class="anim-info">
-    <div class="tabs">
-      <div class="tab" @click="selectTab(tab.type)" :class="{ 'selected-tab': currentTabType === tab.type }" v-for="tab in currentTabs" :key="tab.type">{{tab.label}}</div>
-    </div>
-    <div class="view">
+    <scroll-view :scroll-left="scrollLeft" scroll-x style="width: 100%;" class="tabs">
+      <div class="tab" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in currentTabs" :key="tab.type">{{tab.label}}</div>
+    </scroll-view>
+    <scroll-view class="view" scroll-y>
       <common-good v-if="currentGoods.length > 0" @click="toDetail(item)" v-for="item in currentGoods" :good="item" :key="item._id" type="animal"></common-good>
       <p class="no-data" v-if="currentGoods.length === 0">暂无数据～～～</p>
-    </div>
+    </scroll-view>
   </div>
 </template>
 
@@ -29,32 +29,34 @@ export default {
       currentTabType: 0,
       currentGoods: [],
       version: 'DST',
-      tabs: [{
-        label: '陆地',
-        type: 0
-      }, {
-        label: '飞行',
-        type: 1
-      }, {
-        label: '洞穴',
-        type: 2
-      }, {
-        label: '猪人',
-        type: 36
-      }, {
-        label: '海洋',
-        type: 24
-      }, {
-        label: '邪恶',
-        type: 3
-      }, {
-        label: 'BOSS',
-        type: 23
-      }, {
-        label: '其他',
-        type: 22
-      }],
-      currentTabs: []
+      tabs: [
+        {
+          label: '陆地',
+          type: 0
+        }, {
+          label: '飞行',
+          type: 1
+        }, {
+          label: '洞穴',
+          type: 2
+        }, {
+          label: '猪人',
+          type: 36
+        }, {
+          label: '海洋',
+          type: 24
+        }, {
+          label: '邪恶',
+          type: 3
+        }, {
+          label: 'BOSS',
+          type: 23
+        }, {
+          label: '其他',
+          type: 22
+        }],
+      currentTabs: [],
+      scrollLeft: 0
     }
   },
   components: {
@@ -91,7 +93,12 @@ export default {
       this.items = result.data
       this.currentGoods = this.items.filter(item => item.type === this.currentTabType)
     },
-    selectTab (type) {
+    selectTab (type, index) {
+      if (index > 2) {
+        this.scrollLeft = 76 * (index - 2)
+      } else {
+        this.scrollLeft = 0
+      }
       this.currentGoods = []
       this.currentTabType = type
       setTimeout(() => {
@@ -114,27 +121,46 @@ export default {
 }
 </script>
 
+<style lang="scss">
+page {
+  height: 100%;
+}
+</style>
+
 <style lang="scss" scoped>
 .anim-info{
-  .selected-tab {
-    background-color: #2c3e50 !important;
-    color: #fff !important;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  .tab-selected {
+    color: #b7ba6b !important;
   }
   .tabs {
-    display: flex;
-    flex-flow: nowrap row;
-    background-color: #34495e;
-    color: #bdc3c7;
-    height: 37px;
+    flex-shrink: 0;
+    width: 100%;
+    height: 38px;
+    width:100%;
+    overflow-x:scroll;
+    white-space: nowrap;
+    font-size: 14px;
+    background-color: #263238;
+    color: #999;
+    justify-content: space-around;
+    align-items: center;
     .tab {
-      height: 37px;
-      line-height: 37px;
-      width: 17%;
+      display: inline-block;
+      width: 64px;
+      height: 38px;
+      margin-right: 12px;
+      line-height: 38px;
       text-align: center;
-      list-style: none;
-      border-right: 1px solid #2c3e50;
-      font-size: 14px;
-    }
+      white-space: nowrap;
+    } 
+  }
+  .view {
+    flex-grow: 1;
+    overflow: scroll;
+    height: 100%;
   }
 }
 </style>
