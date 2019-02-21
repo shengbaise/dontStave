@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-10 16:22:02
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-18 22:01:37
+ * @Last Modified time: 2019-02-20 19:59:00
  */
 <template>
   <div class="science-technology">
@@ -10,7 +10,8 @@
       <div class="tab" @click="selectTab(tab.type, index)" :class="{ 'tab-selected': currentTabType === tab.type }" v-for="(tab, index) in currentMoreTabs" :key="tab.type">{{tab.label}}</div>
     </scroll-view>
     <scroll-view class="view" scroll-y>
-      <common-good @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
+      <common-good v-if="currentGoods.length > 0" @click="toDetail(good)" v-for="good in currentGoods" :good="good" :key="good._id" type="science"></common-good>
+      <p v-if="currentGoods.length === 0" class="no-data">暂无数据～～～</p>
     </scroll-view>
   </div>
 </template>
@@ -23,21 +24,6 @@ export default {
   data () {
     return {
       isSelect: false,
-      tabs: [{
-        label: '工具',
-        type: 11,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '照明',
-        type: 9,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '生存',
-        type: 10,
-        version: ['DST', 'DS', 'ROG', 'SW', 'HAMLET']
-      }, {
-        label: '更多'
-      }],
       technologyType: '',
       currentGoods: [],
       currentTabType: 11,
@@ -114,7 +100,7 @@ export default {
         }, {
           label: '考古',
           type: 37,
-          version: 'HAMLET'
+          version: ['HAMLET']
         }, {
           label: '月体',
           type: 42,
@@ -127,6 +113,14 @@ export default {
           label: '年货',
           type: 44,
           version: ['DST']
+        }, {
+          label: '城镇规划',
+          type: 45,
+          version: ['HAMLET']
+        }, {
+          label: '绿色园艺',
+          type: 46,
+          version: ['HAMLET']
         }],
       showMoreTab: false,
       version: 'DST',

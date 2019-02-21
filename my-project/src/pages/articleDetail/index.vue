@@ -58,7 +58,7 @@ export default {
       line-height: 30px;
     }
     .title {
-      font-size: 1.25em;
+      // font-size: 1.25em !important;
       margin-top: 12px;
       margin-bottom: 16px;
       font-weight: 600;

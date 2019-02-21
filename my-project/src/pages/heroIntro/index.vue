@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-09 15:04:43
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-13 20:04:46
+ * @Last Modified time: 2019-02-19 21:42:47
  */
 <template>
   <div class="hero-intro">
@@ -83,6 +83,7 @@ export default {
       this.currentHero.ability = this.currentHero.ability
         .replace(/\<h3/g,'<h3 style="line-height: 48px;letter-spacing: normal;margin-bottom: 16px;font-size: 20px;color: #333;border-bottom: 1px solid #e0e0e0;"')
         .replace(/\<p/g, '<p style="text-align: justify;font-size: 14px;color: #333;letter-spacing: 2px;"')
+
       this.isSelect = false
     },
     showSelectHero () {
@@ -96,26 +97,6 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.hero-intro{
-  .wxparser--wxParser-li-text,
-  .wxparser--wxParser-ol-li-text {
-    line-height: 1.5em;
-  }
-  .wxparser--wxParser-ol-li {
-    margin: 0 !important;
-    color: #333;
-    font-size: 14px;
-  }
-  .wxparser--wxParser-li{
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: #333;
-    letter-spacing: 2px;
-  }
-}
-</style>
 
 <style lang="scss" scoped>
 .hero-intro {

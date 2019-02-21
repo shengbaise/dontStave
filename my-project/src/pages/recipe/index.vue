@@ -2,7 +2,7 @@
  * @Author: chenxu
  * @Date: 2018-08-13 17:38:57
  * @Last Modified by: chenxu
- * @Last Modified time: 2019-02-18 22:03:13
+ * @Last Modified time: 2019-02-20 20:00:39
  */
 <template>
   <div class="recipe">
@@ -11,7 +11,8 @@
     </scroll-view>
     <scroll-view :scroll-y="true" class="view">
       <div class="list">
-        <common-good  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
+        <common-good v-if="currentItems.length > 0"  @click="toDetail(item)" v-for="item in currentItems" :good="item" :key="item._id" type="recipe"></common-good>
+        <p v-if="currentItems.length === 0" class="no-data">暂无数据～～～</p>
       </div>
     </scroll-view>
     <div class="select-version-button" @click="showSelectVersion">
