@@ -41,7 +41,6 @@ export default {
       title: '搜索'
     })
     this.version = wx.getStorageSync('currentVersion') || 'DST'
-    console.info(options, 'mish options')
   },
   filters: {
     filterType (item) {
