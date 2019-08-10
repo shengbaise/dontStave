@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "common-good": "../../components/commonGood/commonGood",
+    "common-detail": "../../components/commonDetail/commonDetail",
+    "i-icon": "../../components/iView/dist/icon/index"
+  },
+  "enablePullDownRefresh": false
+}

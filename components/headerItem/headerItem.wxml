@@ -1,0 +1,9 @@
+<view class='nav' style='height:{{navH}}px'>
+  <view class='title_icon'>
+    <i-icon size="20" type="return" />
+
+  </view>
+  <view class='title_text'>
+    {{title}}
+  </view>
+</view>

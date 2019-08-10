@@ -1,0 +1,36 @@
+.article-img-container {
+  width: 100%;
+  height: 180px;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: 50%;
+  overflow: hidden;
+}
+.title {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  border-bottom: 1px solid rgb(234, 236, 239);
+  font-size: 24px;
+  padding-bottom: 7px;
+}
+.article-content {
+  padding: 0 12px 12px 12px;
+}
+.origin-title {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.origin-list {
+  padding-left: 24px;
+}
+.origin {
+  color: #24292e;
+  text-decoration: underline;
+  font-size: 16px;
+  padding-bottom: 12px;
+}

@@ -1,0 +1,15 @@
+<view class="search-input" bindtap="handleClick">
+  <view class="search">
+    <view class="search-container">
+      <i-icon class="search-icon" type="search" size="22" color="#80848f" />
+      <input
+        bindinput="handleInput"
+        focus="handleFocus"
+        bindconfirm="search"
+        disabled="{{isReadonly}}"
+        ref="searchInput"
+        type="text" class="search-input input-item" value="{{searchContent}}" placeholder="百科内容搜索"/>
+      <view class="search-text" bindtap="search" wx:if="{{!isReadonly}}">搜索</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,49 @@
+page{
+  height: 100%;
+}
+#hero-intro {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.hero-tabs {
+  flex-shrink: 0;
+  background-color: #37474f !important;
+}
+.hero-tab {
+  width: auto !important;
+  padding: 0 6px !important;
+}
+.basic {
+  height: 100%;
+  flex-grow: 1;
+  overflow: scroll;
+  padding-top: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.hero-attr {
+  display: flex;
+  flex-flow:row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.attr-item {
+  display: flex;
+  align-items: center;
+}
+.attr-key {
+  font-size: 12px;
+  color: #999;
+}
+.attr-value {
+  font-size: 14px;
+  color: #606266;
+  letter-spacing: 2px;
+}
+.hero-motto {
+  margin: 8px 0;
+  padding-left: 6px;
+  font-size: 14px;
+  color: #999;
+  border-left: 4px solid #d6d6d6;
+}

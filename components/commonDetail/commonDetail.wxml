@@ -1,0 +1,15 @@
+<view class="common-detail">
+  <slot></slot>
+  <view class="console" wx:if="{{console}}" >
+    <view class="key"> 生成代码</view>
+    <view class="value" bindtap="copyNumber" data-content="{{console}}">
+      <view>{{console}}</view>
+      <view class="copy-number">复制</view>
+    </view>
+  </view>
+  <view class="description">
+    <view class="title">介绍</view>
+    <mark-down content="{{desc}}" class="content"></mark-down>
+  </view>
+  <i-toast id="toast" />
+</view>

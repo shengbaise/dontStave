@@ -1,0 +1,17 @@
+<view class="recipe">
+  <scroll-view scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}" scroll-x style="width: 100%;" class="tabs">
+    <view bindtap="selectTab" class="tab {{currentTabType === item.type ? 'tab-selected' : ''}}" data-index="{{index}}" data-type="{{item.type}}" wx:for="{{tabs}}" wx:key="{{item.type}}">{{item.label}}</view>
+  </scroll-view>
+  <scroll-view scroll-top="{{scrollTop}}" class="view" scroll-y>
+    <common-good wx:if="{{currentItems.length > 0}}" bind:click="toDetail" wx:for="{{currentItems}}" good="{{item}}" wx:key="{{item._id}}">
+      <view class="food-attrs">
+        <view class="food-attr"  wx:for-item="foodAttrImg" wx:for="{{foodAttrImgs}}" wx:key="{{index}}">
+          <image class="food-attr-img" src="{{foodAttrImg}}" alt="" mode="aspectFit" />
+          <view class="attr-content" wx:if="{{item.attr[index] === 10001}}">无限</view>
+          <view class="attr-content" wx:else>{{item.attr[index]}}</view>
+        </view>
+      </view>
+    </common-good>
+    <view wx:if="{{currentItems.length === 0}}" class="no-data">暂无数据～～～</view>
+  </scroll-view>
+</view>

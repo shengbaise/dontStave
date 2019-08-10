@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "i-input": "../../components/iView/dist/input/index"
+  },
+  "enablePullDownRefresh": false
+}

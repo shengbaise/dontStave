@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "i-tabs": "../../components/iView/dist/tabs/index",
+    "i-tab": "../../components/iView/dist/tab/index",
+    "i-icon": "../../components/iView/dist/icon/index",
+    "i-toast": "../../components/iView/dist/toast/index"
+  },
+  "enablePullDownRefresh": true
+}

@@ -1,0 +1,97 @@
+.common-good {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  border-bottom: 1px solid #DCDFE6
+}
+
+.common-good .good-img-container {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 120px;
+  height: 103px
+}
+
+.common-good .good-img-container .background-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 103px
+}
+
+.common-good .good-img-container .good-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  min-height: 48px;
+  min-width: 48px;
+  max-width: 64px;
+  max-height: 64px
+}
+
+.common-good .desciption {
+  position: absolute;
+  top: 12.5px;
+  left: 145px;
+  width: calc(100% - 145px)
+}
+
+.common-good .desciption .name {
+  color: #303133;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.common-good .desciption .alis {
+  padding-bottom: 10px;
+  font-size: 14px;
+  color: gray
+}
+
+.common-good .desciption .food-attrs {
+  display: flex;
+  flex-flow: nowrap row
+}
+
+.common-good .desciption .food-attrs .food-attr {
+  margin-right: 12px
+}
+
+.common-good .desciption .food-attrs .food-attr .food-attr-img {
+  width: 20px;
+  height: 20px;
+  padding: 2px 12px
+}
+
+.common-good .desciption .food-attrs .food-attr .attr-content {
+  text-align: center;
+  font-size: 12px;
+  padding: 2px 12px;
+  color: #fff;
+  background-color: #915842;
+  border-radius: 4px
+}
+
+.common-good .desciption .animal-attrs {
+  font-size: 14px;
+  color: #999
+}
+
+.common-good .desciption .animal-attrs .speed {
+  padding-top: 6px
+}
+
+.common-good .desciption .animal-attrs .speed-item,
+.common-good .desciption .animal-attrs .hurt,
+.common-good .desciption .animal-attrs .live {
+  display: inline-block;
+  padding-right: 14px
+}

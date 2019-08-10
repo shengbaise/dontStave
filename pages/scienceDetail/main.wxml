@@ -1,0 +1,44 @@
+<view class="science-technology-detail">
+  <scroll-view scroll-y="{{true}}" class="view">
+    <common-good good="{{item}}" hasFeedback="{{true}}">
+      <view class="attrs">
+        <view class="attr-contanier" wx:if="{{item.attr[0]}}"><view class="aggressivity">攻击力</view>
+          <view class="attr-value">{{item.attr[0]}}</view>
+        </view>
+        <view class="attr-contanier" wx:if="{{item.attr[1]}}"><view class="durable">耐久</view>
+          <view class="attr-value" wx:if="{{item.attr[1] == 10001}}">无限</view>
+          <view class="attr-value" wx:else>{{item.attr[1]}}</view>
+        </view>
+      </view>
+    </common-good>
+    <view class="detail-container">
+      <view class="detail">
+        <view class="science">
+          <view class="no-science" wx:if="{{item.technology === 0}}">不需要科技</view>
+          <image class="science-img" wx:else src="{{sciencesImgs[item.technology]}}" alt="test" mode="widthFix" />
+        </view>
+        <view class="materials">
+          <view class="material" wx:for="{{item.composition}}" wx:key="index">
+            <image data-src="{{item.src}}" bindtap="toImgDetail" class="material-img" src="{{item.src}}" alt="" mode="aspectFit" />
+            <view>x {{item.num}}</view>
+          </view>
+        </view>
+        <common-detail desc="{{item.desc}}" console="{{item.console}}">
+          <view class="console" wx:if="{{item.attr[4] && item.attr[4] !== '0'}}">
+            <view class="key">防潮</view>
+            <view class="value">{{item.attr[4]}}</view>
+          </view>
+          <view class="console" wx:if="{{item.attr[5] && item.attr[5] !== '0'}}">
+            <view class="key">隔热</view>
+            <view class="value">{{item.attr[5]}}</view>
+          </view>
+          <view class="console" wx:if="{{item.attr[3] && item.attr[3] !== '0'}}">
+            <view class="key">影响理智</view>
+            <view class="value">{{item.attr[3]}} / 分钟</view>
+          </view>
+        </common-detail>
+      </view>
+    </view>
+    <!-- <ad unit-id="adunit-a15bcee4d3f8a400"></ad> -->
+  </scroll-view>
+</view>

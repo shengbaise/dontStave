@@ -1,0 +1,203 @@
+page {
+  height: 100%;
+}
+.recipe-detail {
+  position: relative;
+  height: 100%
+}
+
+.recipe-detail .view {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.recipe-detail .detail-container {
+  padding: 12px
+}
+
+.recipe-detail .detail-container .food-detail {
+  position: relative;
+  padding: 24px 24px 12px 24px;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  box-shadow: inset 0 4px 8px #e0e0e0
+}
+
+.recipe-detail .detail-container .food-detail .science {
+  height: 32px;
+  margin-top: -12px;
+  margin-right: -12px;
+  text-align: right
+}
+
+.recipe-detail .detail-container .food-detail .science .no-science {
+  color: #999;
+  font-size: 12px
+}
+
+.recipe-detail .detail-container .food-detail .science .science-img {
+  width: 32px
+}
+
+.recipe-detail .detail-container .food-detail .materials-need {
+  flex-flow: nowrap row
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .none {
+  height: 36px
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .material {
+  display: flex;
+  align-items: center;
+  flex-flow: nowrap row;
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .material .material-img {
+  width: 36px
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .need-materials {
+  border-right: 1px solid #999
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .fail-materials .material-img {
+  margin-left: 2px
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .need-materials,
+.recipe-detail .detail-container .food-detail .materials-need .fail-materials {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+  text-align: center;
+  width: 50%
+}
+
+.recipe-detail .material-img {
+  width: 48px;
+  height: 48px;
+}
+
+.recipe-detail .detail-container .food-detail .materials-need .need-desc {
+  /* padding-top:24px; */
+  color: #999;
+  font-size: 12px
+}
+
+.recipe-detail .attr-text {
+  align-items: center;
+  margin-bottom: 12px;
+  padding-right: 12px;
+  height: 36px;
+  border-radius: 4px;
+  border-left: 4px solid #666;
+  background-color: #f9f9f9;
+  color: #999;
+  font-size: 14px;
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: space-between
+}
+
+.recipe-detail .attr-text .key {
+  padding-left: 10px
+}
+
+.recipe-detail .attr-text .value {
+  color: #333
+}
+.food-attrs {
+  display: flex;
+  flex-flow: nowrap row
+}
+
+.food-attrs .food-attr {
+  margin-right: 12px
+}
+
+.food-attrs .food-attr .food-attr-img {
+  width: 20px;
+  height: 20px;
+  padding: 2px 12px
+}
+
+.food-attrs .food-attr .attr-content {
+  text-align: center;
+  font-size: 12px;
+  padding: 2px 12px;
+  color: #fff;
+  background-color: #915842;
+  border-radius: 4px
+}
+.detail-container {
+  padding: 12px
+}
+
+.detail-container .detail {
+  position: relative;
+  padding: 24px 24px 0 24px;
+  background-color: #fff;
+  border-radius: 6px;
+  min-height: 30vh;
+  border: 1px solid #e0e0e0;
+  box-shadow: inset 0 4px 8px #e0e0e0
+}
+
+.detail-container .detail .attr-text {
+  align-items: center;
+  margin-bottom: 12px;
+  padding-right: 12px;
+  height: 36px;
+  border-radius: 4px;
+  border-left: 4px solid #666;
+  background-color: #f9f9f9;
+  color: #999;
+  font-size: 14px;
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: space-between
+}
+
+.detail-container .detail .attr-text .key {
+  padding-left: 10px
+}
+
+.detail-container .detail .attr-text .value {
+  color: #333
+}
+
+.common-materials {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 16px;
+  padding-top: 24px;
+  font-size: 12px
+}
+.materials {
+  display:flex;
+  flex-flow:row wrap;
+  justify-content:space-around;
+}
+.material-attr {
+  display:flex;
+  height:64px;
+}
+.material-item {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 30px;
+  font-size: 12px;
+}
+.need-materials .material-img,
+.fail-materials .material-img {
+  width: 24px;
+  height: 24px;
+}

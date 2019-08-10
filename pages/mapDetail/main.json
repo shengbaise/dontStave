@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "markdown" : "../../components/markdown/markdown",
+    "i-icon": "../../components/iView/dist/icon/index"
+  },
+  "enablePullDownRefresh": false
+}
