@@ -1,0 +1,13 @@
+<view class="page">
+  <header-item
+    bind:handle-click2="left2Click"
+    leftIcon2="{{leftIcon2}}" 
+    leftIcon1="{{leftIcon1}}" 
+    title="{{title}}"
+    bind:handle-click="left1Click"
+    navH="{{navH}}"></header-item>
+  <view class='page-view' style="top: {{navH + 'px'}};height: {{'calc(100% - ' + navH + 'px)'}}">
+    <slot></slot>
+  </view>
+</view>
+  

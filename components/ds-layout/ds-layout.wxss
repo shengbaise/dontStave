@@ -1,0 +1,7 @@
+.page {
+  position: relative;
+  height: 100%;
+}
+.page-view {
+  position: absolute;
+}

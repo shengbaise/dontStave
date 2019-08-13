@@ -41,7 +41,7 @@
   position: absolute;
   top: 12.5px;
   left: 145px;
-  width: calc(100% - 145px)
+  width: calc(100% - 200px)
 }
 
 .common-good .desciption .name {

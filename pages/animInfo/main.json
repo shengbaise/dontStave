@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "common-good": "../../components/commonGood/commonGood"
+    "common-good": "../../components/commonGood/commonGood",
+    "header-item": "../../components/headerItem/headerItem",
+    "ds-layout": "../../components/ds-layout/ds-layout"
   }
 }

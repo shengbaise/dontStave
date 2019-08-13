@@ -9,13 +9,18 @@ Page({
     heroList: [],
     type: '',
     attrKeys: ['饥饿', '生命', '精神', '空手伤害'],
-    currentVersion: wx.getStorageSync('currentVersion') || 'DST'
+    currentVersion: wx.getStorageSync('currentVersion') || 'DST',
+    navH: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const that = this;
+    that.setData({
+      navH: app.globalData.navHeight
+    })
     this.setPageTitle()
     this.setData({
       type: options.type
@@ -67,6 +72,10 @@ Page({
       scrollTop: 0
     })
     this.setCurrentHero(id)
+  },
+  openSelectVersion () {
+    const item = this.selectComponent('#select-version')
+    item.handleOpen()
   },
   selectVersion () {
     this.setData({

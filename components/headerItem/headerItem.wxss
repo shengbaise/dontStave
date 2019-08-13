@@ -20,6 +20,22 @@
   z-index: 10;
   font-size: 34rpx;
 }
+.border {
+  margin: 6px 6px;
+  height: 18px;
+  width: 0.5rpx;
+  background-color: rgb(233, 227, 227);
+}
+.right-button {
+  position: absolute;
+  bottom: 9px;
+  right: 26%;
+  /* border-radius: 70rpx; */
+  box-sizing: border-box;
+  /* border: 0.5px solid #eaeaea; */
+  display: flex;
+  z-index: 20;
+}
  
 .title_icon {
   position: absolute;

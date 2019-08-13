@@ -1,5 +1,5 @@
 <view class="home-container">
-  <header-item navH="{{navH}}"></header-item>
+  <header-item bind:handle-click="selectVersion" leftIcon1="other" navH="{{navH}}"></header-item>
   <view class="fixed-item" style="top: {{navH + 'px'}}" wx:if="{{isFixed}}">
     <searchInput bindtap="toSearch" marginRight="{{marginRight}}" top="{{marginRight}}" width="{{width}}" isReadonly="true"/>
     <i-tabs color="#f5f5f5" i-class="article-tabs" current="{{currentArticleType}}" scroll bindchange="handleChangeScroll">

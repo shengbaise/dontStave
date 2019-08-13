@@ -1,9 +1,7 @@
+const app = getApp()
+
 Component({
   properties: {
-    navH: {
-      type: Number,
-      value: 0
-    },
     title: {
       type: String,
       value: '掌上饥荒'
@@ -16,6 +14,9 @@ Component({
       type: String,
       value: ''
     }
+  },
+  data:{
+    navH: 0
   },
   methods: {
     left1Click () {
@@ -43,4 +44,11 @@ Component({
       })
     }
   },
+  attached() {
+    console.info(app, 'app')
+    const that = this
+    that.setData({
+      navH: app.globalData.navHeight
+    })
+  }
 })

@@ -36,14 +36,16 @@ Page({
       }],
     currentTabs: [],
     scrollLeft: 0,
-    scrollTop: 0
+    scrollTop: 0,
+    navH: 0
   },
   onLoad (options) {
+    const that = this;
+    that.setData({
+      navH: app.globalData.navHeight
+    })
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'
     this.data.type = options.type
-    wx.setNavigationBarTitle({
-      title: `生物资料(${this.data.version})`
-    })
   },
   onShow () {
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "header-item": "../../components/headerItem/headerItem"
+  }
+}

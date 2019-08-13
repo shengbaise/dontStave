@@ -78,7 +78,7 @@ Page({
     loaded: false,
     scrollTop: 0,
     borderColors: ['#dc1454', '#ae63e4', '#47cf73', '#ffdd40', '#0ebeff', '#4a4c53'],
-    isSelectVersion: false,
+    showSelectVersion: false,
     scrollLeft: 0,
     articleTabs: [
       {
@@ -119,7 +119,6 @@ Page({
       navH: app.globalData.navHeight
     })
 
-    console.info(this.data.test1)
     if (!wx.getStorageSync('currentVersion')) {
       this.selectComponent("#select-version").handleOpen()
     }
@@ -133,9 +132,6 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  },
-  showSelectVersion () {
-    this.data.isSelectVersion = true
   },
   scroll (e) {
     if (e.detail.scrollTop >= 460 && !this.data.isFixed) {
@@ -158,11 +154,9 @@ Page({
     //   this.scrollLeft = 0
     // }
   },
-  hideSelect () {
-    this.data.isSelectVersion = false
-  },
-  showSelectVersion () {
-    this.data.isSelectVersion = true
+  selectVersion () {
+    const item = this.selectComponent('#select-version')
+    item.handleOpen()
   },
   loadMore () {
     if (this.data.pageDatas.length !== 0) {

@@ -1,9 +1,15 @@
 <view class='nav' style='height:{{navH}}px'>
   <view class='title_icon'>
-    <i-icon size="20" type="return" />
-
+    <i-icon bindtap="left1Click" wx:if="{{leftIcon1}}" type="{{leftIcon1}}" size="23" color="#ffffff" />
+    <view wx:if="{{leftIcon2}}" class="border"></view>
+    <i-icon bindtap="left2Click" wx:if="{{leftIcon2}}" size="24" type="{{leftIcon2}}" />
+    <!-- <i-icon wx:if="{{hasHome}}" bindtap="navHome" size="20" type="homepage" /> -->
+    <!-- <i-icon type="homepage" size="20" wx:if="{{hasBack}}"/> -->
   </view>
   <view class='title_text'>
     {{title}}
   </view>
+  <!-- <view class="right-button">
+    <i-icon type="other" size="28" color="#ffffff" />
+  </view> -->
 </view>
