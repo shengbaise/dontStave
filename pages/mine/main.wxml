@@ -1,9 +1,11 @@
-<view class="mine">
-  <view class="feed-back" bindtap="toFeedBackList">
-    <view class="left">
-      <i-icon size="28" color="#ffffff" type="feedback" />
-      <view>FeedBack</view>
+<ds-layout title="我的" leftIcon1="">
+  <view class="mine">
+    <view class="feed-back" bindtap="toFeedBackList">
+      <view class="left">
+        <i-icon size="28" color="#ffffff" type="feedback" />
+        <view>FeedBack</view>
+      </view>
+      <view class="right">反馈</view>
     </view>
-    <view class="right">反馈</view>
   </view>
-</view>
+</ds-layout>

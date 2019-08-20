@@ -1,5 +1,6 @@
 .feed-back {
-  padding: 12px
+  padding: 12px;
+  width: 100vw;
 }
 
 .feed-back .name-alis {

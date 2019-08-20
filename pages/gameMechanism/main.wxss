@@ -1,6 +1,8 @@
 .game-mechanism {
   background-color: #f5f5f5;
-  padding: 12px 12px 0 12px
+  padding: 12px 12px 0 12px;
+  width:100vw;
+  box-sizing:border-box;
 }
 
 .game-mechanism .mechanism {

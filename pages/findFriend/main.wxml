@@ -1,8 +1,12 @@
-<view class="find-friend">
-  <i-tabs style="" color="#f5f5f5" i-class="type-tabs" current="{{currentType.id}}" scroll bindchange="handleChangeScroll">
-    <i-tab i-class="type-tab" wx:for="{{typeList}}" key="{{item.id}}" wx:key="{{item.id}}" title="{{item.name}}">{{item.name}}</i-tab>
-  </i-tabs>
-  <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{true}}" class="view" bindscrolltolower="loadMore"> -->
+<ds-layout title="找饥友" leftIcon1="brush" bind:handle-click="toNew">
+  <view class="find-friend">
+    <view class="type-tabs-container" style="top: {{navH}}px;">
+    <!--  -->
+      <i-tabs style="width: 100vw;" i-class="type-tabs" color="#f5f5f5"  current="{{currentType.id}}" scroll bindchange="handleChangeScroll">
+        <i-tab i-class="type-tab" wx:for="{{typeList}}" key="{{item.id}}" wx:key="{{item.id}}" title="{{item.name}}">{{item.name}}</i-tab>
+      </i-tabs>
+    </view>
+    <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{true}}" class="view" bindscrolltolower="loadMore"> -->
     <view class="friends">
       <view class="friend"
         wx:for="{{friends}}"
@@ -27,9 +31,10 @@
       <view class="bottom-tip-friend" wx:if="{{loading}}">加载中...</view>
       <view class="bottom-tip-friend" wx:if="{{loaded && allFriends.length === 0}}">没有更多数据</view>
     </view>
-  <!-- </scroll-view> -->
-  <view class="edit-button" bindtap="toNew">
-    <i-icon type="brush" color="#ffffff" size="20" />
+    <!-- </scroll-view> -->
+    <!-- <view class="edit-button" bindtap="toNew">
+      <i-icon type="brush" color="#ffffff" size="20" />
+    </view> -->
+    <i-toast id="toast" />
   </view>
-  <i-toast id="toast" />
-</view>
+</ds-layout>

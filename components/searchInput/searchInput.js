@@ -67,8 +67,8 @@ Component({
       })
     },
     handleInput ({detail}) {
-      debounce(this.setInputValue, 2000, false)(detail.value)
-      // this.setInputValue(detail.value)
+      // debounce(this.setInputValue, 2000, false)(detail.value)
+      this.setInputValue(detail.value)
     }
   }
 })

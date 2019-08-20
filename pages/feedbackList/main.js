@@ -25,11 +25,15 @@ Page({
       type: 2
     }],
     currentTabType: 0,
-    scrollTop: 0
+    scrollTop: 0,
+    navH: 0
   },
   onLoad () {
     this.data.pageNum = 0
     this.setFeedBacks()
+    this.setData({
+      navH: app.globalData.navHeight
+    })
   },
   // onShow () {
   //   this.data.pageNum = 0

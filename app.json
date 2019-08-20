@@ -59,5 +59,6 @@
   "plugins": {
   },
   "usingComponents": {
+    "ds-layout": "../../components/ds-layout/ds-layout"
   }
 }

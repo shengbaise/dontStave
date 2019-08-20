@@ -1,22 +1,24 @@
-<view class="article-detail">
-  <view class="article-img-container"
-    wx:if="{{article.src}}"
-    style="background-image: url({{article.src + '?x-oss-process=style/width-720'}});">
-  </view>
-  <view class="article-content">
-    <ad unit-id="adunit-90d9e8f8174becb2"></ad>
-    <view class="title">{{article.title}}</view>
-    <view class="time-author">
-      <view class="author">
-        <i-icon size="18" color="rgba(0,0,0,.54)" type="mine" />
-        <view>{{article.author}}</view>
-      </view>
-      <view class="time">
-        <i-icon size="18" color="rgba(0,0,0,.54)" type="activity" />
-        <view>{{article.time}}</view>
-      </view>
+<ds-layout title="文章详情">
+  <view class="article-detail">
+    <view class="article-img-container"
+      wx:if="{{article.src}}"
+      style="background-image: url({{article.src + '?x-oss-process=style/width-720'}});">
     </view>
-    <markdown content="{{article.content}}"></markdown>
+    <view class="article-content">
+      <ad unit-id="adunit-90d9e8f8174becb2"></ad>
+      <view class="title">{{article.title}}</view>
+      <view class="time-author">
+        <view class="author">
+          <i-icon size="18" color="rgba(0,0,0,.54)" type="mine" />
+          <view>{{article.author}}</view>
+        </view>
+        <view class="time">
+          <i-icon size="18" color="rgba(0,0,0,.54)" type="activity" />
+          <view>{{article.time}}</view>
+        </view>
+      </view>
+      <markdown content="{{article.content}}"></markdown>
+    </view>
   </view>
-</view>
+</ds-layout>
   

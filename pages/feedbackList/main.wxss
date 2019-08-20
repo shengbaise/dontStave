@@ -92,11 +92,12 @@ page {
   text-align: center;
   padding-bottom: 12px
 }
-.tabs {
+.tabs-container {
   position: fixed !important;
   z-index: 12;
-  top: 0;
   left: 0;
+}
+.tabs {
   background-color: #37474f !important;
 }
 .tab {

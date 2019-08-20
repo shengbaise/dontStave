@@ -1,19 +1,21 @@
-<view id="geography">
-  <i-tabs style="" color="#f5f5f5" i-class="tabs" current="{{currentTabType}}" scroll bindchange="handleChangeScroll">
-    <i-tab i-class="tab" wx:for="{{tabs}}" key="{{item.type}}" wx:key="{{item.type}}" title="{{item.label}}">{{item.label}}</i-tab>
-  </i-tabs>
-  <scroll-view bindscrolltolower="loadMore" scroll-y scroll-top="{{scrollTop}}" class="basic">
-    <view class="items">
-      <view class="item" data-id="{{item._id}}" bindtap="toDetail" wx:for="{{currentItems}}" wx:key="{{index}}">
-        <view class="item-description">
-          <view class="name">{{item.name}}</view>
+<ds-layout title="地理列表">
+  <view id="geography">
+    <i-tabs style="width: 100vw;" color="#f5f5f5" i-class="tabs" current="{{currentTabType}}" scroll bindchange="handleChangeScroll">
+      <i-tab i-class="tab" wx:for="{{tabs}}" key="{{item.type}}" wx:key="{{item.type}}" title="{{item.label}}">{{item.label}}</i-tab>
+    </i-tabs>
+    <scroll-view bindscrolltolower="loadMore" scroll-y scroll-top="{{scrollTop}}" class="basic">
+      <view class="items">
+        <view class="item" data-id="{{item._id}}" bindtap="toDetail" wx:for="{{currentItems}}" wx:key="{{index}}">
+          <view class="item-description">
+            <view class="name">{{item.name}}</view>
+          </view>
+          <view class="img-container">
+            <image class="item-img" src="{{item.src + '?x-oss-process=style/width-180'}}" mode="aspectFill" lazy-load="{{false}}"/>
+          </view>
         </view>
-        <view class="img-container">
-          <image class="item-img" src="{{item.src + '?x-oss-process=style/width-180'}}" mode="aspectFill" lazy-load="{{false}}"/>
-        </view>
+        <view class="bottom-tip" wx:if="{{loaded && !items.length && currentItems.length}}">没有更多数据</view>
       </view>
-      <view class="bottom-tip" wx:if="{{loaded && !items.length && currentItems.length}}">没有更多数据</view>
-    </view>
-    <view wx:if="{{currentItems.length === 0 && loaded}}" class="no-data">暂无数据～～～</view>
-  </scroll-view>
-</view>
+      <view wx:if="{{currentItems.length === 0 && loaded}}" class="no-data">暂无数据～～～</view>
+    </scroll-view>
+  </view>
+</ds-layout>

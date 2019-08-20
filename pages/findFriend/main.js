@@ -68,7 +68,8 @@ Page({
     loading: false,
     loaded: false,
     showToast: false,
-    scrollTop: 0
+    scrollTop: 0,
+    navH: 0
   },
 
   /**
@@ -81,6 +82,9 @@ Page({
     this.data.pageNum = 0
     this.data.friends = []
     this.setFriends()
+    this.setData({
+      navH: app.globalData.navHeight
+    })
   },
 
   /**

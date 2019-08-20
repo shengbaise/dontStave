@@ -1,6 +1,6 @@
-<ds-layout title="{{'生物资料('+ version + ')'}}">
+<ds-layout title="{{'生物列表('+ version + ')'}}">
   <view class="anim-info">
-    <scroll-view scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}" scroll-x style="width: 100%;" class="tabs">
+    <scroll-view scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}" scroll-x style="width: 100vw;" class="tabs">
       <view
         class="tab {{currentTabType === item.type ? 'tab-selected' : '' }}"
         data-type="{{item.type}}"
