@@ -4,7 +4,7 @@
     style="background-image: url({{article.src + '?x-oss-process=style/width-720'}});">
   </view>
   <view class="article-content">
-    <ad unit-id="adunit-90d9e8f8174becb2"></ad>
+    <!-- <ad unit-id="adunit-90d9e8f8174becb2"></ad> -->
     <view class="title">{{article.title}}</view>
     <view class="time-author">
       <view class="author">

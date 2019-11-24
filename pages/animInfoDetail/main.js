@@ -1,5 +1,6 @@
 const app = getApp()
 import { formatUrl } from '../../utils/util.js'
+let interstitialAd = null
 
 Page({
   data: {
@@ -11,16 +12,11 @@ Page({
     src: ''
   },
   onLoad (options) {
-    let videoAd = wx.createRewardedVideoAd({
-      adUnitId: 'adunit-313da0e233cc28bd'
-    })
-    console.info(videoAd)
-    videoAd.load()
-    .then(() => videoAd.show())
-    .catch(err => console.log(err.errMsg))
-    videoAd.onError((e) => {
-      console.info(e, 'eee')
-    })
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-c6e9488489010cf4'
+      })
+    }
     wx.setNavigationBarTitle({
       title: '生物详细资料'
     })
@@ -29,6 +25,13 @@ Page({
       version: wx.getStorageSync('currentVersion') || 'DST'
     })
     this.initData()
+  },
+  onShow () {
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
   },
   handleData (res) {
     // 收集

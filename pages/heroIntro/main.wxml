@@ -17,7 +17,7 @@
         <markdown content="{{currentHero.ability}}"></markdown>
       </view>
     </i-card>
-    <ad unit-id="adunit-6ef8df293fa6394f"></ad>
+    <!-- <ad unit-id="adunit-6ef8df293fa6394f"></ad> -->
   </scroll-view>
   <selectVersion  bind:handle-select="selectVersion" id="select-version"></selectVersion>
 </view>

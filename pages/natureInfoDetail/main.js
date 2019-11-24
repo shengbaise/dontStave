@@ -1,5 +1,6 @@
 const app = getApp()
 import { getDetailItem, formatUrl } from '../../utils/util.js'
+let interstitialAd = null
 
 Page({
   data: {
@@ -9,6 +10,11 @@ Page({
     src: ''
   },
   onLoad (options) {
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-3f1b4518f2939bd3'
+      })
+    }
     this.setData({
       version: wx.getStorageSync('currentVersion') || 'DST',
       src: options.src
@@ -19,6 +25,11 @@ Page({
     this.initData()
   },
   onShow () {
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
     this.data.origins = []
     this.data.createSciences = []
     this.setData({

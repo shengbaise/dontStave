@@ -1,4 +1,5 @@
 const app = getApp()
+let interstitialAd = null
 
 Page({
 
@@ -13,7 +14,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (options) {
-    console.info(123)
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-63cb209a5d409740'
+      })
+    }
+
     wx.setNavigationBarTitle({
       title: '文章详情'
     })
@@ -36,7 +42,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
   },
 
   /**

@@ -7,7 +7,7 @@
     </i-tabs>
   </view>
   <view class="view">
-    <ad unit-id="adunit-e7a57fa768a06808"></ad>
+    <!-- <ad unit-id="adunit-e7a57fa768a06808"></ad> -->
     <searchInput bindtap="toSearch" marginRight="{{marginRight}}" top="{{marginRight}}" width="{{width}}" isReadonly="{{true}}"/>
     <view class="tabs">
       <view class="tab" wx:for="{{tabs}}" wx:key="{{index}}" bindtap="toTap" data-path="{{item.toPath}}" data-type="{{item.type}}">

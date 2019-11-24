@@ -3,7 +3,7 @@
 //获取应用实例
 const app = getApp()
 // 在页面中定义插屏广告
-let interstitialAd = null
+// let interstitialAd = null
 
 Page({
   data: {
@@ -113,21 +113,31 @@ Page({
     marginRight: 0,
     width: '100%',
     currentVersion: '',
-    test1: app.globalData
+    test1: app.globalData,
+    flag: true
   },
   onLoad () {
+    // if (wx.createInterstitialAd) {
+    //     interstitialAd = wx.createInterstitialAd({
+    //         adUnitId: 'adunit-6514cac22ee59dc0'
+    //     })
+    // }
     const that = this;
     that.setData({
       navH: app.globalData.navHeight
     })
 
-    console.info(this.data.test1)
     if (!wx.getStorageSync('currentVersion')) {
       this.selectComponent("#select-version").handleOpen()
     }
     this.setArticles()
   },
   onShow() {
+    // if(interstitialAd) {
+    //     interstitialAd.show().catch((err) => {
+    //         console.error(err, 'hahaha');
+    //     })
+    // }
   },
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo

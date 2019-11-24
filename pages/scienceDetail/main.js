@@ -1,5 +1,6 @@
 const app = getApp()
 import { getDetailItem, formatUrl } from '../../utils/util.js'
+let interstitialAd = null
 
 Page({
   data: {
@@ -18,6 +19,11 @@ Page({
     }
   },
   onLoad (options) {
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-b9f3ae65f20eae61'
+      })
+    }
     wx.setNavigationBarTitle({
       title: `物品详情(${options.version})`
     })
@@ -27,6 +33,11 @@ Page({
     this.initData(options)
   },
   onShow () {
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'
   },
   initData (options) {

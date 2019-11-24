@@ -28,8 +28,8 @@
       <view class="bottom-tip-friend" wx:if="{{loaded && allFriends.length === 0}}">没有更多数据</view>
     </view>
   <!-- </scroll-view> -->
-  <view class="edit-button" bindtap="toNew">
+  <!-- <view class="edit-button" bindtap="toNew">
     <i-icon type="brush" color="#ffffff" size="20" />
-  </view>
+  </view> -->
   <i-toast id="toast" />
 </view>
