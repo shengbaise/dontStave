@@ -1,0 +1,88 @@
+page {
+  height: 100%;
+}
+.science-technology-detail {
+  position: relative;
+  height: 100%
+}
+
+.science-technology-detail .view {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.science-technology-detail .detail-container {
+  padding: 12px
+}
+
+.science-technology-detail .detail-container .detail {
+  position: relative;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 6px;
+  min-height: 30vh;
+  border: 1px solid #e0e0e0;
+  box-shadow: inset 0 4px 8px #e0e0e0
+}
+
+.science-technology-detail .detail-container .detail .science {
+  height: 32px;
+  margin-top: -12px;
+  margin-right: -12px;
+  text-align: right
+}
+
+.science-technology-detail .detail-container .detail .science .no-science {
+  color: #999;
+  font-size: 12px
+}
+
+.science-technology-detail .detail-container .detail .science .science-img {
+  width: 32px
+}
+
+.science-technology-detail .detail-container .detail .materials {
+  padding-top: 2px;
+  padding-bottom: 18px;
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: space-around
+}
+
+.science-technology-detail .detail-container .detail .materials .material {
+  display: flex;
+  flex-flow: nowrap row;
+  align-items: center
+}
+
+.science-technology-detail .detail-container .detail .materials .material .material-img {
+  width: 48px;
+  height: 48px;
+}
+.attrs {
+  font-size: 15px
+}
+
+.attrs .aggressivity,
+.attrs .durable {
+  width: 50px;
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 2px;
+}
+.attr-contanier {
+  display: flex;
+  align-items: center;
+}
+.attr-value {
+  font-size: 14px;
+  color: #606266;
+  text-align: left;
+  font-family: Arial Rounded MT Bold;
+  letter-spacing: 2px;
+}

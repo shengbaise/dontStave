@@ -1,0 +1,44 @@
+<view class="introduce">
+  <view class="introduce-item">
+    <view class="key">游戏昵称(必填):</view>{{value1}}
+    <input bindinput="handleNicknameBlur" value="{{nickname}}" class="value {{!hasNickname ? 'red-border' : ''}}" type="text"/>
+  </view>
+  <view class="contact-item">
+    <view class="contact-type">联系方式(选填一个):</view>
+    <view class="contacts">
+      <input bindinput="handleQQBlur" disabled="{{weixin}}" placeholder="QQ" value="{{qq}}" class="contact {{!!weixin ? 'ban' : ''}}" type="text"/>
+      <input bindinput="handleWeixinBlur" disabled="{{qq}}" placeholder="微信" value="{{weixin}}" class="contact {{!!qq ? 'ban' : ''}}" type="text"/>
+    </view>
+  </view>
+  <view class="personal-introduce">
+    <view class="introduce-title">介绍(必填):</view>
+    <textarea
+      bindinput="handlehasIntroduceBlur"
+      value="{{introduce}}" rows="4" minlength="10" maxlength="120" placeholder="想找什么样的饥友，以及关于自己的介绍，10个字以上，120字以内"
+      class="textarea {{!hasIntroduce ? 'red-border' : ''}}"/>
+  </view>
+  <view class="introduce-item">
+    <view class="key">账号类型:</view>
+    <radio-group class="radio-box" bindchange="accountChange">
+      <label class="radio">
+        <radio checked type="radio" value="1"/>Steam
+      </label>
+      <label class="radio">
+        <radio type="radio" value="2"/>WeGame
+      </label>
+    </radio-group>
+  </view>
+  <view class="introduce-item">
+    <view class="key">性别:</view>
+    <radio-group class="radio-box" bindchange="sexChange">
+      <label class="radio">
+        <radio checked type="radio" value="1"/>男
+      </label>
+      <label class="radio">
+        <radio type="radio" value="2"/>女
+      </label>
+    </radio-group>
+  </view>
+  <view class="error-message" wx:if="errorMessage">{{errorMessage}}</view>
+  <view class="button" bindtap="commit">提交</view>
+</view>

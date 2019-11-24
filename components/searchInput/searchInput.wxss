@@ -1,0 +1,70 @@
+.search-input {
+  /* background-color:#37474f; */
+  user-select: none;
+  width: 100%;
+}
+input::input-placeholder {
+  color: #999;
+}
+.version-group {
+  z-index: 3;
+  top: 43px;
+  left: 0;
+  width: 120px;
+  height: 200px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  background-color: #fff;
+  padding-bottom: 10px;
+}
+.radio {
+  padding: 12px;
+  padding-bottom: 0;
+  color: rgba(0,0,0,.54);
+}
+.search-container {
+  position: relative;
+  display: flex;
+  flex-flow: nowrap row;
+  align-items: center;
+  font-size: 14px;
+}
+.icon-zhankai, .icon-shouqi {
+  display: inline-block;
+  text-align: right;
+}
+.search-text {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  font-size: 14px;
+  z-index: 10;
+  user-select: none;
+  padding:20px;
+  color:#009688;
+}
+.icon-sousuo {
+  position: absolute;
+  display: inline-block;
+  font-size: 18px;
+  color: gray;
+  z-index: 10;
+  padding-left: 10px;
+  user-select: none;
+}
+.search-input {
+  user-select: none;
+  font-size: 13px;
+  width: 100%;
+  color: gray;
+}
+.input-item {
+  padding: 8px 0 8px 34px;
+  background-color: #fff;
+}
+.search-icon {
+  position: absolute;
+  left: 8px;
+}

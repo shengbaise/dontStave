@@ -1,0 +1,129 @@
+.game-mechanism {
+  background-color: #f5f5f5;
+  padding: 12px 12px 0 12px
+}
+
+.game-mechanism .mechanism {
+  position: relative;
+  width: calc(100% -24px);
+  height: 95px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px #acacac;
+  border: 1px solid #acacac;
+  margin-bottom: 16px
+}
+
+.game-mechanism .mechanism .icon {
+  position: absolute;
+  font-size: 52px;
+  left: 15%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+
+.game-mechanism .mechanism .section {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 40%;
+  text-align: center
+}
+
+.game-mechanism .mechanism .title {
+  font-size: 20px;
+  font-weight: 600
+}
+
+.game-mechanism .mechanism .section .content {
+  margin: 12px 0 0;
+  font-size: 12px
+}
+
+.game-mechanism .role {
+  background-image: linear-gradient(60deg, #29323c, #485563)
+}
+
+.game-mechanism .role .title {
+  color: #d0d0d0
+}
+
+.game-mechanism .role .content {
+  color: #999
+}
+
+.game-mechanism .role .icon {
+  color: #fff
+}
+
+.game-mechanism .food {
+  background-image: linear-gradient(60deg, #8e0115, #b11c32)
+}
+
+.game-mechanism .food .title {
+  color: #EBC76F
+}
+
+.game-mechanism .food .content {
+  color: #CC704A
+}
+
+.game-mechanism .food .icon {
+  color: #ebc76f
+}
+
+.game-mechanism .nature {
+  background-color: #8aa286
+}
+
+.game-mechanism .nature .title {
+  color: white
+}
+
+.game-mechanism .nature .content {
+  color: #D5DED3
+}
+
+.game-mechanism .nature .icon {
+  color: #fff
+}
+
+.game-mechanism .animal {
+  background-color: #dcd9d4;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0, rgba(0, 0, 0, 0.5)), radial-gradient(at 50% 0, rgba(255, 255, 255, 0.1) 0, rgba(0, 0, 0, 0.5) 50%);
+  background-blend-mode: soft-light, screen
+}
+
+.game-mechanism .animal .title {
+  color: #333333
+}
+
+.game-mechanism .animal .content {
+  font-size: 12px;
+  color: #666
+}
+
+.game-mechanism .animal .icon {
+  color: #212121
+}
+
+.game-mechanism .equipment {
+  background-color: #dcd9d4;
+  background-image: linear-gradient(135deg, #c79081, #dfa579);
+  background-blend-mode: soft-light, screen
+}
+
+.game-mechanism .equipment .title {
+  color: #8e2402
+}
+
+.game-mechanism .equipment .content {
+  font-size: 12px;
+  color: #b14421
+}
+
+.game-mechanism .equipment .icon {
+  color: #8e2402
+}

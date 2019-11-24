@@ -1,0 +1,32 @@
+<view class="game-mechanism">
+  <view class="role mechanism" bindtap="toDetail" data-index="{{0}}">
+    <view class="title icon">角色</view>
+    <view class="section">
+      <view class="content">饱食度，血量，湿度 & 体温，中毒，人物解锁...</view>
+    </view>
+  </view>
+  <view class="food mechanism" bindtap="toDetail" data-index="{{1}}">
+    <view class="title icon">食物</view>
+    <view class="section">
+      <view class="content">营养度，优先级 & 温度，速度，照明...</view>
+    </view>
+  </view>
+  <view class="mechanism nature" bindtap="toDetail" data-index="{{2}}">
+    <view class="title icon">自然</view>
+    <view class="section">
+      <view class="content">昼夜，月相 & 四季，天气，气温</view>
+    </view>
+  </view>
+  <view class="mechanism animal" bindtap="toDetail" data-index="{{3}}">
+    <view class="title icon">动物</view>
+    <view class="section">
+      <view class="content">仇恨，罪恶，习性 & 攻击间隔，理智影响</view>
+    </view>
+  </view>
+  <view class="mechanism equipment" bindtap="toDetail" data-index="{{4}}">
+    <view class="title icon">装备</view>
+    <view class="section">
+      <view class="content">攻击，耐久，防御，防潮 & 照明，温度影响,精神影响</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,12 @@
+<view class="game-mechanism-detail">
+  <view class="mechainsm-list">
+    <view class="item" wx:for="{{currentRules}}" wx:key="item._id" data-id="{{item._id}}" bindtap="toArticleDetail">
+      <view class="item-title">
+        <view class="title">{{item.title}}</view>
+        <view class="icon-container">
+          <i-icon color="rgba(0,0,0,.54)" size="18" type="enter" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

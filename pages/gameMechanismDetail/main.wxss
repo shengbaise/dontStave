@@ -1,0 +1,25 @@
+page {
+  height: 100%;
+}
+.game-mechanism-detail {
+  height: 100%;
+  background-color: #f5f5f5;
+  padding: 12px;
+  box-shadow: 0 0 0 rgba(0,0,0,.2), 0 0 0 rgba(0,0,0,.14), 0 0 0 rgba(0,0,0,.12);
+}
+.item {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  color: rgba(0,0,0,.87);
+  font-size: 14px;
+}
+.item-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 24px;
+  line-height: 48px;
+  box-sizing: border-box;
+}

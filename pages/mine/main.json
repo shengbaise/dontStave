@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "i-icon": "../../components/iView/dist/icon/index"
+  },
+  "enablePullDownRefresh": false
+}

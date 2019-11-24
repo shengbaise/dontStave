@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mark-down": "../markdown/markdown",
+    "i-toast": "../../components/iView/dist/toast/index"
+  }
+}

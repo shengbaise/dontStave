@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "i-modal": "../../components/iView/dist/modal/index",
+    "i-button": "../../components/iView/dist/button/index",
+    "i-icon": "../../components/iView/dist/icon/index"
+  }
+}

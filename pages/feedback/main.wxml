@@ -1,0 +1,13 @@
+<view class="feed-back">
+  <view class="name-alis">
+    <view class="name">{{item.name}}</view>
+    <view class="alis">({{item.alis}})</view>
+  </view>
+  <textarea
+    bindinput="handleInput"
+    value="{{question}}" rows="4" minlength="10" maxlength="120"
+    placeholder="百科资料问题反馈，5到50字"
+    class="feed-back-textarea {{hasClickCommit && !question ? 'red-border' : ''}}" />
+  <view class="commit" bindtap="commit">提交</view>
+</view>
+  

@@ -1,0 +1,66 @@
+page {
+  height: 100%;
+}
+.nature-info {
+  display: flex;
+  flex-flow: column;
+  height: 100%
+}
+
+.nature-info .tab-selected {
+  color: #b7ba6b !important
+}
+
+.nature-info .tabs {
+  height: 42px;
+  width: 100%;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  font-size: 14px;
+  background-color: #263238;
+  color: #999;
+  justify-content: space-around;
+  align-items: center
+}
+
+.nature-info .tabs .tab {
+  display: inline-block;
+  width: 64px;
+  height: 42px;
+  margin-right: 12px;
+  line-height: 42px;
+  text-align: center;
+  white-space: nowrap
+}
+
+.nature-info .view {
+  flex-grow: 1;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 100%
+}
+.attrs {
+  font-size: 15px
+}
+
+.attrs .aggressivity,
+.attrs .durable {
+  width: 50px;
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 2px;
+}
+.attr-contanier {
+  display: flex;
+  align-items: center;
+}
+.attr-value {
+  font-size: 14px;
+  color: #606266;
+  text-align: left;
+  font-family: Arial Rounded MT Bold;
+  letter-spacing: 2px;
+}

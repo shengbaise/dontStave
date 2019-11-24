@@ -1,0 +1,3 @@
+<view class="feed-back-button" bindtap="toFeedBack">
+  <i-icon size="28" color="rgb(0, 150, 136)" type="feedback" />
+</view>

@@ -1,0 +1,64 @@
+page{
+  height: 100%;
+}
+#geography {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.basic {
+  position: relative;
+  height: 100%;
+  flex-grow: 1;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+.tabs {
+  flex-shrink: 0;
+  background-color: #37474f !important;
+}
+.tab {
+  width: auto !important;
+  padding: 0 12px !important;
+}
+.item {
+  position: relative;
+  display: flex;
+  height: 120px;
+  margin-top: 12px;
+}
+.img-container {
+  position: relative;
+  flex-grow: 1;
+  padding-left:12px;
+}
+.item-img {
+  height: 120px;
+  border-radius: 4px;
+  position: absolute;
+  top: 12px;
+  width: calc(100% - 12px);
+}
+.item-description {
+  position: relative;
+  flex-basis: 30%;
+  border-radius: 4px;
+  background-color: rgb(55, 71, 79);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:12px;
+  box-sizing:border-box;
+}
+.name {
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.items {
+  position:relative;
+  padding: 0 12px;
+  padding-bottom:24px;
+}

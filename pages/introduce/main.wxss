@@ -1,0 +1,119 @@
+.introduce {
+  height: 100%;
+  padding: 20px
+}
+
+.introduce .error-message {
+  color: red;
+  font-size: 12px
+}
+
+.introduce .red-border {
+  border-color: red !important
+}
+
+.introduce .ban {
+  border-bottom: 1px dotted #e0e0e0 !important;
+  opacity: 0.7
+}
+
+.introduce .personal-introduce,
+.introduce .contact-item {
+  margin-bottom: 20px
+}
+
+.introduce .personal-introduce .introduce-title,
+.introduce .personal-introduce .contact-type,
+.introduce .contact-item .introduce-title,
+.introduce .contact-item .contact-type {
+  padding-bottom: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px
+}
+
+.introduce .personal-introduce .textarea,
+.introduce .contact-item .textarea {
+  height: 90px;
+  font-size: 14px;
+  line-height: 21px;
+  margin-bottom: 12px;
+  outline: none;
+  text-decoration: none;
+  border: 1px solid #e0e0e0;
+  padding: 8px 0 8px 8px;
+  width: 100%;
+  border-radius: 4px
+}
+
+.introduce .introduce-item {
+  display: flex;
+  margin-bottom: 20px
+}
+
+.introduce .introduce-item .key {
+  height: 36px;
+  line-height: 36px;
+  width: 100px;
+  flex-shrink: 0;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px
+}
+
+.introduce .introduce-item .value {
+  height: 36px;
+  line-height: 36px;
+  box-sizing: border-box;
+  width: 70%;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 4px 8px 4px 0;
+  color: #333;
+  font-size: 14px
+}
+
+.introduce .introduce-item .radio-group {
+  height: 36px;
+  line-height: 36px
+}
+
+.introduce .introduce-item .radio-box {
+  padding-top: 8px;
+  box-sizing: border-box;
+  font-size: 14px
+}
+
+.introduce .introduce-item .radio-box .radio {
+  padding-right: 12px
+}
+
+.introduce .contacts .contact {
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 4px 8px 4px 0;
+  color: #333;
+  font-size: 14px
+}
+
+.introduce .button {
+  color: #fff;
+  background-color: #2874f0;
+  font-size: 14px;
+  width: 80px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  margin-top: 82px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%)
+}
+radio .wx-radio-input{
+  border-radius: 30rpx;
+  height: 30rpx;
+  width: 30rpx;
+}
+textarea {
+  border: 1px solid #e0e0e0;
+}

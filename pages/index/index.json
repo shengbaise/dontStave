@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "selectVersion": "../../components/selectVersion/selectVersion",
+    "searchInput": "../../components/searchInput/searchInput",
+    "i-tabs": "../../components/iView/dist/tabs/index",
+    "i-tab": "../../components/iView/dist/tab/index",
+    "i-icon": "../../components/iView/dist/icon/index",
+    "header-item": "../../components/headerItem/headerItem"
+  },
+  "enablePullDownRefresh": true
+}

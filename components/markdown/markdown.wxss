@@ -1,0 +1,4 @@
+@import "../wxParse/wxParse.wxss"
+image {
+  max-width: 100%;
+}

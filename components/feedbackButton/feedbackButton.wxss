@@ -1,0 +1,19 @@
+.feed-back-button {
+  position: absolute;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 14px;
+  right:0;
+  top:0;
+  padding:8px;
+}
+.feed-back-button .feed-back-icon {
+  height:24px;
+  width:24px;
+}
