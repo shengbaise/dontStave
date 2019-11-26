@@ -1,0 +1,3 @@
+<scroll-view scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}" scroll-x style="width: 100%;" class="ds-tabs">
+  <view bindtap="selectTab" class="ds-tab {{currentTabType === item.type ? 'ds-tab-selected' : ''}}" data-index="{{index}}" data-type="{{item.type}}" wx:for="{{tabs}}" wx:key="{{item.type}}">{{item.label}}</view>
+</scroll-view>
