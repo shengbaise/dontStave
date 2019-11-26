@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "markdown" : "../../components/markdown/markdown",
-    "i-icon": "../../components/iView/dist/icon/index"
+    "i-icon": "../../components/iView/dist/icon/index",
+    "wemark": "../../components/wemark/wemark"
   },
   "enablePullDownRefresh": false
 }

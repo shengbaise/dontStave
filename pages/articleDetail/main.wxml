@@ -16,7 +16,8 @@
         <view>{{article.time}}</view>
       </view>
     </view>
-    <markdown content="{{article.content}}"></markdown>
+    <wemark md="{{article.content}}" link highlight type="wemark"></wemark>
+    <!-- <markdown content="{{article.content}}"></markdown> -->
   </view>
 </view>
   
