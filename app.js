@@ -1,6 +1,8 @@
 //app.js
 // http = require('service/http.js')
 import http from 'service/http.js'
+import regeneratorRuntime from './utils/runtime'
+import {$c} from './constant'
 
 App({
   onLaunch: function () {
@@ -52,6 +54,7 @@ App({
     userInfo: null
     // regeneratorRuntime: require('./utils/regenerator/runtime-module')
   },
-  http: http
+  http: http,
   // urlStyleParam: '?x-oss-process=style/width-180'
+  $c: $c
 })

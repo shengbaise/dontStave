@@ -2,79 +2,15 @@
 
 //获取应用实例
 const app = getApp()
-// 在页面中定义插屏广告
-// let interstitialAd = null
+import regeneratorRuntime from '../../utils/runtime'
 
 Page({
   data: {
-    footerTabs: [
-      {
-        label: '主页',
-        icon: 'icon-home',
-        path: '/pages/index/main'
-      }, {
-        label: '动态',
-        icon: 'icon-xiaoxi',
-        path: '/pages/index/main'
-      }, {
-        label: '藏品',
-        icon: 'icon-shoucang-tianchong',
-        path: '/pages/index/main'
-      }, {
-        label: '我的',
-        icon: 'icon-mine',
-        path: '/pages/login/main'
-      }],
     userInfo: {},
-    tabs: [
-      {
-        tabImgUrl: '/static/img/home/entry-icon-chacter.png',
-        name: '人物',
-        toPath: 'heroIntro',
-        type: 'hero'
-      }, {
-        tabImgUrl: '/static/img/home/entry-icon-thing.png',
-        name: '科技',
-        toPath: 'science',
-        type: 'materials?version=DST'
-      }, {
-        tabImgUrl: '/static/img/home/entry-icon_food.png',
-        name: '食谱',
-        toPath: 'recipe',
-        type: 'food?version=DST'
-      }, {
-        tabImgUrl: '/static/img/home/entry-icon_anim.png',
-        name: '生物',
-        toPath: 'animInfo',
-        type: 'anim?version=DST'
-      }, {
-        tabImgUrl: '/static/img/home/entry-icon_nature.png',
-        name: '自然',
-        toPath: 'natureInfo',
-        type: 'nature?version=DST'
-      }, {
-        tabImgUrl: '/static/img/home/entry-icon_rule.png',
-        name: '机制',
-        toPath: 'gameMechanism',
-        type: ''
-      }, {
-        tabImgUrl: '/static/img/home/map_intro.png',
-        name: '地理',
-        toPath: 'geography',
-        type: ''
-      }
-      // {
-      //   tabImgUrl: '/static/img/home/activity.png',
-      //   name: '活动',
-      //   toPath: 'activity',
-      //   type: ''
-      // }
-    ],
+    tabs: app.$c('MODEL_TYPES'),
     pageDatas: [],
-    banners: [],
     articles: [],
     version: '',
-    currentLabel: '主页',
     pageNum: 0,
     loading: false,
     loaded: false,
@@ -82,47 +18,14 @@ Page({
     borderColors: ['#dc1454', '#ae63e4', '#47cf73', '#ffdd40', '#0ebeff', '#4a4c53'],
     isSelectVersion: false,
     scrollLeft: 0,
-    articleTabs: [
-      {
-        type: 0,
-        label: '全部'
-      }, {
-        type: 1,
-        label: '科普攻略'
-      }, {
-        type: 2,
-        label: '生存技巧'
-      }, {
-        type: 3,
-        label: '游戏更新'
-      }, {
-        type: 4,
-        label: '官方公告'
-      }, {
-        type: 5,
-        label: '其他'
-      }
-      // , {
-      //   type: 6,
-      //   label: '同人小说'
-      // }
-    ],
+    articleTabs: app.$c('ARTICLE_TYPES'),
     currentArticleType: 0,
     isFixed: false,
-    toView: 'toView',
     marginRight: 0,
-    width: '100%',
-    currentVersion: '',
-    test1: app.globalData,
-    flag: true
+    width: '100%'
   },
   onLoad () {
-    // if (wx.createInterstitialAd) {
-    //     interstitialAd = wx.createInterstitialAd({
-    //         adUnitId: 'adunit-6514cac22ee59dc0'
-    //     })
-    // }
-    const that = this;
+    const that = this
     that.setData({
       navH: app.globalData.navHeight
     })
@@ -162,17 +65,6 @@ Page({
       })
     }
   },
-  selectTab (type, index) {
-    // this.currentArticleType = type
-    // if (index > 2) {
-    //   this.scrollLeft = 76 * (index - 2)
-    // } else {
-    //   this.scrollLeft = 0
-    // }
-  },
-  hideSelect () {
-    this.data.isSelectVersion = false
-  },
   showSelectVersion () {
     this.data.isSelectVersion = true
   },
@@ -187,20 +79,20 @@ Page({
       url: '/pages/search/main'
     })
   },
-  setArticles () {
+  async setArticles () {
     this.setData({
       loading: true
     })
     this.data.loaded = false
     this.data.pageDatas = []
-    app.http.get(`/article?pageSize=10&pageNum=${this.data.pageNum}&type=${this.data.currentArticleType}`, (res) => {
-      const datas = this.data.articles.concat(res.data)
-      this.setData({
-        articles: datas,
-        pageDatas: res.data || [],
-        loading: false,
-        loaded: true
-      })
+    const ret = await app.http.get(`/article?pageSize=10&pageNum=${this.data.pageNum}&type=${this.data.currentArticleType}`)
+    const datas = ret && ret.data || []
+    const articles = this.data.articles.concat(datas)
+    this.setData({
+      articles: articles ,
+      pageDatas: datas,
+      loading: false,
+      loaded: true
     })
   },
   toGeographicalList (type) {
@@ -213,12 +105,6 @@ Page({
     const id = dataset.id
     wx.navigateTo({
       url: `/pages/articleDetail/main?id=${id}&type=article`
-    })
-  },
-  toTabPage (tab) {
-    this.data.currentLabel = tab.label
-    wx.navigateTo({
-      url: tab.path
     })
   },
   toTap (event) {

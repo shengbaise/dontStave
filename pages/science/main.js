@@ -1,4 +1,5 @@
 const app = getApp()
+import regeneratorRuntime from '../../utils/runtime'
 
 Page({
   data: {
@@ -133,15 +134,17 @@ Page({
       url: `/pages/scienceDetail/main?src=${detail.src}&version=${this.data.version}`
     })
   },
-  initData () {
-    app.http.get(`/${this.data.technologyType}?version=${this.data.version}`, (res) => {
-      this.setCurrentMoreTabs()
-      const datas = res.filter(item => item.type === this.data.currentTabType)
-      this.data.items = res
-      this.setData({
-        currentGoods: datas
-      })
-    })
+  async initData () {
+    const ret = await app.http.get(`/${this.data.technologyType}?version=${this.data.version}`)
+    console.info(ret, 'retttttt')
+    // app.http.get(`/${this.data.technologyType}?version=${this.data.version}`, (res) => {
+    //   this.setCurrentMoreTabs()
+    //   const datas = res.filter(item => item.type === this.data.currentTabType)
+    //   this.data.items = res
+    //   this.setData({
+    //     currentGoods: datas
+    //   })
+    // })
   },
   selectTab ({detail}) {
     this.setData({
