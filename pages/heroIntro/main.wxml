@@ -14,7 +14,8 @@
         </view>
       </view>
       <view slot="footer">
-        <markdown content="{{currentHero.ability}}"></markdown>
+        <!-- <markdown content="{{currentHero.ability}}"></markdown> -->
+        <wemark md="{{currentHero.ability}}" link highlight type="wemark"></wemark>
       </view>
     </i-card>
     <!-- <ad unit-id="adunit-6ef8df293fa6394f"></ad> -->

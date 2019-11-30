@@ -1,4 +1,5 @@
 const app = getApp()
+import regeneratorRuntime from '../../utils/runtime'
 
 Page({
   /**
@@ -32,25 +33,19 @@ Page({
       title: `人物(${this.data.currentVersion})`//页面标题为路由参数
     })
   },
-  getData () {
+  async getData () {
     this.data.heroList = []
-    app.http.get(`/${this.data.type}?version=${this.data.currentVersion}`, (res) => {
-      this.setData({
-        heroList: res
-      })
-      this.setCurrentHero(res[0]._id)
+    const ret = await app.http.get(`/${this.data.type}?version=${this.data.currentVersion}`)
+    this.setData({
+      heroList: ret
     })
+    this.setCurrentHero(ret[0]._id)
   },
-  setCurrentHero (id) {
+  async setCurrentHero (id) {
     this.data.currentHero = null
-    app.http.get(`/hero/single?id=${id}`, (res) => {
-      const data = res
-      data.ability = res.ability.replace(/\<h3/g,'<h3 style="line-height: 48px;letter-spacing: normal;margin-bottom: 16px;font-size: 20px;color: #333;border-bottom: 1px solid #e0e0e0;"')
-       .replace(/\<p/g, '<p style="text-align: justify;font-size: 14px;color: #333;letter-spacing: 2px;"')
-       .replace(/\<ul/g, '<ul style="font-size: 14px;"' )
-      this.setData({
-        currentHero: data
-      })
+    const ret = await app.http.get(`/hero/single?id=${id}`)
+    this.setData({
+      currentHero: ret
     })
   },
   showSelectHero () {

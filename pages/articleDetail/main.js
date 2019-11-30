@@ -1,4 +1,5 @@
 const app = getApp()
+import regeneratorRuntime from '../../utils/runtime'
 let interstitialAd = null
 
 Page({
@@ -13,7 +14,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad (options) {
+  async onLoad (options) {
     if (wx.createInterstitialAd) {
       interstitialAd = wx.createInterstitialAd({
         adUnitId: 'adunit-63cb209a5d409740'
@@ -24,10 +25,9 @@ Page({
       title: '文章详情'
     })
     const type = options.type
-    app.http.get(`/${type}/single?id=${options.id}`, (res) => {
-      this.setData({
-        article: res
-      })
+    const ret = await app.http.get(`/${type}/single?id=${options.id}`)
+    this.setData({
+      article: ret
     })
   },
 
