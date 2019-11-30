@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    article: {}
+    article: {},
+    imgDomain: app.imgDomain
   },
 
   /**
@@ -29,6 +30,7 @@ Page({
     this.setData({
       article: ret
     })
+    console.info(this.data.article, 'article')
   },
 
   /**

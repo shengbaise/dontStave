@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "feedback-button": "../../components/feedbackButton/feedbackButton"
+    "feedback-button": "../../components/feedbackButton/feedbackButton",
+    "ds-img": "../../components/dsImg/ds-img"
   }
 }

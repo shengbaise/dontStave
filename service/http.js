@@ -1,4 +1,6 @@
-const baseURL = 'https://fireleaves.cn'
+// const baseURL = 'https://fireleaves.cn'
+const baseURL = 'http://47.112.19.174'
+
 const header = {
   'Accept': 'application/json',
   'content-type': 'application/json'

@@ -3,10 +3,14 @@ Component({
     tabs: {
       type: Array,
       value: []
+    },
+    currentTab: {
+      type: String,
+      value: ''
     }
   },
   data: {
-    currentTabType: '',
+    // currentTab: '',
     scrollLeft: 0,
   },
   methods: {
@@ -24,9 +28,9 @@ Component({
         })
       }
       if (type) {
-        this.setData({
-          currentTabType: type
-        })
+        // this.setData({
+        //   currentTab: type
+        // })
         this.data.currentGoods = []
         setTimeout(() => {
           this.triggerEvent('selectTab', type)

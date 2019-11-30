@@ -4,7 +4,7 @@ Component({
       type: String,
       value: ''
     },
-    desc: {
+    introduce: {
       type: String,
       value: ''
     }

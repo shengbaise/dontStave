@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "mark-down": "../markdown/markdown",
-    "i-toast": "../../components/iView/dist/toast/index"
+    "i-toast": "../../components/iView/dist/toast/index",
+    "wemark": "../../components/wemark/wemark"
   }
 }

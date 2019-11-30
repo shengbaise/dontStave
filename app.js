@@ -56,5 +56,6 @@ App({
   },
   http: http,
   // urlStyleParam: '?x-oss-process=style/width-180'
-  $c: $c
+  $c: $c,
+  imgDomain: 'http://img.fireleaves.cn'
 })

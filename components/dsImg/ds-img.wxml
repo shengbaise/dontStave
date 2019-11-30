@@ -1,0 +1,1 @@
+<image wx:if="{{src}}" class="ds-img" src="{{imgDomain+'/'+src+suffix}}" alt="" mode="aspectFit" />

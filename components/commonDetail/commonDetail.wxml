@@ -9,7 +9,7 @@
   </view>
   <view class="description">
     <view class="title">介绍</view>
-    <mark-down content="{{desc}}" class="content"></mark-down>
+    <wemark md="{{introduce}}" link highlight type="wemark"></wemark>
   </view>
   <i-toast id="toast" />
 </view>

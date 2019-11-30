@@ -2,10 +2,15 @@
   <feedback-button wx:if="{{hasFeedback}}" item="{{good}}"></feedback-button>
   <view class="good-img-container">
     <image class="background-image" src="/static/img/home/chacter2.png" alt="" mode="aspectFit" />
-    <image wx:if="{{good.src}}" class="good-img" src="{{good.src + '?x-oss-process=style/width-64'}}" alt="" mode="aspectFit" />
+    <ds-img src="{{good.src}}"></ds-img>
   </view>
   <view class="desciption">
-    <view class="name">{{good.name}}</view>
+    <view class="name-tag" style="display: flex;">
+      <view class="name">{{good.name}}</view>
+      <view class="tag" wx:for="{{good.tag}}" wx:key="{{item._id}}">
+        {{item.name}}
+      </view>
+    </view>
     <view class="alis">{{good.alis}}</view>
     <slot></slot>
   </view>

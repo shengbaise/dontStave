@@ -10,7 +10,8 @@ Page({
     heroList: [],
     type: '',
     attrKeys: ['饥饿', '生命', '精神', '空手伤害'],
-    currentVersion: wx.getStorageSync('currentVersion') || 'DST'
+    currentVersion: wx.getStorageSync('currentVersion') || 'DST',
+    imgDomain: app.imgDomain
   },
 
   /**
