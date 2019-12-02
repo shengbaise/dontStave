@@ -1,4 +1,5 @@
 const app = getApp()
+import regeneratorRuntime from '../../utils/runtime'
 
 Page({
   data: {
@@ -7,72 +8,31 @@ Page({
     version: 'DST',
     items: [],
     currentItems: [],
-    tabs: [
-      {
-        label: '料理',
-        type: 7
-      }, {
-        label: '肉类',
-        type: 4
-      }, {
-        label: '蔬菜',
-        type: 6
-      }, {
-        label: '水果',
-        type: 5
-      }, {
-        label: '蛋类',
-        type: 8
-      }, {
-        label: '其他',
-        type: 20
-      }, {
-        label: '非食材',
-        type: 21
-    }],
-    foodAttrImgs: [
-      'http://img.fireleaves.cn/SomeLabel/image.jpg',
-      'http://img.fireleaves.cn/SomeLabel/image%20%281%29.jpg',
-      'http://img.fireleaves.cn/SomeLabel/image%20%282%29.jpg',
-      '/static/img/food/notFresh.png'
-    ],
-    currentTabType: 7,
+    tabs: [],
+    foodAttr: app.$c('FOOD_ATTR'),
+    currentTab: '',
     sortType: 'fullOfFood',
     itemsSort: [],
     scrollLeft: 0,
     scrollTop: 0
   },
-  onLoad (options) {
+  async onLoad (options) {
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'
     wx.setNavigationBarTitle({
       title: `食谱(${this.data.version})`
     })
-    this.setData({
-      type: options.type
-    })
-  },
-  onShow () {
-    this.data.sortType = wx.getStorageSync('currentSort') || 'fullOfFood'
+    this.data.type = options.type
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'
+    await this.setTabs()
     this.initData()
   },
-  // hideSelect () {
-  //   this.setData({
-  //     isSelect: false
-  //   })
-  // },
-  // showSelectVersion () {
-  //   this.setData({
-  //     isSelect: true
-  //   })
-  // },
-  // selectSort (item) {
-  //   wx.setStorageSync('currentSort', item)
-  //   this.setData({
-  //     sortType: wx.getStorageSync('currentSort'),
-  //     isSelect: false
-  //   })
-  // },
+  async setTabs () {
+    const tabs = await app.http.get(`/tags?type=${this.data.type+'s'}&version=${this.data.version}`)
+    this.setData({
+      tabs: tabs || [],
+      currentTab: tabs[0] && tabs[0]._id || ''
+    })
+  },
   sortRecipe (item) {
     let itemsSort
     const items = this.data.items
@@ -93,19 +53,13 @@ Page({
   },
   toDetail ({detail}) {
     wx.navigateTo({
-      url: `/pages/recipeDetail/main?src=${detail.src}&type=${detail.type}&version=${this.data.version}`
+      url: `/pages/recipeDetail/main?id=${detail._id}&type=${detail.type}&version=${this.data.version}`
     })
   },
-  initData () {
-    app.http.get(`/${this.data.type}?version=${this.data.version}`, (res) => {
-      const items = res
-      this.setData({
-        items: items
-      })
-      this.sortRecipe(this.data.sortType)
-      this.setData({
-        currentItems: this.data.itemsSort.filter(item => item.type === this.data.currentTabType)
-      })
+  async initData () {
+    const ret = await app.http.get(`/${this.data.type}?version=${this.data.version}&tagId=${this.data.currentTab}`)
+    this.setData({
+      currentItems: ret && ret || []
     })
   },
   initSortData () {
@@ -114,30 +68,11 @@ Page({
       currentItems: this.data.itemsSort.filter(item => item.type === this.data.currentTabType)
     })
   },
-  selectTab (e) {
-    const dataset = e.target.dataset
-    const index = dataset.index
-    const type = dataset.type
-    if (index > 2) {
-      this.setData({
-        scrollLeft: 76 * (index - 2)
-      })
-    } else {
-      this.setData({
-        scrollLeft: 0
-      })
-    }
-
-    this.data.currentItems = []
+  selectTab ({detail}) {
     this.setData({
-      currentTabType: type
+      currentTab: detail
     })
-    setTimeout(() => {
-      this.setData({
-        currentItems: this.data.itemsSort.filter(item => item.type === this.data.currentTabType),
-        scrollTop: 0
-      })
-    }, 0)
+    this.initData()
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

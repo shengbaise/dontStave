@@ -1,5 +1,6 @@
 const app = getApp()
 import { getDetailItem, formatUrl } from '../../utils/util.js'
+import regeneratorRuntime from '../../utils/runtime'
 let interstitialAd = null
 
 Page({
@@ -15,12 +16,7 @@ Page({
       1: '/static/img/food/pot.png',
       2: '/static/img/food/wolyPot.png'
     },
-    foodAttrImgs: [
-      'http://img.fireleaves.cn/SomeLabel/image.jpg',
-      'http://img.fireleaves.cn/SomeLabel/image%20%281%29.jpg',
-      'http://img.fireleaves.cn/SomeLabel/image%20%282%29.jpg',
-      '/static/img/food/notFresh.png'
-    ]
+    foodAttr: app.$c('FOOD_ATTR')
   },
   onLoad (options) {
     if (wx.createInterstitialAd) {
@@ -120,13 +116,9 @@ Page({
       features: features
     })
   },
-  initData (options) {
-    this.setData({
-      version: options.version || 'DST'
-    })
-    app.http.get(`/food/single?version=${this.data.version}&src=${options.src}`, (res) => {
-      this.handleData(res, options)
-    })
+   async initData (options) {
+    const ret = await app.http.get(`/food/single?id=${options.id}`)
+    this.handleData(ret, options)
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

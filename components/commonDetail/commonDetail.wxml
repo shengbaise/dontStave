@@ -1,15 +1,21 @@
 <view class="common-detail">
   <slot></slot>
-  <view class="console" wx:if="{{console}}" >
+  <view wx:for="{{attributes}}" wx:key="{{index}}">
+    <view class="console" wx:if="{{detail[item.key] && detail[item.key] != 0}}">
+      <view class="key">{{item.name}}</view>
+      <view class="value">{{detail[item.key]}}</view>
+    </view>
+  </view>
+  <view class="console" wx:if="{{detail.console}}" >
     <view class="key"> 生成代码</view>
-    <view class="value" bindtap="copyNumber" data-content="{{console}}">
-      <view>{{console}}</view>
+    <view class="value" bindtap="copyNumber" data-content="{{detail.console}}">
+      <view>{{detail.console}}</view>
       <view class="copy-number">复制</view>
     </view>
   </view>
   <view class="description">
     <view class="title">介绍</view>
-    <wemark md="{{introduce}}" link highlight type="wemark"></wemark>
+    <wemark md="{{detail.introduce}}" link highlight type="wemark"></wemark>
   </view>
   <i-toast id="toast" />
 </view>

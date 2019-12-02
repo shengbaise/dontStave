@@ -28,7 +28,6 @@ Page({
   },
   async setTabs () {
     const tabs = await app.http.get(`/tags?type=${this.data.technologyType}&version=${this.data.version}`)
-    console.info(tabs, 'tabs')
     this.setData({
       tabs: tabs || [],
       currentTab: tabs[0] && tabs[0]._id || ''

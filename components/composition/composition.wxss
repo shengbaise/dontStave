@@ -1,0 +1,18 @@
+.ds-materials {
+  padding-top: 2px;
+  padding-bottom: 18px;
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: space-around
+}
+
+.ds-material {
+  display: flex;
+  flex-flow: nowrap row;
+  align-items: center
+}
+
+.ds-materials .ds-material .ds-material-img {
+  width: 48px;
+  height: 48px;
+}

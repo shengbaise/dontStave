@@ -7,9 +7,11 @@ Page({
   data: {
     item: {},
     version: 'DST',
-    imgDomain: app.imgDomain + '/'
+    imgDomain: app.imgDomain + '/',
+    attributes: app.$c('SCIENCE_ATTRIBUTES')
   },
   onLoad (options) {
+    console.info(this.data.attributes, 'attributes')
     if (wx.createInterstitialAd) {
       interstitialAd = wx.createInterstitialAd({
         adUnitId: 'adunit-b9f3ae65f20eae61'

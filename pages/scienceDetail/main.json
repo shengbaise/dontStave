@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "common-good": "../../components/commonGood/commonGood",
-    "common-detail": "../../components/commonDetail/commonDetail"
+    "detail-container": "../../components/detail-container/detail-container"
   },
   "enablePullDownRefresh": false
 }

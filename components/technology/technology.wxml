@@ -1,0 +1,6 @@
+<view class="ds-science">
+  <view class="ds-no-science" wx:if="{{!technology || technology.length === 0}}">不需要科技</view>
+  <view wx:else style="display: flex;justify-content: flex-end;">
+    <image wx:if="{{item.item && item.item.src}}" wx:key="{{index}}" wx:for="{{technology}}" class="ds-science-img" src="{{imgDomain+item.item.src}}" alt="test" mode="widthFix" />
+  </view>
+</view>

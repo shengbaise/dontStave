@@ -1,12 +1,12 @@
 Component({
   properties: {
-    console: {
-      type: String,
-      value: ''
+    attributes: {
+      type: Array,
+      value: []
     },
-    introduce: {
-      type: String,
-      value: ''
+    detail: {
+      type: Object,
+      value: {}
     }
   },
   methods: {

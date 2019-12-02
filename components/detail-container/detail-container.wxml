@@ -1,0 +1,8 @@
+<view class="ds-detail-container">
+  <view class="ds-detail">
+    <technology technology="{{technology}}"></technology>
+    <composition composition="{{composition}}"></composition>
+    <slot></slot>
+    <common-detail attributes="{{attributes}}" detail="{{detail}}"></common-detail>
+  </view>
+</view>

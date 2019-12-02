@@ -67,6 +67,48 @@ const arr = {
     //   type: 6,
     //   label: '同人小说'
     // }
+  ],
+  'FOOD_ATTR': [
+    {
+      url: 'http://img.fireleaves.cn/SomeLabel/image.jpg',
+      attr: 'hungry'
+    }, {
+      url: 'http://img.fireleaves.cn/SomeLabel/image%20%281%29.jpg',
+      attr: 'hp'
+    }, {
+      url: 'http://img.fireleaves.cn/SomeLabel/image%20%282%29.jpg',
+      attr: 'san'
+    }, {
+      url: '/static/img/food/notFresh.png',
+      attr: 'fresh'
+    }
+  ],
+  SCIENCE_ATTRIBUTES: [
+    {
+      name: '防御',
+      key: 'defense',
+      unit: '' 
+    },
+    {
+      name: '影响理智',
+      key: 'san',
+      unit: '/ 分钟' 
+    },
+    {
+      name: '防潮',
+      key: 'dampproof',
+      unit: '' 
+    },
+    {
+      name: '隔热',
+      key: 'thermalInsulation',
+      unit: '' 
+    },
+    {
+      name: '保暖',
+      key: 'keepWarm',
+      unit: '' 
+    }
   ]
 }
 

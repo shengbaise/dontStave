@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "common-detail": "../components/commonDetail/commonDetail",
+    "composition": "../components/composition/composition",
+    "technology": "../components/technology/technology"
+  }
+}

@@ -10,36 +10,8 @@
         </view>
       </view>
     </common-good>
-    <view class="detail-container">
-      <view class="detail">
-        <view class="science">
-          <view class="no-science" wx:if="{{!item.technology || item.technology.length === 0}}">不需要科技</view>
-          <view wx:else style="display: flex;justify-content: flex-end;">
-            <image wx:if="{{technologyImg.item && technologyImg.item.src}}" wx:key="{{index}}" wx:for-item="technologyImg" wx:for="{{item.technology}}" class="science-img" src="{{imgDomain+technologyImg.item.src}}" alt="test" mode="widthFix" />
-          </view>
-        </view>
-        <view class="materials">
-          <view class="material" wx:for="{{item.composition}}" wx:key="index">
-            <image wx:if="{{item.item && item.item.src}}" data-src="{{item.src}}" bindtap="toImgDetail" class="material-img" src="{{imgDomain+item.item.src}}" alt="" mode="aspectFit" />
-            <view>x {{item.num}}</view>
-          </view>
-        </view>
-        <common-detail introduce="{{item.introduce}}" console="{{item.console}}">
-          <view class="console" wx:if="{{item.attr[4] && item.attr[4] !== '0'}}">
-            <view class="key">防潮</view>
-            <view class="value">{{item.attr[4]}}</view>
-          </view>
-          <view class="console" wx:if="{{item.attr[5] && item.attr[5] !== '0'}}">
-            <view class="key">隔热</view>
-            <view class="value">{{item.attr[5]}}</view>
-          </view>
-          <view class="console" wx:if="{{item.attr[3] && item.attr[3] !== '0'}}">
-            <view class="key">影响理智</view>
-            <view class="value">{{item.attr[3]}} / 分钟</view>
-          </view>
-        </common-detail>
-      </view>
-    </view>
-    <!-- <ad unit-id="adunit-a15bcee4d3f8a400"></ad> -->
+    <detail-container technology="{{item.technology}}"
+                      composition="{{item.composition}}"
+                      attributes="{{attributes}}" detail="{{item}}"></detail-container>
   </scroll-view>
 </view>
