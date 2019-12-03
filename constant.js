@@ -109,6 +109,83 @@ const arr = {
       key: 'keepWarm',
       unit: '' 
     }
+  ],
+  FOOD_ATTRIBUTES: [
+    {
+      name: '优先级',
+      key: 'priority',
+      unit: '' 
+    },
+    {
+      name: '烹饪时间',
+      key: 'cookingTime',
+      unit: '' 
+    },
+    {
+      name: '温度影响',
+      key: 'temperature',
+      unit: '' 
+    }
+  ],
+  NATURE_ATTRIBUTES: [
+    {
+      name: '防御',
+      key: 'defense',
+      unit: '' 
+    },
+    {
+      name: '影响理智',
+      key: 'san',
+      unit: '/ 分钟' 
+    },
+    {
+      name: '防潮',
+      key: 'dampproof',
+      unit: '' 
+    },
+    {
+      name: '隔热',
+      key: 'thermalInsulation',
+      unit: '' 
+    },
+    {
+      name: '保暖',
+      key: 'keepWarm',
+      unit: '' 
+    }
+  ],
+  ANIMAL_ATTRIBUTES: [
+    {
+      name: '攻击间隔',
+      key: 'attackInterval',
+      unit: '' 
+    },
+    {
+      name: '攻击范围',
+      key: 'attackRange',
+      unit: '' 
+    },
+    {
+      name: '主动攻击',
+      key: 'isActiveAttack',
+      unit: '',
+      handleData: (value, item) => {
+        return !!value ? '是' : '否'
+      }
+    },
+    {
+      name: '团队协作',
+      key: 'isTeamWork',
+      unit: '',
+      handleData: (value, item) => {
+        return !!value ? '是' : '否'
+      }
+    },
+    {
+      name: '影响理智',
+      key: 'sanAffect',
+      unit: '/ 分钟'
+    }
   ]
 }
 
