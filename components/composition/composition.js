@@ -11,8 +11,9 @@ Component({
     }
   },
   methods: {
-    toImgDetail () {
-      // TODO
+    toImgDetail ({target}) {
+      const item = target.dataset.item || {}
+      console.info(item, 'itemmmm')
     }
   }
 })

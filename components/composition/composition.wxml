@@ -1,6 +1,6 @@
 <view class="ds-materials">
   <view class="ds-material" wx:for="{{composition}}" wx:key="index">
-    <image wx:if="{{item.item && item.item.src}}" data-src="{{item.item.src}}" bindtap="toImgDetail" class="ds-material-img" src="{{imgDomain+item.item.src}}" alt="" mode="aspectFit" />
+    <image wx:if="{{item.item && item.item.src}}" data-item="{{item}}" bindtap="toImgDetail" class="ds-material-img" src="{{imgDomain+item.item.src}}" alt="" mode="aspectFit" />
     <view wx:if="{{item && item.num && item.num != 0}}">x {{item.num}}</view>
   </view>
 </view>
