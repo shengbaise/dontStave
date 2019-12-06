@@ -61,7 +61,7 @@ page {
   width: 36px
 }
 
-.recipe-detail .detail-container .food-detail .materials-need .need-materials {
+.need-materials {
   border-right: 1px solid #999
 }
 
@@ -69,8 +69,8 @@ page {
   margin-left: 2px
 }
 
-.recipe-detail .detail-container .food-detail .materials-need .need-materials,
-.recipe-detail .detail-container .food-detail .materials-need .fail-materials {
+.need-materials,
+.fail-materials {
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -84,10 +84,11 @@ page {
   height: 48px;
 }
 
-.recipe-detail .detail-container .food-detail .materials-need .need-desc {
+.need-desc {
   /* padding-top:24px; */
   color: #999;
-  font-size: 12px
+  font-size: 12px;
+  text-align: center;
 }
 
 .recipe-detail .attr-text {

@@ -8,6 +8,10 @@ Component({
     composition: {
       type: Array,
       value: []
+    },
+    size: {
+      type: Number,
+      value: 48
     }
   },
   methods: {

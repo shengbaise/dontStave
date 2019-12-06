@@ -16,7 +16,10 @@ Page({
       1: '/static/img/food/pot.png',
       2: '/static/img/food/wolyPot.png'
     },
-    foodAttr: app.$c('FOOD_ATTR')
+    foodAttr: app.$c('FOOD_ATTR'),
+    imgDomain: app.imgDomain + '/',
+    attributes: app.$c('SCIENCE_ATTRIBUTES'),
+    size: 32
   },
   onLoad (options) {
     if (wx.createInterstitialAd) {

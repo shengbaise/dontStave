@@ -1,4 +1,4 @@
-<view class="recipe-detail">
+<view class="science-technology-detail">
   <scroll-view scroll-y="{{true}}" class="view">
     <common-good good="{{item}}" hasFeedback="{{true}}">
       <view class="food-attrs">
@@ -8,68 +8,21 @@
         </view>
       </view>
     </common-good>
-    <view class="detail-container">
-      <view class="food-detail">
-        <view class="science">
-          <view class="no-science" wx:if="{{type !== '7'}}">食物属性</view>
-          <image class="science-img" wx:if="{{type === '7' && item.pot}}" src="{{potItem[item.pot]}}" alt="" mode="widthFix" />
-          <image class="science-img" wx:if="{{type === '7' && !item.pot}}" src="/static/img/food/pot.png" alt="" mode="widthFix" />
-        </view>
-        <view class="materials" wx:if="{{composites.length > 0}}">
-          <view class="material" wx:for-item="material" wx:for="{{composites}}" wx:key="index">
-            <image class="material-img" data-material="{{material}}" bindtap="toImgDetail" src="{{material}}" alt="" mode="aspectFit" />
-          </view>
-        </view>
-        <view class="materials-need common-materials" wx:if="{{type === '7'}}">
+    <detail-container technology="{{item.technology}}"
+                      composition="{{item.composition}}"
+                      attributes="{{attributes}}" detail="{{item}}">
+        <view class="common-materials" style="display: flex;">
           <view class="need-materials">
-            <view class="material-item" wx:if="{{needs.length > 0}}">
-              <view class="material" wx:for-item="need" wx:for="{{needs}}" wx:key="{{index}}">
-                <image class="material-img" src="{{need.src}}" alt="" mode="aspectFit" />
-                <view>{{need.num}}</view>
-              </view>
-            </view>
+            <composition wx:if="{{item.need && item.need.length}}" size="{{size}}" composition="{{item.need}}"></composition>
             <view class="material-item none" wx:else>无</view>
             <view class="need-desc">必须材料</view>
           </view>
           <view class="fail-materials">
-            <view class="material-item" wx:if="{{fails.length > 0}}">
-              <view class="material" wx:for-item="fail" wx:for="{{fails}}" wx:key="index">
-                <view>{{fail.num}}</view>
-                <image class="material-img" src="{{fail.src}}" alt="" mode="aspectFit" />
-              </view>
-            </view>
+            <composition wx:if="{{item.fail && item.fail.length}}" size="{{size}}" composition="{{item.fail}}"></composition>
             <view class="material-item none" wx:else>无</view>
-            <view class="need-desc">不能添加材料</view>
+            <view class="need-desc">限制条件</view>
           </view>
         </view>
-        <view class="materials" wx:if="{{features.length > 0}}">
-          <view class="material material-attr" wx:for-item="feature" wx:for="{{features}}" wx:key="{{index}}">
-            <view wx:if="{{feature.src === '荤' || feature.src === '素'}}">{{feature.src}}</view>
-            <image wx:if="{{feature.src !== '荤' && feature.src !== '素'}}" class="material-img" src="{{feature.src}}" alt="" mode="aspectFit" />
-            <view wx:if="{{feature.num && feature.src}}">{{feature.num}}</view>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="detail-container">
-      <view class="food-detail">
-        <view class="attr-text" wx:if="{{item.priority}}">
-          <view class="key">优先级</view>
-          <view class="value">{{item.priority}}</view>
-        </view>
-        <view class="attr-text" wx:if="{{item.time}}">
-          <view class="key">烹饪</view>
-          <view class="value">{{item.time}}</view>
-        </view>
-        <view wx:if="{{item.temperature[1] !== '0' && item.temperature[1]}}" class="attr-text">
-          <view class="key">温度</view>
-          <view class="value" wx:if="{{!item.temperature[0]}}">不影响</view>
-          <view class="value" wx:if="{{!(item.temperature[0] < 0)}}">持续升温{{item.temperature[1]}}s</view>
-          <view class="value" wx:if="{{item.temperature[0] < 0}}">持续降温{{item.temperature[1]}}s</view>
-        </view>
-        <common-detail introduce="{{item.introduce}}" console="{{item.console}}"></common-detail>
-      </view>
-    </view>
-    <!-- <ad unit-id="adunit-e7a57fa768a06808"></ad> -->
+    </detail-container>
   </scroll-view>
 </view>

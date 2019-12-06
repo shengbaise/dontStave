@@ -12,7 +12,7 @@
   align-items: center
 }
 
-.ds-materials .ds-material .ds-material-img {
+/* .ds-materials .ds-material .ds-material-img {
   width: 48px;
   height: 48px;
-}
+} */
