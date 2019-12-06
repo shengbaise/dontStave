@@ -12,11 +12,16 @@ Component({
     size: {
       type: Number,
       value: 48
+    },
+    title: {
+      type: String,
+      value: ''
     }
   },
   methods: {
-    toImgDetail () {
-      // TODO
+    toImgDetail ({target}) {
+      const item = target.dataset.item || {}
+      console.info(item, 'itemmmm')
     }
   }
 })

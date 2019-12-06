@@ -18,7 +18,7 @@ Page({
     },
     foodAttr: app.$c('FOOD_ATTR'),
     imgDomain: app.imgDomain + '/',
-    attributes: app.$c('SCIENCE_ATTRIBUTES'),
+    attributes: app.$c('FOOD_ATTRIBUTES'),
     size: 32
   },
   onLoad (options) {
