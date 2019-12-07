@@ -21,7 +21,7 @@ Page({
       title: '生物详细资料'
     })
     this.setData({
-      src: options.src,
+      id: options.id,
       version: wx.getStorageSync('currentVersion') || 'DST'
     })
     this.initData()
@@ -77,10 +77,9 @@ Page({
       item: res
     })
   },
-  initData () {
-    app.http.get(`/anim/single?version=${this.data.version}&src=${this.data.src}`, (res) => {
-      this.handleData(res)
-    })
+  async initData () {
+    const ret = await app.http.get(`/anim/single?id=${this.data.id}`)
+    this.handleData(ret)
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

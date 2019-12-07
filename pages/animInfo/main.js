@@ -31,7 +31,7 @@ Page({
   },
   toDetail ({detail}) {
     wx.navigateTo({
-      url: `/pages/animInfoDetail/main?src=${detail.src}&version=${this.data.version}`
+      url: `/pages/animInfoDetail/main?id=${detail._id}&version=${this.data.version}`
     })
   },
   async initData () {

@@ -7,7 +7,7 @@ Page({
     item: {},
     origins: [],
     createSciences: [],
-    src: ''
+    id: ''
   },
   onLoad (options) {
     if (wx.createInterstitialAd) {
@@ -17,7 +17,7 @@ Page({
     }
     this.setData({
       version: wx.getStorageSync('currentVersion') || 'DST',
-      src: options.src
+      id: options.id
     })
     wx.setNavigationBarTitle({
       title: '自然详情'
@@ -81,11 +81,9 @@ Page({
       item: res
     })
   },
-  initData () {
-    app.http.get(`/nature/single?version=${this.data.version}&src=${this.data.src}`, (res) => {
-      console.info(res, 'res////')
-      this.handleData(res)
-    })
+  async initData () {
+    const ret = await app.http.get(`/nature/single?id=${this.data.id}`)
+    this.handleData(ret)
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

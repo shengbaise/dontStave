@@ -34,7 +34,7 @@ Page({
   },
   toDetail ({detail}) {
     wx.navigateTo({
-      url: `/pages/natureInfoDetail/main?src=${detail.src}&version=${this.data.version}`
+      url: `/pages/natureInfoDetail/main?id=${detail._id}&version=${this.data.version}`
     })
   },
   async initData () {
