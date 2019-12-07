@@ -1,8 +1,5 @@
 <view class="science-technology">
   <ds-tabs bind:selectTab="selectTab" currentTab="{{currentTab}}" tabs="{{tabs}}"></ds-tabs>
-  <!-- <scroll-view scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}" scroll-x style="width: 100%;" class="tabs">
-    <view bindtap="selectTab" class="tab {{currentTabType === item.type ? 'tab-selected' : ''}}" data-index="{{index}}" data-type="{{item.type}}" wx:for="{{currentMoreTabs}}" wx:key="{{item.type}}">{{item.label}}</view>
-  </scroll-view> -->
   <scroll-view scroll-top="{{scrollTop}}" class="view" scroll-y>
     <common-good wx:if="{{currentGoods.length > 0}}" bind:click="toDetail" wx:for="{{currentGoods}}" good="{{item}}" wx:key="{{item._id}}" type="science">
       <view class="attrs">

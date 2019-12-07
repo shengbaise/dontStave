@@ -6,20 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    article: {}
+    article: {},
+    imgDomain: app.imgDomain + '/'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad (options) {
+  async onLoad (options) {
     wx.setNavigationBarTitle({
       title: '地理详情'
     })
-    app.http.get(`/geography/single?id=${options.id}`, (res) => {
-      this.setData({
-        article: res
-      })
+    const res = await app.http.get(`/geography/single?id=${options.id}`)
+    this.setData({
+      article: res
     })
   },
   toDetail (event) {

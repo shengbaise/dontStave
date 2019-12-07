@@ -1,56 +1,60 @@
 const app = getApp()
-
+{/* <i-tabs wx:if="false" style="" color="#f5f5f5" i-class="tabs" current="{{currentTabType}}" scroll bindchange="handleChangeScroll">
+  <i-tab i-class="tab" wx:for="{{tabs}}" key="{{item.type}}" wx:key="{{item.type}}" title="{{item.label}}">{{item.label}}</i-tab>
+</i-tabs> */}
 Page({
   data: {
-    currentTabType: 0,
-    tabs: [{
-      label: '地形',
-      type: 0
-    }, {
-      label: '地标',
-      type: 1
-    }, {
-      label: '奇遇',
-      type: 2
-    }],
+    currentTab: '',
+    tabs: [],
     scrollTop: 0,
     pageNum: 0,
     currentItems: [],
     items: [],
     loading: false,
-    loaded: false
+    loaded: false,
+    imgDomain: app.imgDomain + '/'
   },
-  onLoad () {
+  async onLoad () {
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'
     wx.setNavigationBarTitle({
       title: `地理列表(${this.data.version})`
     })
-  },
-  onShow () {
     this.data.currentItems = []
     this.data.version = wx.getStorageSync('currentVersion') || 'DST'
+    await this.setTabs()
     this.initData()
   },
-  initData () {
+  async setTabs () {
+    const tabs = await app.http.get(`/tags?type=geographys&version=${this.data.version}`)
+    this.setData({
+      tabs: tabs || [],
+      currentTab: tabs[0] && tabs[0]._id || ''
+    })
+  },
+  selectTab ({detail}) {
+    this.setData({
+      currentTab: detail
+    })
+    this.initData()
+  },
+  async initData () {
     this.data.loading = true
     this.data.loaded = false
     this.data.items = []
-    app.http.get(`/geography?type=${this.data.currentTabType}&pageSize=10&pageNum=${this.data.pageNum}&version=${this.data.version}`, (res) => {
-      const items = res.data || []
-      const allItems = this.data.currentItems.concat(items)
-      this.setData({
-        currentItems: allItems,
-        items: items,
-        loading: false,
-        loaded: true,
-      })
+    const ret = await app.http.get(`/geography?pageSize=10&pageNum=${this.data.pageNum}&version=${this.data.version}&tagId=${this.data.currentTab}`)
+    const allItems = this.data.currentItems.concat(ret.data)
+    this.setData({
+      currentItems: allItems,
+      items: ret.data,
+      loading: false,
+      loaded: true,
     })
   },
   handleChangeScroll ({ detail }) {
-    const id = detail.key
+    // const id = detail.key
     this.data.pageNum = 0
     this.setData({
-      currentTabType: id,
+      currentTab: detail,
       scrollTop: 0
     })
     this.data.currentItems = []

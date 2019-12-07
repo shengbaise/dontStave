@@ -5,25 +5,13 @@ Page({
     isSelect: false,
     type: '',
     version: 'DST',
-    currentTabType: 33,
-    tabs: [{
-      label: '材料',
-      type: 33
-    }, {
-      label: '装备',
-      type: 34
-    }, {
-      label: '树苗',
-      type: 35
-    }, {
-      label: '其他',
-      type: 41
-    }],
+    currentTab: '',
+    tabs: [],
     currentGoods: [],
     scrollLeft: 0,
     scrollTop: 0
   },
-  onLoad (options) {
+  async onLoad (options) {
     this.setData({
       version: wx.getStorageSync('currentVersion') || 'DST',
       type: options.type
@@ -31,51 +19,44 @@ Page({
     wx.setNavigationBarTitle({
       title: `自然(${this.data.version})`
     })
-  },
-  onShow () {
     this.setData({
       version: wx.getStorageSync('currentVersion') || 'DST'
     })
+    await this.setTabs()
     this.initData()
+  },
+  async setTabs () {
+    const tabs = await app.http.get(`/tags?type=${this.data.type+'s'}&version=${this.data.version}`)
+    this.setData({
+      tabs: tabs || [],
+      currentTab: tabs[0] && tabs[0]._id || ''
+    })
   },
   toDetail ({detail}) {
     wx.navigateTo({
       url: `/pages/natureInfoDetail/main?src=${detail.src}&version=${this.data.version}`
     })
   },
-  initData () {
-    app.http.get(`/${this.data.type}?version=${this.data.version}`, (res) => {
-      const items = res || []
-      const currentGoods = items.filter(item => item.type === this.data.currentTabType)
-      this.setData({
-        items: items,
-        currentGoods: currentGoods
-      })
+  async initData () {
+    // app.http.get(`/${this.data.type}?version=${this.data.version}`, (res) => {
+    //   const items = res || []
+    //   const currentGoods = items.filter(item => item.type === this.data.currentTabType)
+    //   this.setData({
+    //     items: items,
+    //     currentGoods: currentGoods
+    //   })
+    // })
+    const ret = await app.http.get(`/${this.data.type}?version=${this.data.version}&tagId=${this.data.currentTab}`)
+    const items = ret || []
+    this.setData({
+      currentGoods: items
     })
   },
-  selectTab (e) {
-    const dataset = e.target.dataset
-    const index = dataset.index
-    const type = dataset.type
-    if (index > 2) {
-      this.setData({
-        scrollLeft: 76 * (index - 2)
-      })
-    } else {
-      this.setData({
-        scrollLeft: 0
-      })
-    }
-    this.data.currentGoods = []
+  selectTab ({detail}) {
     this.setData({
-      currentTabType: type
+      currentTab: detail
     })
-    setTimeout(() => {
-      this.setData({
-        currentGoods: this.data.items.filter(item => item.type === this.data.currentTabType),
-        scrollTop: 0
-      })
-    }, 0)
+    this.initData()
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

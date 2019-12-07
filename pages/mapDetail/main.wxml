@@ -1,7 +1,7 @@
 <view class="map-detail">
   <view class="article-img-container"
     wx:if="{{article.src}}"
-    style="background-image: url({{article.src + '?x-oss-process=style/width-720'}});">
+    style="background-image: url({{imgDomain+article.src + '?x-oss-process=style/width-720'}});">
   </view>
   <view class="article-content">
     <view class="title">{{article.name}}</view>
@@ -9,8 +9,8 @@
     <view class="origin-container" wx:if="{{article.origin.length}}">
       <view class="origin-title">生成地</view>
       <view class="origin-list">
-        <view data-id="{{item._id}}" bindtap="toDetail" class="origin" wx:for="{{article.origin}}" wx:key="{{item._id}}">
-          {{index + 1}}、{{item.name}}
+        <view data-id="{{item.item._id}}" bindtap="toDetail" class="origin" wx:for="{{article.origin}}" wx:key="{{item._id}}">
+          {{index + 1}}、{{item.item.name}}
         </view>
       </view>
     </view>

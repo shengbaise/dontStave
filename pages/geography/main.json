@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "i-tabs": "../../components/iView/dist/tabs/index",
-    "i-tab": "../../components/iView/dist/tab/index"
+    "i-tab": "../../components/iView/dist/tab/index",
+    "ds-tabs": "../../components/dsTabs/ds-tabs"
   }
 }

@@ -24,11 +24,10 @@ Page({
       url: `/pages/articleDetail/main?id=${id}&type=rule`
     })
   },
-  initData () {
-    app.http.get(`/rule?type=${this.data.type}`, (res) => {
-      this.setData({
-        currentRules: res
-      })
+  async initData () {
+    const res = await app.http.get(`/rule?type=${this.data.type}`)
+    this.setData({
+      currentRules: res
     })
   },
   onShareAppMessage (res) {
