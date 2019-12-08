@@ -20,3 +20,45 @@ page {
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
+.module-name {
+  padding: 0 16px;
+  color: #323233;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 32px;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.search-items {
+  display: flex;
+  padding-left: 12px;
+  align-items: center;
+  background: #666666;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #ffffff;
+}
+.search-item-name {
+  padding-left: 12px;
+}
+.search-list .item {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  color: rgba(0,0,0,.87);
+  font-size: 14px;
+}
+.search-list .item-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 24px;
+  line-height: 48px;
+  box-sizing: border-box;
+}
+.search-list .title {
+  position: absolute;
+  left: 70px;
+  color: #262626;
+}

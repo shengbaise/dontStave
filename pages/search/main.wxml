@@ -2,7 +2,20 @@
   <searchInput bind:search="getSearchResult"></searchInput>
   <view class="tip">Tips: 当前版本为{{version}}</view>
   <scroll-view scroll-y="{{true}}" class="view">
-    <common-good wx:if="{{results.length > 0}}" bind:click="toDetail" wx:for="{{results}}" good="{{item}}" wx:key="{{item._id}}"></common-good>
+    <view wx:for="{{results}}" wx:for-item="result" wx:key="_id">
+      <view class="module-name">{{moduleName[result.type]}}</view>
+      <view class="search-list">
+        <view class="item" wx:if="{{result.list.length > 0}}" data-type="{{result.type}}" data-id="{{item._id}}" bindtap="toDetail" wx:for="{{result.list}}" wx:key="_id">
+          <view class="item-title">
+            <image style="width: 32px;height:32px;" class="ds-img" src="{{imgDomain+'/'+item.src+suffix}}" alt="" mode="aspectFit" />
+            <view class="title">{{item.name}}</view>
+            <view class="icon-container">
+              <i-icon color="rgba(0,0,0,.54)" size="18" type="enter" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
   </scroll-view>
   <view class="loading" wx:if="{{loading}}">加载中...</view>
   <view class="no-data" wx:if="{{results.length === 0 && loaded}}">没有找到您要搜索的内容</view>

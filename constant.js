@@ -186,10 +186,36 @@ const arr = {
       key: 'sanAffect',
       unit: '/ 分钟'
     }
+  ],
+  MODLE_NAME: [
+    {
+      value: 'materials',
+      label: '制作'
+    }, {
+      value: 'foods',
+      label: '食谱'
+    }, {
+      value: 'anims',
+      label: '生物'
+    }, {
+      value: 'natures',
+      label: '自然'
+    }, {
+      value: 'heros',
+      label: '人物'
+    }, {
+      value: 'geographys',
+      label: '地理'
+    }
   ]
 }
 
 export const $c = (key) => {
   if (!key) return
   return arr[key]
+}
+
+export const $c2 = (arr, key) => {
+  const item = arr.find(v => v.value === key)
+  return item.label
 }

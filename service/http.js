@@ -6,11 +6,12 @@ const header = {
   'content-type': 'application/json'
 }
 
-function getReq(url, cb) {
+function getReq(url, params, cb) {
   const promise = new Promise(function (resolve, reject) {
     wx.request({
       url: baseURL + url,
       method: 'get',
+      data: params,
       header: header,
       success: function (res) {
         wx.hideLoading()

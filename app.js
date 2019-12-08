@@ -2,7 +2,7 @@
 // http = require('service/http.js')
 import http from 'service/http.js'
 import regeneratorRuntime from './utils/runtime'
-import {$c} from './constant'
+import {$c, $c2} from './constant'
 
 App({
   onLaunch: function () {
@@ -57,5 +57,6 @@ App({
   http: http,
   // urlStyleParam: '?x-oss-process=style/width-180'
   $c: $c,
+  $c2: $c2,
   imgDomain: 'http://img.fireleaves.cn'
 })

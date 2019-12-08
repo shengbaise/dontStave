@@ -11,7 +11,8 @@ Page({
     type: '',
     attrKeys: ['饥饿', '生命', '精神', '空手伤害'],
     currentVersion: wx.getStorageSync('currentVersion') || 'DST',
-    imgDomain: app.imgDomain
+    imgDomain: app.imgDomain,
+    id: ''
   },
 
   /**
@@ -20,7 +21,8 @@ Page({
   onLoad: function (options) {
     this.setPageTitle()
     this.setData({
-      type: options.type
+      type: options.type,
+      id: options.id || ''
     })
   },
   onShow () {
@@ -36,11 +38,11 @@ Page({
   },
   async getData () {
     this.data.heroList = []
-    const ret = await app.http.get(`/${this.data.type}?version=${this.data.currentVersion}`)
+    const ret = await app.http.get(`/hero?version=${this.data.currentVersion}`)
     this.setData({
       heroList: ret
     })
-    this.setCurrentHero(ret[0]._id)
+    this.setCurrentHero(this.data.id || ret[0]._id)
   },
   async setCurrentHero (id) {
     this.data.currentHero = null

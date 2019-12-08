@@ -1,9 +1,12 @@
 <view class="common-detail">
   <slot></slot>
   <view wx:for="{{attributes}}" wx:key="index">
-    <view class="console" wx:if="{{detail[item.key] && detail[item.key] != 0}}">
+    <view class="console">
       <view class="key">{{item.name}}</view>
-      <view class="value">{{detail[item.key]}}</view>
+      <view class="value" wx:if="{{item.handleData}}">
+        {{item.handleData(detail[item.key])}}
+      </view>
+      <view wx:if="{{detail[item.key] && !item.handleData}}" class="value">{{detail[item.key]+item.unit|| ''}}</view>
     </view>
   </view>
   <view class="console" wx:if="{{detail.console}}" >

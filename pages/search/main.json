@@ -2,7 +2,8 @@
   "usingComponents": {
     "searchInput": "../../components/searchInput/searchInput",
     "i-icon": "../../components/iView/dist/icon/index",
-    "common-good": "../../components/commonGood/commonGood"
+    "common-good": "../../components/commonGood/commonGood",
+    "ds-img": "../../components/dsImg/ds-img"
   },
   "enablePullDownRefresh": false
 }

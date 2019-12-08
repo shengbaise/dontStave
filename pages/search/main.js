@@ -5,7 +5,26 @@ Page({
     version: '',
     results: [],
     loading: false,
-    loaded: false
+    loaded: false,
+    moduleType: app.$c('MODLE_NAME'),
+    moduleName: {
+      materials: '制作',
+      foods: '食谱',
+      anims: '生物',
+      natures: '自然',
+      heros: '人物',
+      geographys: '地理'
+    },
+    modulePath: {
+      materials: 'scienceDetail',
+      foods: 'recipeDetail',
+      anims: 'animInfoDetail',
+      natures: 'natureInfoDetail',
+      heros: 'heroIntro',
+      geographys: 'mapDetail'
+    },
+    suffix: '?x-oss-process=style/width-64',
+    imgDomain: app.imgDomain
   },
   onLoad () {
     wx.setNavigationBarTitle({
@@ -15,43 +34,33 @@ Page({
       version: wx.getStorageSync('currentVersion') || 'DST'
     })
   },
-  getSearchResult (value) {
+  getName (arr, key) {
+    return app.$c2(arr, key)
+  },
+  async getSearchResult (value) {
     this.setData({
       loaded: false,
       loading: true
     })
     this.data.results = []
-    app.http.get(`/search?version=${this.data.version}&searchVal=${value.detail}`, (res) => {
-      this.setData({
-        results: res,
-        loaded: true,
-        loading: false
-      })
+    let urlStr = ''
+    this.data.moduleType.forEach(e=>{
+      urlStr+="module[]="+e.value+"&"
+    })
+    urlStr = urlStr.replace(/&$/,"")
+    const res = await app.http.get(`/search?version=${this.data.version}&searchVal=${value.detail}&${urlStr}`)
+    this.setData({
+      results: res,
+      loaded: true,
+      loading: false
     })
   },
-  getDetailPath (type) {
-    const technologyTypes = [9, 10, 11, 12, 13, 14, 15,
-      16, 18, 19, 25, 26, 27, 28, 29, 30, 31, 32, 42, 43, 44, 45, 46]
-    const materialsTypes = [33, 34, 35, 41]
-    const foodsTypes = [4, 5, 6, 7, 8, 17, 20, 21]
-    const animalTypes = [0, 1, 2, 3, 22, 23, 24, 36]
-    if (technologyTypes.indexOf(parseInt(type)) > -1) {
-      return 'scienceDetail'
-    }
-    if (materialsTypes.indexOf(parseInt(type)) > -1) {
-      return 'natureInfoDetail'
-    }
-    if (foodsTypes.indexOf(parseInt(type)) > -1) {
-      return 'recipeDetail'
-    }
-    if (animalTypes.indexOf(parseInt(type)) > -1) {
-      return 'animInfoDetail'
-    }
-  },
-  toDetail ({detail}) {
-    const detailType = this.getDetailPath(detail.type)
+  toDetail (event) {
+    const dataset = event.currentTarget.dataset
+    const type = dataset.type
+    const id = dataset.id
     wx.navigateTo({
-      url: `/pages/${detailType}/main?src=${detail.src}&version=${this.data.version}&type=${detail.type}`
+      url: `/pages/${this.data.modulePath[type]}/main?id=${id}`
     })
   },
   onShareAppMessage (res) {
