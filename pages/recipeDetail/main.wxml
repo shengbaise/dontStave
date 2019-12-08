@@ -2,7 +2,7 @@
   <scroll-view scroll-y="{{true}}" class="view">
     <common-good good="{{item}}" hasFeedback="{{true}}">
       <view class="food-attrs">
-        <view class="food-attr"  wx:for-item="attrData" wx:for="{{foodAttr}}" wx:key="{{index}}">
+        <view class="food-attr"  wx:for-item="attrData" wx:for="{{foodAttr}}" wx:key="index">
           <image wx:if="{{item[attrData.attr]}}" class="food-attr-img" src="{{attrData.url}}" alt="" mode="aspectFit" />
           <view wx:if="{{item[attrData.attr]}}" class="attr-content">{{item[attrData.attr]}}</view>
         </view>
@@ -11,16 +11,19 @@
     <detail-container technology="{{item.technology}}"
                       composition="{{item.composition}}"
                       attributes="{{attributes}}" detail="{{item}}">
-        <view class="common-materials" style="display: flex;">
-          <view class="need-materials">
-            <composition wx:if="{{item.need && item.need.length}}" size="{{size}}" composition="{{item.need}}"></composition>
-            <view class="material-item none" wx:else>无</view>
-            <view class="need-desc">必须材料</view>
-          </view>
-          <view class="fail-materials">
-            <composition wx:if="{{item.fail && item.fail.length}}" size="{{size}}" composition="{{item.fail}}"></composition>
-            <view class="material-item none" wx:else>无</view>
-            <view class="need-desc">限制条件</view>
+        <view>
+          <composition title="食物属性" wx:if="{{hasProperty}}" size="{{size}}" composition="{{item.property}}"></composition>
+          <view wx:if="{{(hasNeed || hasFail) && !hasProperty}}" class="common-materials" style="display: flex;">
+            <view class="need-materials">
+              <composition wx:if="{{hasNeed}}" size="{{size}}" composition="{{item.need}}"></composition>
+              <view class="material-item none" wx:else>无</view>
+              <view class="need-desc">必须材料</view>
+            </view>
+            <view class="fail-materials">
+              <composition wx:if="{{hasFail}}" size="{{size}}" composition="{{item.fail}}"></composition>
+              <view class="material-item none" wx:else>无</view>
+              <view class="need-desc">限制条件</view>
+            </view>
           </view>
         </view>
     </detail-container>

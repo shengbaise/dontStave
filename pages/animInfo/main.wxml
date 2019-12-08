@@ -1,15 +1,15 @@
 <view class="anim-info">
   <ds-tabs bind:selectTab="selectTab" currentTab="{{currentTab}}" tabs="{{tabs}}"></ds-tabs>
   <scroll-view scroll-top="{{scrollTop}}" class="view" scroll-y>
-    <common-good wx:for-item="good" wx:if="{{currentGoods.length > 0}}" bind:click="toDetail" wx:for="{{currentGoods}}" good="{{good}}" wx:key="{{good._id}}">
+    <common-good wx:for-item="good" wx:if="{{currentGoods.length > 0}}" bind:click="toDetail" wx:for="{{currentGoods}}" good="{{good}}" wx:key="_id">
       <view class="animal-attrs">
         <view class="animal-attr">
-          <view wx:if="{{good.attr[0] || good.attr[0] === 0}}" class="hurt"><view>伤害</view><view class="attr-value">{{good.attr[0]}} </view></view>
-          <view wx:if="{{good.attr[1] || good.attr[1] === 0}}" class="live"><view>生命</view><view class="attr-value">{{good.attr[1]}}</view></view>
+          <view wx:if="{{good.damage}}" class="hurt"><view>伤害</view><view class="attr-value">{{good.damage}} </view></view>
+          <view wx:if="{{good.hp}}" class="live"><view>生命</view><view class="attr-value">{{good.hp}}</view></view>
         </view>
         <view class="speed animal-attr">
-          <view wx:if="{{good.attr[2] || good.attr[2] === 0}}" class="speed-item"><view>行走</view><view class="attr-value">{{good.attr[2]}} </view> </view>
-          <view wx:if="{{good.attr[3] || good.attr[3] === 0}}" class="speed-item"><view>奔跑</view><view class="attr-value">{{good.attr[3]}}</view></view>
+          <view wx:if="{{good.walkSpeed}}" class="speed-item"><view>行走</view><view class="attr-value">{{good.walkSpeed}} </view> </view>
+          <view wx:if="{{good.runSpeed}}" class="speed-item"><view>奔跑</view><view class="attr-value">{{good.runSpeed}}</view></view>
         </view>
       </view>
     </common-good>

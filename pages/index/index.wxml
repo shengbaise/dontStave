@@ -3,25 +3,25 @@
   <view class="fixed-item" wx:if="{{isFixed}}">
     <searchInput bindtap="toSearch" marginRight="{{marginRight}}" top="{{marginRight}}" width="{{width}}" isReadonly="true"/>
     <i-tabs color="#f5f5f5" i-class="article-tabs" current="{{currentArticleType}}" scroll bindchange="handleChangeScroll">
-      <i-tab i-class="article-tab" wx:for="{{articleTabs}}" key="{{item.type}}" wx:key="{{item.type}}" title="{{item.label}}"></i-tab>
+      <i-tab i-class="article-tab" wx:for="{{articleTabs}}" key="{{item.type}}" wx:key="type" title="{{item.label}}"></i-tab>
     </i-tabs>
   </view>
   <view class="view">
     <!-- <ad unit-id="adunit-e7a57fa768a06808"></ad> -->
     <searchInput bindtap="toSearch" marginRight="{{marginRight}}" top="{{marginRight}}" width="{{width}}" isReadonly="{{true}}"/>
     <view class="tabs">
-      <view class="tab" wx:for="{{tabs}}" wx:key="{{index}}" bindtap="toTap" data-path="{{item.toPath}}" data-type="{{item.type}}">
+      <view class="tab" wx:for="{{tabs}}" wx:key="index" bindtap="toTap" data-path="{{item.toPath}}" data-type="{{item.type}}">
         <image class="tab-img" alt="" src="{{item.tabImgUrl}}" mode="aspectFill"></image>
         <view class="tab-name">{{item.name}}</view>
       </view>
     </view>
     <i-tabs color="#f5f5f5" i-class="article-tabs" current="{{currentArticleType}}" scroll bindchange="handleChangeScroll">
-      <i-tab i-class="article-tab" wx:for="{{articleTabs}}" key="{{item.type}}" wx:key="{{item.type}}" title="{{item.label}}"></i-tab>
+      <i-tab i-class="article-tab" wx:for="{{articleTabs}}" key="{{item.type}}" wx:key="type" title="{{item.label}}"></i-tab>
     </i-tabs>
     <view class="articles">
       <view class="article"
         wx:for="{{articles}}"
-        wx:key="item._id"
+        wx:key="_id"
         data-id="{{item._id}}"
         bindtap="toArticleDetail"
         style="border-color: {{borderColors[index % 6]}}">

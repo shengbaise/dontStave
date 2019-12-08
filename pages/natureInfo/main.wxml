@@ -1,7 +1,7 @@
 <view class="nature-info">
   <ds-tabs bind:selectTab="selectTab" currentTab="{{currentTab}}" tabs="{{tabs}}"></ds-tabs>
   <scroll-view class="view" scroll-y scroll-top="{{scrollTop}}">
-    <common-good wx:if="{{currentGoods.length > 0}}" bind:click="toDetail" wx:for="{{currentGoods}}" good="{{item}}" wx:key="item._id">
+    <common-good wx:if="{{currentGoods.length > 0}}" bind:click="toDetail" wx:for="{{currentGoods}}" good="{{item}}" wx:key="_id">
       <view class="attrs">
         <view class="attr-contanier" wx:if="{{item.attr[0] && item.attr[0] !== '0'}}"><view class="aggressivity">攻击力</view>
           <view class="attr-value">{{item.attr[0]}}</view>

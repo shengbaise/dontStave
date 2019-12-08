@@ -7,7 +7,7 @@
   <view class="desciption">
     <view class="name-tag" style="display: flex;">
       <view class="name">{{good.name}}</view>
-      <view class="tag" wx:for="{{good.tag}}" wx:key="{{item._id}}">
+      <view class="tag" wx:for="{{good.tag}}" wx:key="_id">
         {{item.name}}
       </view>
     </view>

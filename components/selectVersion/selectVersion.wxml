@@ -2,5 +2,5 @@
   <i-icon type="other" size="28" color="#ffffff" />
 </view>
 <i-modal action-mode="vertical" title="选择版本" visible="{{ visible }}" bind:ok="okSelect" bind:cancel="handleClose">
-  <view data-version="{{item.name}}" bindtap="selectVersion" class="version-item" style="color:{{currentVersion === item.name ? '#009688' : 'rgba(0,0,0,.54)'}};" wx:for="{{versionOptions}}" wx:key="{{item.name}}">{{item.value}}</view>
+  <view data-version="{{item.name}}" bindtap="selectVersion" class="version-item" style="color:{{currentVersion === item.name ? '#009688' : 'rgba(0,0,0,.54)'}};" wx:for="{{versionOptions}}" wx:key="name">{{item.value}}</view>
 </i-modal>

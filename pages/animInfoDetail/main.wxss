@@ -197,3 +197,26 @@ page {
 .ability {
   padding-top: 12px;
 }
+
+.anim-materials {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 16px;
+  padding-top: 24px;
+  font-size: 12px
+}
+.need-materials,
+.fail-materials {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+  text-align: center;
+  width: 50%
+}
+.need-desc {
+  /* padding-top:24px; */
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+}

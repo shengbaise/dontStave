@@ -131,7 +131,7 @@ page {
 .food-attrs .food-attr .attr-content {
   text-align: center;
   font-size: 12px;
-  padding: 2px 12px;
+  padding: 2px 6px;
   color: #fff;
   background-color: #915842;
   border-radius: 4px

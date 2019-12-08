@@ -1,15 +1,13 @@
 const app = getApp()
-import { formatUrl } from '../../utils/util.js'
 let interstitialAd = null
 
 Page({
   data: {
-    item: {},
     version: 'DST',
-    rewards: [],
-    collections: [],
-    feedBack: null,
-    src: ''
+    animInfo: {},
+    attributes: app.$c('ANIMAL_ATTRIBUTES'),
+    size: 32,
+    id: ''
   },
   onLoad (options) {
     if (wx.createInterstitialAd) {
@@ -33,53 +31,13 @@ Page({
       })
     }
   },
-  handleData (res) {
-    // 收集
-    if (res.collection) {
-      this.setData({
-        collections: res.collection.map(item => formatUrl(item))
-      })
-    } else {
-      this.setData({
-        collections: []
-      })
-    }
-    // 赠品
-    const feedBack = res.feedBack
-    const feedBacks = []
-    if (feedBack.length > 0) {
-      feedBack.forEach((feed, index) => {
-        if (index % 2 === 0) {
-          feedBacks.push({
-            src: formatUrl(feed),
-            num: feedBack[index + 1]
-          })
-        }
-      })
-      this.setData({
-        feedBack: feedBacks
-      })
-    } else {
-      this.setData({
-        feedBack: null
-      })
-    }
-    // 战利品
-    const rewards = res.reward.filter(item => item.src && item.num)
-    rewards.forEach(item => {
-      if (item.num[0] !== '×') {
-        item.num = formatUrl(item.num)
-      }
-      item.src = formatUrl(item.src)
-    })
-    this.setData({
-      rewards: rewards,
-      item: res
-    })
-  },
   async initData () {
     const ret = await app.http.get(`/anim/single?id=${this.data.id}`)
-    this.handleData(ret)
+    this.setData({
+      animInfo: ret,
+      hasFeedback: ret.feedBackItems && ret.feedBackItems.length,
+      hasCollection: ret.collectItems && ret.collectItems.length
+    })
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

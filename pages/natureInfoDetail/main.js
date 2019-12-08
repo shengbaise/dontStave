@@ -4,10 +4,12 @@ let interstitialAd = null
 
 Page({
   data: {
-    item: {},
-    origins: [],
-    createSciences: [],
-    id: ''
+    id: '',
+    natureInfo: {},
+    attributes: app.$c('NATURE_ATTRIBUTES'),
+    size: 32,
+    hasOrigin: false,
+    hasCreate: false
   },
   onLoad (options) {
     if (wx.createInterstitialAd) {
@@ -22,6 +24,9 @@ Page({
     wx.setNavigationBarTitle({
       title: '自然详情'
     })
+    this.setData({
+      version: wx.getStorageSync('currentVersion') || 'DST',
+    })
     this.initData()
   },
   onShow () {
@@ -30,60 +35,14 @@ Page({
         console.error(err)
       })
     }
-    this.data.origins = []
-    this.data.createSciences = []
-    this.setData({
-      version: wx.getStorageSync('currentVersion') || 'DST',
-    })
-    
-  },
-  toImgDetail (src) {
-    const detailItem = getDetailItem(src)
-    if (!detailItem.src || !detailItem.urlParam) {
-      return
-    }
-    if (detailItem.urlParam === 'recipeDetail') {
-      this.item = {}
-      setTimeout(() => {
-        this.initData({
-          src: src,
-          version: this.data.version
-        })
-      }, 0)
-    } else {
-      wx.navigateTo({
-        url: `/pages/${detailItem.urlParam}/main?src=${detailItem.src}&version=${this.version}`
-      })
-    }
-  },
-  handleData (res) {
-    if (res.origin) {
-      const origins = res.origin.map(item => {
-        if (item) {
-          return formatUrl(item)
-        }
-      })
-      this.setData({
-        origins: origins.filter(item => !!item)
-      })
-    }
-    if (res.createScience) {
-      const createSciences = res.createScience.map(item => {
-        if (item !== null) {
-          return formatUrl(item)
-        }
-      })
-      this.setData({
-        createSciences: createSciences.filter(item => !!item)
-      })
-    }
-    this.setData({
-      item: res
-    })
   },
   async initData () {
     const ret = await app.http.get(`/nature/single?id=${this.data.id}`)
-    this.handleData(ret)
+    this.setData({
+      natureInfo: ret,
+      hasOrigin: ret.origin && ret.origin.length,
+      hasCreate: ret.createScience && ret.createScience.length
+    })
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

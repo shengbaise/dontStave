@@ -1,7 +1,7 @@
 <view class="ds-detail-container">
   <view class="ds-detail">
-    <technology technology="{{technology}}"></technology>
-    <composition composition="{{composition}}"></composition>
+    <technology wx:if="{{technology.length}}" technology="{{technology}}"></technology>
+    <composition wx:if="{{composition.length}}" composition="{{composition}}"></composition>
     <slot></slot>
     <common-detail attributes="{{attributes}}" detail="{{detail}}"></common-detail>
   </view>

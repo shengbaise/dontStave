@@ -30,7 +30,6 @@
     "backgroundColor": "#1a2933"
   },
   "tabBar": {
-    "fontSize": "12px",
     "color": "#666",
     "backgroundColor": "#263238",
     "selectedColor": "#398dee",

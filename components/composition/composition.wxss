@@ -2,13 +2,13 @@
   padding-top: 2px;
   padding-bottom: 18px;
   display: flex;
-  flex-flow: nowrap row;
+  flex-flow: wrap row;
   justify-content: space-around
 }
 
 .ds-material {
   display: flex;
-  flex-flow: nowrap row;
+  flex-flow: wrap row;
   align-items: center
 }
 .ds-materials-title {

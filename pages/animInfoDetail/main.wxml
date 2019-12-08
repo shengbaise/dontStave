@@ -1,88 +1,31 @@
 <view class="anim-info-detail">
   <scroll-view scroll-y="{{true}}" class="view">
-    <common-good good="{{item}}" hasFeedback="{{true}}">
+    <common-good good="{{animInfo}}" hasFeedback="{{true}}">
       <view class="animal-attrs">
         <view class="animal-attr">
-          <view wx:if="{{item.attr[0] || item.attr[0] === 0}}" class="hurt"><view>伤害</view><view class="attr-value">{{item.attr[0]}} </view></view>
-          <view wx:if="{{item.attr[1] || item.attr[1] === 0}}" class="live"><view>生命</view><view class="attr-value">{{item.attr[1]}}</view></view>
+          <view wx:if="{{animInfo.damage}}" class="hurt"><view>伤害</view><view class="attr-value">{{animInfo.damage}} </view></view>
+          <view wx:if="{{animInfo.hp}}" class="live"><view>生命</view><view class="attr-value">{{animInfo.hp}}</view></view>
         </view>
         <view class="speed animal-attr">
-          <view wx:if="{{item.attr[2] || item.attr[2] === 0}}" class="speed-item"><view>行走</view><view class="attr-value">{{item.attr[2]}} </view> </view>
-          <view wx:if="{{item.attr[3] || item.attr[3] === 0}}" class="speed-item"><view>奔跑</view><view class="attr-value">{{item.attr[3]}}</view></view>
+          <view wx:if="{{animInfo.walkSpeed}}" class="speed-item"><view>行走</view><view class="attr-value">{{animInfo.walkSpeed}} </view> </view>
+          <view wx:if="{{animInfo.runSpeed}}" class="speed-item"><view>奔跑</view><view class="attr-value">{{animInfo.runSpeed}}</view></view>
         </view>
       </view>
     </common-good>
-    <view class="detail-container">
-      <view class="detail">
-        <view class="top">
-          <view class="top-tip">战利品</view>
-          <!-- <img class="science-img" v-else src="/static/img/food/pot.png" alt="" mode="widthFix"> -->
-        </view>
-        <view class="materials" wx:if="{{rewards.length > 0}}">
-          <view class="material" wx:for-item="reward" wx:for="{{rewards}}" wx:key="{{index}}">
-            <image class="material-img" data-src="{{reward.src}}" bindtap="toImgDetail" src="{{reward.src}}" alt="" mode="widthFix" />
-            <view wx:if="{{reward.num[0] !== '×'}}">(<image data-src="{{reward.src}}" bindtap="toImgDetail" class="material-img-tool" src="{{reward.num}}" alt="" mode="widthFix" />)</view>
-            <view wx:if="{{reward.num[0] === '×'}}">{{reward.num}}</view>
-          </view>
-        </view>
-        <view class="materials-collection common-materials" wx:if="{{collections.length > 0 && item.type === 36}}">
-          <view class="need-materials">
-            <view class="material-item" wx:if="{{collections.length > 0}}">
-              <view class="material" wx:for-item="material" wx:for="{{collections}}" wx:key="{{index}}">
-                <image class="material-img" src="{{material}}" alt="" mode="aspectFit" />
-              </view>
-            </view>
-            <view class="material-item none" wx:else>无</view>
-            <view class="need-desc">收集</view>
-          </view>
-          <view class="fail-materials">
-            <view class="material-item" wx:if="{{feedBack}}">
-              <view class="material" wx:for-item="feed" wx:for="{{feedBack}}" wx:key="index">
-                <image class="material-img" src="{{feed.src}}" alt="" mode="aspectFit" />
-                <view>{{feed.num}}</view>
-              </view>
-            </view>
-            <view class="material-item none" wx:else>无</view>
+    <detail-container attributes="{{attributes}}" detail="{{animInfo}}">
+      <view>
+        <composition title="战利品" wx:if="{{animInfo.reward && animInfo.reward.length}}" size="{{size}}" composition="{{animInfo.reward}}"></composition>
+        <view wx:if="{{hasFeedback || hasCollection}}" class="anim-materials" style="display: flex;">
+          <view class="need-materials" wx:if="{{hasFeedback}}">
+            <composition size="{{size}}" composition="{{animInfo.feedBackItems}}"></composition>
             <view class="need-desc">赠品</view>
           </view>
-        </view>
-        <view class="label-items">
-          <view class="label-item" wx:if="{{item.IsActiveAttack}}">
-            <i-icon size="16" color="#aaaaaa" type="label_fill" />
-            <view class="lable-text">主动攻击</view>
-          </view>
-          <view class="label-item" wx:if="{{item.IsTeamWork}}">
-            <i-icon size="16" color="#aaaaaa" type="label_fill" />
-            <view class="lable-text">团队协作</view>
-          </view>
-        </view>
-        <!-- <common-attr attrs="{{attrs}}"></common-attr> -->
-        <common-detail console="{{item.console}}" desc="{{item.desc}}">
-          <view class="console" wx:if="{{item.interval}}">
-            <view class="key">攻击间隔</view>
-            <view class="value">{{item.interval}}</view>
-          </view>
-          <view class="console" wx:if="{{item.san}}">
-            <view class="key">影响理智</view>
-            <view class="value">{{item.san}} / 分钟</view>
-          </view>
-          <view class="console" wx:if="{{item.scope}}">
-            <view class="key">攻击范围</view>
-            <view class="value">{{item.scope}}</view>
-          </view>
-          <view class="console" wx:if="{{item.Dangerous}}">
-            <view class="key">危险程度</view>
-            <view class="value">{{item.Dangerous}}</view>
-          </view>
-        </common-detail>
-        <view class="ability" wx:if="{{item.Ability && item.Ability.length > 0}}">
-          <view class="title">特殊能力</view>
-          <view>
-            <view class="content" wx:for-item="ability" wx:for="{{item.Ability}}" wx:key="{{index}}">{{index + 1}}、{{ability}}</view>
+          <view class="fail-materials" wx:if="{{hasCollection}}">
+            <composition size="{{size}}" composition="{{animInfo.collectItems}}"></composition>
+            <view class="need-desc">收集</view>
           </view>
         </view>
       </view>
-    </view>
-    <!-- <ad unit-id="adunit-d43160ad4b4929da"></ad> -->
+    </detail-container>
   </scroll-view>
 </view>

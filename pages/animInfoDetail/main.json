@@ -1,8 +1,9 @@
 {
   "usingComponents": {
     "common-good": "../../components/commonGood/commonGood",
-    "common-detail": "../../components/commonDetail/commonDetail",
-    "i-icon": "../../components/iView/dist/icon/index"
+    "detail-container": "../../components/detail-container/detail-container",
+    "i-icon": "../../components/iView/dist/icon/index",
+    "composition": "../components/composition/composition"
   },
   "enablePullDownRefresh": false
 }

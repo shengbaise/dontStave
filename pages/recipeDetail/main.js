@@ -7,11 +7,6 @@ Page({
   data: {
     item: {},
     version: 'DST',
-    composites: [],
-    needs: [],
-    fails: [],
-    features: [],
-    type: 0,
     potItem: {
       1: '/static/img/food/pot.png',
       2: '/static/img/food/wolyPot.png'
@@ -64,64 +59,14 @@ Page({
       })
     }
   },
-  handleData (res, options) {
-    let composites = []
-    let needItems = []
-    let fails = []
-    let features = []
+  async initData (options) {
+    const res = await app.http.get(`/food/single?id=${options.id}`)
     this.setData({
-      type: options.type,
-      item: res
+      hasNeed: res.need && res.need.length,
+      item: res,
+      hasFail: res.fail && res.fail.length,
+      hasProperty: res.property && res.property.length
     })
-    if (res.composite && res.composite.length > 0) {
-      composites = res.composite.map(item => {
-        return formatUrl(item)
-      })
-      composites = composites.filter(item => !!item)
-    }
-    if (res.need && res.need.length > 0) {
-      needItems = res.need.map((need, index) => {
-        if (index % 2 === 0) {
-          return {
-            src: formatUrl(need),
-            num: res.need[index + 1]
-          }
-        }
-      })
-      needItems = needItems.filter(item => !!item)
-    }
-    if (res.fail && res.fail.length > 0) {
-      fails = res.fail.map((need, index) => {
-        if (index % 2 !== 0) {
-          return {
-            src: formatUrl(need),
-            num: res.fail[index - 1]
-          }
-        }
-      })
-      fails = fails.filter(item => !!item && !!item.src)
-    }
-    if (res.feature && res.feature.length > 0) {
-      features = res.feature.map((feature, index) => {
-        if (index % 2 === 0 && feature) {
-          return {
-            src: ['荤', '素'].indexOf(feature) > -1 ? feature : formatUrl(feature),
-            num: res.feature[index + 1]
-          }
-        }
-      })
-      features = features.filter(item => !!item && !!item.src)
-    }
-    this.setData({
-      composites: composites,
-      needs: needItems,
-      fails: fails,
-      features: features
-    })
-  },
-   async initData (options) {
-    const ret = await app.http.get(`/food/single?id=${options.id}`)
-    this.handleData(ret, options)
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {
