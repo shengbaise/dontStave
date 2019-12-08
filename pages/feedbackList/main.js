@@ -35,19 +35,18 @@ Page({
   //   this.data.pageNum = 0
   //   this.setFeedBacks()
   // },
-  setFeedBacks () {
+  async setFeedBacks () {
     this.setData({
       loading: true,
       loaded: false
     })
-    app.http.get(`/feedback?pageSize=10&pageNum=${this.data.pageNum}&status=${this.data.currentTabType}`, (res) => {
-      const datas = this.data.feedBacks.concat(res.data)
-      this.setData({
-        newFeedBacks: res.data,
-        feedBacks: datas,
-        loading: false,
-        loaded: true
-      })
+    const res = await app.http.get(`/feedback?pageSize=10&pageNum=${this.data.pageNum}&status=${this.data.currentTabType}`)
+    const datas = this.data.feedBacks.concat(res.data)
+    this.setData({
+      newFeedBacks: res.data,
+      feedBacks: datas,
+      loading: false,
+      loaded: true
     })
   },
   loadMore () {

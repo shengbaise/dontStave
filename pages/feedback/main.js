@@ -1,4 +1,5 @@
 import { formatDate } from '../../utils/util.js'
+const app = getApp()
 
 Page({
   data: {
@@ -27,7 +28,7 @@ Page({
       question: detail.value
     })
   },
-  commit () {
+  async commit () {
     this.setData({
       hasClickCommit: true
     })
@@ -40,16 +41,19 @@ Page({
       name: this.data.item.name,
       alis: this.data.item.alis,
       status: 0,
+      type: 0,
       content: this.data.question // 0 待处理 1 已处理 2 不予处理
     }
-
-    app.http.post('/feedback/add', item, (res) => {
-      if (res.code === 0) {
-        wx.navigateTo({
-          url: '/pages/feedBackList/main'
-        })
-      }
-    })
+    const res = await app.http.post('/feedback/add', item)
+    console.info(res, 'resss')
+    if (res.code === 0) {
+      wx.redirectTo({
+        url: '/pages/feedbackList/main'
+      })
+      // wx.redirectTo({
+      //   url: '/pages/feedBackList/main'
+      // })
+    }
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {

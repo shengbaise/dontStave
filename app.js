@@ -1,7 +1,6 @@
 //app.js
 // http = require('service/http.js')
 import http from 'service/http.js'
-import regeneratorRuntime from './utils/runtime'
 import {$c, $c2} from './constant'
 
 App({

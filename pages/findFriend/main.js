@@ -123,7 +123,7 @@ Page({
       imageUrl: 'http://img.fireleaves.cn/SomeLabel/share.png'
     }
   },
-  setFriends () {
+  async setFriends () {
     const currentType = this.data.currentType
     const type = parseInt(currentType.platform)
     const sex = parseInt(currentType.sex)
@@ -131,14 +131,13 @@ Page({
       loading: true,
       loaded: false
     })
-    app.http.get(`/message?pageSize=10&pageNum=${this.data.pageNum}&type=${type}&sex=${sex}`, (res) => {
-      const datas = this.data.friends.concat(res.data)
-      this.setData({
-        allFriends: res.data,
-        friends: datas,
-        loading: false,
-        loaded: true
-      })
+    const res = await app.http.get(`/message?pageSize=10&pageNum=${this.data.pageNum}&type=${type}&sex=${sex}`)
+    const datas = this.data.friends.concat(res.data)
+    this.setData({
+      allFriends: res.data,
+      friends: datas,
+      loading: false,
+      loaded: true
     })
   },
   copyNumber (event) {

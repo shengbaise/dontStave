@@ -13,7 +13,7 @@ Component({
         name: this.data.item.name,
         alis: this.data.item.alis
       }
-      wx.navigateTo({
+      wx.redirectTo({
         url: `/pages/feedback/main?item=${JSON.stringify(data)}`
       })
     }
