@@ -19,16 +19,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setPageTitle()
     this.setData({
       type: options.type,
-      id: options.id || ''
-    })
-  },
-  onShow () {
-    this.setData({
+      id: options.id || '',
       currentVersion: wx.getStorageSync('currentVersion') || 'DST'
     })
+    this.setPageTitle()
     this.getData()
   },
   setPageTitle () {

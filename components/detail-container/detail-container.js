@@ -5,6 +5,10 @@ Component({
     imgDomain: app.imgDomain + '/'
   },
   properties: {
+    showNumber: {
+      type: Boolean,
+      value: true
+    },
     composition: {
       type: Array,
       value: []

@@ -10,7 +10,8 @@
     </common-good>
     <detail-container technology="{{item.technology}}"
                       composition="{{item.composition}}"
-                      attributes="{{attributes}}" detail="{{item}}">
+                      attributes="{{attributes}}" detail="{{item}}"
+                      showNumber="{{showNumber}}">
         <view>
           <composition title="食物属性" wx:if="{{hasProperty}}" size="{{size}}" composition="{{item.property}}"></composition>
           <view wx:if="{{(hasNeed || hasFail) && !hasProperty}}" class="common-materials" style="display: flex;">

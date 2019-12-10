@@ -14,7 +14,8 @@ Page({
     foodAttr: app.$c('FOOD_ATTR'),
     imgDomain: app.imgDomain + '/',
     attributes: app.$c('FOOD_ATTRIBUTES'),
-    size: 32
+    size: 32,
+    showNumber: false
   },
   onLoad (options) {
     if (wx.createInterstitialAd) {
