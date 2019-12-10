@@ -181,9 +181,9 @@ Page({
   handleChangeScroll ({ detail }) {
     const id = detail.key
     const item = this.data.typeList.find(v => v.id == id)
+    this.data.pageNum = 0
     this.setData({
       currentType: item,
-      pageNum: 0,
       scrollTop: 0
     })
     this.data.friends = []
