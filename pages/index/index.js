@@ -22,7 +22,9 @@ Page({
     currentArticleType: 0,
     isFixed: false,
     marginRight: 0,
-    width: '100%'
+    width: '100%',
+    imgDomain: app.imgDomain + '/',
+    imgStyle: app.imgStyle
   },
   onLoad () {
     const that = this
@@ -86,7 +88,10 @@ Page({
     this.data.loaded = false
     this.data.pageDatas = []
     const ret = await app.http.get(`/article?pageSize=10&pageNum=${this.data.pageNum}&type=${this.data.currentArticleType}`)
-    const datas = ret && ret.data || []
+    const datas = (ret && ret.data || []).map(v => {
+      v.src = this.data.imgDomain + v.src.replace(this.data.imgDomain, '') + this.data.imgStyle
+      return v
+    })
     const articles = this.data.articles.concat(datas)
     this.setData({
       articles: articles ,
@@ -123,6 +128,7 @@ Page({
     }
     this.data.pageNum = 0
     this.setData({
+      // pageNum: 0,
       currentArticleType: detail.key
     })
     this.data.articles = []

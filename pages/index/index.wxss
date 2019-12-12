@@ -2,36 +2,20 @@
 page {
   height: 100%;
   width: 100%;
-  background-color: #37474f;
   font-family: Avenir,Helvetica,Arial,sans-serif;
-}
-.scroll-container {
-  overflow:auto;
-  -webkit-overflow-scrolling: touch;
-  margin:auto;
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
 }
 .home-container {
   position: relative;
-  /* overflow: scroll; */
   padding-top: 0;
   width: 100%;
   height: 100%;
-  background-color: #37474f;
   -webkit-overflow-scrolling: touch;
 }
 
 .fixed-item {
-  /* position: absolute; */
   position: fixed;
   width: 100%;
-  /* top: 0; */
   z-index:12;
-  background-color: #37474f;
 }
 .tabs {
   margin-top: 12px;
@@ -52,21 +36,11 @@ page {
   height: 32px;
   width: 32px;
 }
-.switch-icon {
-  height:24px;
-  width:24px;
-}
-.search-item {
-  position: relative;
-  flex-shrink: 0;
-}
 .view {
   position: relative;
   white-space: nowrap;
-  /* overflow: scroll; */
   -webkit-overflow-scrolling: touch;
   width: 100%;
-  /* height: 100%; */
 }
 .bottom-tip {
   position: absolute;
@@ -78,69 +52,35 @@ page {
   text-align:center;
   padding-bottom: 12px;
 }
-.article-tabs {
-  background-color:#263238 !important;
-}
 .article-tab {
   width: auto !important;
   padding: 0 12px !important;
 }
 .article-img {
-  border-radius: 4px;
-  width: 100%;
+  margin-top: 12px;
+  width: 100px;
   height: 100px;
+  border-radius: 6px;
 }
 .articles {
-  position: relative;
-  min-height: 375px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  padding: 12px 12px 0 12px;
-}
-.author, .time {
-  margin-left: 8px;
-  max-width: 65px;
-  min-width: 30px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  text-align: left;
-  overflow: hidden;
-}
-.article-footer {
-  display: flex;
-  align-items: center;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  padding-right: 12px;
-  padding-left: 12px;
-  color: #a6a9b0;
-  font-size: 12px;
-}
-.text .title {
-  width:calc(100% - 26px);
-  margin-top: 12px;
-  padding-left: 12px;
-  padding-right: 12px;
-  text-align: left;
-  font-size: 14px;
-  color: #fff;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
+  padding: 16px;
 }
 .article {
-  position: relative;
-  width: calc(50% - 6px);
-  margin-bottom: 12px;
-  background-color: #1a2933;
-  font-size: 14px;
-  border-radius: 4px;
-  box-sizing: border-box;
-  border-top: 4px solid;
+  padding: 12px;
+  border-bottom: 1px solid rgba(178,186,194,.15);
 }
+.article-author-time {
+  font-size: 12px;
+  color: #b2bac2;
+}
+.article-title {
+  margin-top: 12px;
+  line-height: 1.2;
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+}
+
 .tabs .tab-name {
   font-size: 12px;
 }

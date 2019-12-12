@@ -9,7 +9,7 @@
   box-sizing: border-box;
 } 
 .long-text {
-  display: inline-block !important;
+  display: block;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
