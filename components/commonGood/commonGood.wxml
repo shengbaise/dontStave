@@ -1,7 +1,6 @@
 <view class="common-good" bindtap="toDetail">
   <feedback-button wx:if="{{hasFeedback}}" item="{{good}}"></feedback-button>
   <view class="good-img-container">
-    <image class="background-image" src="/static/img/home/chacter2.png" alt="" mode="aspectFit" />
     <ds-img src="{{good.src}}"></ds-img>
   </view>
   <view class="desciption">

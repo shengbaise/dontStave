@@ -9,6 +9,9 @@ Component({
       value: {}
     }
   },
+  data: {
+    name: 'name'
+  },
   methods: {
     copyNumber (event) {
       const dataset = event.currentTarget.dataset

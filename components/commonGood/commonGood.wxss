@@ -12,7 +12,9 @@
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   width: 120px;
-  height: 103px
+  height: 103px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  border-radius: 4px;
 }
 
 .common-good .good-img-container .background-image {

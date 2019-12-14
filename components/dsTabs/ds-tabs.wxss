@@ -1,5 +1,5 @@
 .ds-tab-selected {
-  color: #b7ba6b !important
+  color: #f5f5f5 !important
 }
 
 .ds-tabs {

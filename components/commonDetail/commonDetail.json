@@ -3,6 +3,8 @@
   "usingComponents": {
     "mark-down": "../markdown/markdown",
     "i-toast": "../../components/iView/dist/toast/index",
-    "wemark": "../../components/wemark/wemark"
+    "wemark": "../../components/wemark/wemark",
+    "i-collapse": "../../components/iView/dist/collapse/index",
+    "i-collapse-item": "../../components/iView/dist/collapse-item/index"
   }
 }
