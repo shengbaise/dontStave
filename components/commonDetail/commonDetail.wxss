@@ -1,42 +1,56 @@
+.description {
+  padding: 0 12px;
+}
 .common-detail .description .title {
-  padding:12px 0;
+  padding-top: 12px;
   font-size: 16px;
   font-weight: 600;
-  text-align: left
+  text-align: left;
 }
-
+.common-attributes {
+  background-color: #f7f8fa;
+  border-bottom: 1px solid #DCDFE6;
+  padding-bottom: 8px;
+}
 .common-detail .description .content {
   color: #333;
   font-size: 14px;
-  text-align: left
+  text-align: left;
+}
+.attributes-title {
+  font-size: 14px;
+  color: #969799;
+  display: inline-block;
+  /* padding-bottom: 12px; */
+}
+.attributes-container {
+  display: flex;
+  flex-flow: row wrap;
+  /* border-bottom: 1px solid #DCDFE6; */
 }
 
 .common-detail .console {
-  align-items: center;
-  margin-bottom: 12px;
-  padding-right: 12px;
-  height: 36px;
-  border-radius: 4px;
-  border-left: 4px solid #666;
-  background-color: #f9f9f9;
-  color: #999;
-  font-size: 14px;
+  width: 33%;
   display: flex;
   flex-flow: nowrap row;
-  justify-content: space-between
+  align-items: center;
+  padding-bottom: 12px;
 }
 
 .common-detail .console .key {
-  padding-left: 10px;
-  color: #999;
-  letter-spacing: 2px;
+  color: #969799;
+  display: inline-block;
+  /* width: 50px; */
+  font-size: 12px;
 }
 
 .common-detail .console .value {
-  color: #333;
   display: flex;
   align-items: center;
-  padding:12px 0;
+  padding-left:12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #969799;
 }
 view {
   overflow: hidden;

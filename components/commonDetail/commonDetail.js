@@ -10,7 +10,7 @@ Component({
     }
   },
   data: {
-    name: 'name'
+    name: 'attributes'
   },
   methods: {
     copyNumber (event) {

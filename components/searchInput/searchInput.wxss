@@ -1,8 +1,8 @@
 .search-input {
-  /* background-color:#37474f; */
+  background: #fff;
   user-select: none;
   width: 100%;
-  border-bottom: 1rpx solid rgba(178,186,194,.35);
+  border-bottom: 1px solid rgba(178,186,194,.15);
 }
 input::input-placeholder {
   color: #999;

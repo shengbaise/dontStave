@@ -1,25 +1,25 @@
 <view class="common-detail">
   <slot></slot>
-  <i-collapse name="{{name}}">
-    <i-collapse-item title="" name="name1">
-    <view slot="content">
-      <view wx:for="{{attributes}}" wx:key="index">
-        <view class="console">
+  <i-collapse i-class="common-attributes" name="{{name}}">
+    <i-collapse-item title="属性"
+                     name="attributes"
+                     i-class-title="attributes-title">
+      <view slot="content" class="attributes-container">
+        <view class="console" wx:for="{{attributes}}" wx:key="index">
           <view class="key">{{item.name}}</view>
           <view class="value" wx:if="{{item.handleData}}">
             {{item.handleData(detail[item.key])}}
           </view>
           <view wx:if="{{detail[item.key] && !item.handleData}}" class="value">{{detail[item.key]+item.unit|| ''}}</view>
         </view>
+        <view class="console" wx:if="{{detail.console}}" >
+          <view class="key"> 生成代码</view>
+          <view class="value" bindtap="copyNumber" data-content="{{detail.console}}">
+            <view>{{detail.console}}</view>
+            <view class="copy-number">复制</view>
+          </view>
+        </view> 
       </view>
-      <view class="console" wx:if="{{detail.console}}" >
-        <view class="key"> 生成代码</view>
-        <view class="value" bindtap="copyNumber" data-content="{{detail.console}}">
-          <view>{{detail.console}}</view>
-          <view class="copy-number">复制</view>
-        </view>
-      </view> 
-    </view>
     </i-collapse-item>
   </i-collapse>
   
