@@ -1,7 +1,7 @@
 <view class="mine">
   <view class="feed-back" bindtap="toFeedBackList">
     <view class="left">
-      <i-icon size="28" color="#ffffff" type="feedback" />
+      <i-icon size="28" color="#323233" type="feedback" />
       <view>FeedBack</view>
     </view>
     <view class="right">反馈</view>

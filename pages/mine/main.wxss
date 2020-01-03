@@ -1,7 +1,6 @@
 page {
   height: 100%;
   width: 100%;
-  background-color: #37474f;
 }
 .mine {
   color: #ffffff;
@@ -15,25 +14,23 @@ page {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #666
+  border-bottom: 1px solid rgba(178,186,194,.15);
 }
 
 .mine .feed-back .left {
-  color: #fff;
+  color: #323233;
   display: flex;
   width: 100px;
-  justify-content: space-between
+  justify-content: space-between;
+  align-items:center;
 }
 
 .mine .feed-back .right {
-  color: #999;
+  color: #969799;
   font-size: 14px
 }
 
 .mine .feed-back-icon {
   height: 24px;
   width: 24px
-}
-.left {
-  align-items:center;
 }
