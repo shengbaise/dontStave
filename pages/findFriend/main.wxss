@@ -1,153 +1,76 @@
 page {
   height: 100%;
   width: 100%;
-  /* background-color: #37474f; */
   font-family: Avenir,Helvetica,Arial,sans-serif;
 }
 .find-friend {
   height: 100%;
   width: 100%;
-  /* background-color: #37474f; */
-  position: relative
+  position: relative;
 }
-
-.find-friend .view {
-  position: absolute;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  /* background-color: #37474f; */
-  width: 100%;
-  top: 42px;
-  height: 100%
-}
-
-.find-friend .add {
-  height: 20px
-}
-
-.find-friend .friends {
+.friends {
   position: relative;
   margin-top:40px;
-  padding: 12px;
   box-sizing: border-box;
 }
-
-.find-friend .friends .friend {
+.friend {
+  padding: 16px;
   position: relative;
-  border-left: 4px solid;
-  /* background-color: #212121; */
-  padding: 12px;
-  justify-content: flex-start;
-  margin-bottom: 6px;
+  background: #fff;
+  margin-bottom: 12px;
+  border-bottom: 12px #f7f8fa solid;
+}
+.friend-name {
   display: flex;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px
-}
-
-.find-friend .friends .friend .detail .personal-message {
-  margin-left: 8px;
-  text-align: left;
-  display: flex;
-  align-items: center
-}
-
-.find-friend .friends .friend .detail .personal-message .name {
-  font-size: 16px;
-  color: #fff
-}
-
-.find-friend .friends .friend .detail .personal-message .time {
-  position: absolute;
-  right: 12px;
-  font-size: 12px;
-  color: #666
-}
-
-.find-friend .friends .friend .detail .personal-contact {
-  display: flex;
-  align-items: center
-}
-
-.find-friend .friends .friend .detail .personal-contact .contact-logo {
-  font-size: 12px;
-  margin: 0 8px;
-  color: #666
-}
-
-.find-friend .friends .friend .detail .personal-contact .contact-number {
-  font-size: 12px;
-  color: #666
-}
-
-.find-friend .friends .friend .detail .personal-talk {
-  margin-left: 8px;
-  text-align: left;
-  margin-top: 4px;
-  padding-top: 4px;
   font-size: 14px;
-  color: #999
+  align-items: center;
+  justify-content: space-between;
 }
-
-.find-friend .friends .friend .detail .copy-number {
+.name-text {
+  color: #323233;
+}
+.name-type {
+  color: #f44;
+}
+.other-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(178,186,194,.15);
+  padding-bottom: 12px;
+}
+.other-msg {
+  margin-top: 3px;
+  color: #969799;
+  font-size: 12px;
+}
+.copy-number {
   padding: 12px 24px;
   color: #009688;
   font-size: 12px
 }
-
-.find-friend .logo {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px
+.personal-talk {
+  text-align: left;
+  padding-top: 12px;
+  font-size: 14px;
+  color: #2c3e50;
 }
-
-.find-friend .bottom-tip-friend {
-  position: absolute;
-  left: 0;
-  bottom: -24px;
-  width: 100%;
-  font-size: 12px;
-  color: #999;
-  text-align: center;
-  padding-bottom: 12px
-}
-
-.find-friend .edit-button,
-.find-friend .switch-button {
+.find-friend .edit-button {
   position: fixed;
   background-color: rgba(0, 150, 136, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 12px;
-  border-radius: 50%
-}
-
-.find-friend .edit-button {
+  border-radius: 50%;
   width: 32px;
   height: 32px;
   bottom: 20px;
   right: 20px
 }
-
 .find-friend .edit-button .icon-bianji {
   font-size: 24px;
   color: #fff
-}
-
-.find-friend .switch-button {
-  right: 27px;
-  width: 18px;
-  height: 18px;
-  bottom: 90px
-}
-
-.find-friend .switch-button .switch-icon {
-  width: 18px;
-  height: 18px;
-  color: #fff
-}
-.sort-list {
-  width: 80% !important;
 }
 .type-tabs {
   position: fixed !important;

@@ -1,35 +1,31 @@
 <view class="find-friend">
   <i-tabs style="" color="#f5f5f5" i-class="type-tabs" current="{{currentType.id}}" scroll bindchange="handleChangeScroll">
-    <i-tab i-class="type-tab" wx:for="{{typeList}}" key="{{item.id}}" wx:key="{{item.id}}" title="{{item.name}}">{{item.name}}</i-tab>
+    <i-tab i-class="type-tab" wx:for="{{typeList}}" key="{{item.id}}" wx:key="id" title="{{item.name}}">{{item.name}}</i-tab>
   </i-tabs>
   <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{true}}" class="view" bindscrolltolower="loadMore"> -->
     <view class="friends">
       <view class="friend"
         wx:for="{{friends}}"
-        wx:key="item._id"
-        style="border-color: {{item.sex === 1 ? '#795548' : '#ff80ab'}}">
-        <image class="logo" wx:if="{{item.type === 2}}" mode="aspectFit" src="/static/img/home/wegameLogo.jpg"></image>
-        <image class="logo" wx:if="{{item.type === 1}}" mode="aspectFit" src="/static/img/home/steamLogo.png"></image>
-        <view class="detail">
-          <view class="personal-message">
-            <view class="name">{{item.name}}</view>
-            <view class="time">{{item.time}}</view>
-          </view>
-          <view class="personal-contact">
-            <view class="contact-logo" wx:if="{{item.contactType === 1}}" key="qq">QQ</view>
-            <view class="contact-logo" wx:else key="weixin">微信</view>
-            <view class="contact-number">{{item.contact}}</view>
-            <view class="copy-number" bindtap="copyNumber" data-content="{{item.contact}}">复制</view>
-          </view>
-          <view class="personal-talk">{{item.desc}}</view>
+        wx:key="_id">
+        <view class="friend-name">
+          <text class="name-text">{{item.name}}</text>
+          <text class="name-type" wx:if="{{item.type == 2}}">STEAM</text>
+          <text class="name-type" wx:if="{{item.type == 1}}">WEGAME</text>
         </view>
+        <view class="other-container">
+          <text class="other-msg" decode="{{true}}">
+            {{item.time}}&nbsp;&nbsp;&nbsp;{{item.sex == 1 ? '小哥哥' : '小姐姐'}}&nbsp;&nbsp;&nbsp;{{item.contactType === 1 ? 'QQ' : '微信'}}&nbsp;&nbsp;&nbsp;{{item.contact}}&nbsp;&nbsp;&nbsp;
+          </text>
+          <view class="copy-number" bindtap="copyNumber" data-content="{{item.contact}}">复制</view>
+        </view>
+        <view class="personal-talk">{{item.desc}}</view>
       </view>
-      <view class="bottom-tip-friend" wx:if="{{loading}}">加载中...</view>
-      <view class="bottom-tip-friend" wx:if="{{loaded && allFriends.length === 0}}">没有更多数据</view>
+      <view class="bottom-tip" wx:if="{{loading}}">加载中...</view>
+      <view class="bottom-tip" wx:if="{{loaded && allFriends.length === 0}}">没有更多数据</view>
     </view>
   <!-- </scroll-view> -->
-  <!-- <view class="edit-button" bindtap="toNew">
+  <view wx:if="{{true}}" class="edit-button" bindtap="toNew">
     <i-icon type="brush" color="#ffffff" size="20" />
-  </view> -->
+  </view>
   <i-toast id="toast" />
 </view>
