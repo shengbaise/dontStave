@@ -9,8 +9,7 @@
         wx:key="_id">
         <view class="friend-name">
           <text class="name-text">{{item.name}}</text>
-          <text class="name-type" wx:if="{{item.type == 2}}">STEAM</text>
-          <text class="name-type" wx:if="{{item.type == 1}}">WEGAME</text>
+          <text class="name-type">{{item.type == 2 ? 'STEAM' : 'WEGAME'}}</text>
         </view>
         <view class="other-container">
           <text class="other-msg" decode="{{true}}">
