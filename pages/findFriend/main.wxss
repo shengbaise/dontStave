@@ -17,7 +17,6 @@ page {
   padding: 16px;
   position: relative;
   background: #fff;
-  margin-bottom: 12px;
   border-bottom: 12px #f7f8fa solid;
 }
 .friend-name {

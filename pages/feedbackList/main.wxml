@@ -1,25 +1,22 @@
 <view class="feed-back-list">
   <i-tabs style="" color="#f5f5f5" i-class="tabs" current="{{currentTabType}}" scroll bindchange="handleChangeScroll">
-    <i-tab i-class="tab" wx:for="{{tabs}}" key="{{item.type}}" wx:key="{{item.type}}" title="{{item.label}}">{{item.label}}</i-tab>
+    <i-tab i-class="tab" wx:for="{{tabs}}" key="{{item.type}}" wx:key="type" title="{{item.label}}">{{item.label}}</i-tab>
   </i-tabs>
   <!-- <scroll-view scroll-y="{{true}}" scroll-top="{{scrollTop}}" class="view" bindscrolltolower="loadMore"> -->
     <view class="feed-backs">
-      <view class="feed-back" wx:for="{{feedBacks}}" wx:key="{{item._id}}">
-        <view class="status" style="background-color: {{statusColor[item.status]}}"></view>
-        <view class="name-time">
-          <view class="name-alis">
-            <view class="name">{{item.name}}</view>
-            <view class="alis">{{item.alis}}</view>
-          </view>
-          <view class="time">{{item.time}}</view>
+      <view class="feed-back" wx:for="{{feedBacks}}" wx:key="_id">
+        <view class="feed-back-name">
+          <text class="feed-name-text">{{item.name}}</text>
+          <text class="feed-status">{{status[item.status]}}</text>
         </view>
-        <view class="content {{currentTabType == 2 ? 'refuse' : ''}}">{{item.content}}</view>
-        <view wx:if="{{currentTabType == 2}}" class="refuse-reason">
-          {{item.reason}}
+        <view class="feed-name-time">
+          <text decode="{{true}}">{{item.alis}}&nbsp;&nbsp;&nbsp;{{item.time}}</text>
         </view>
+        <view class="feed-content">{{item.content}}</view>
+        <view class="feed-reason" wx:if="{{item.reason}}">回复：{{item.reason}}</view>
       </view>
-      <view class="bottom-tip-feed" wx:if="{{loaded && newFeedBacks.length === 0}}">没有更多数据</view>
-      <view class="bottom-tip-feed" wx:if="{{loading}}">加载中...</view>
+      <view class="bottom-tip" wx:if="{{loaded && newFeedBacks.length === 0}}">没有更多数据</view>
+      <view class="bottom-tip" wx:if="{{loading}}">加载中...</view>
     </view>
   <!-- </scroll-view> -->
 </view>

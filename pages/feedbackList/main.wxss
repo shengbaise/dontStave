@@ -1,6 +1,5 @@
 page {
   height: 100%;
-  background-color: #37474f;
 }
 .feed-back-list {
   height: 100%;
@@ -8,89 +7,46 @@ page {
   display: flex;
   flex-flow: column nowrap;
 }
-
-.feed-back-list .view {
-  position: relative;
-  height: 100%;
-  flex-grow: 1;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  background-color: #37474f;
-  width: 100%;
-}
-
 .feed-back-list .feed-backs {
   position: relative;
   margin-top: 40px;
-  padding: 12px
 }
 
-.feed-back-list .feed-backs .feed-back {
+.feed-back {
+  padding: 16px;
   position: relative;
-  margin-bottom: 12px;
-  width: 100%;
-  min-height: 60px;
   background: #fff;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px #0f131a
+  border-bottom: 12px #f7f8fa solid;
 }
-
-.feed-back-list .feed-backs .status {
-  position: absolute;
-  left: 12px;
-  top: -3px;
-  width: 32px;
-  height: 4px;
-  border-radius: 15px
-}
-
-.feed-back-list .feed-backs .name-time {
+.feed-back-name {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-.feed-back-list .feed-backs .name-time .name-alis {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 600;
-  font-size: 14px
-}
-
-.feed-back-list .feed-backs .name-time .name-alis .alis {
-  margin-left: 6px;
-  font-size: 12px;
-  color: #999;
-  font-weight: 400
-}
-
-.feed-back-list .feed-backs .name-time .time {
-  font-size: 12px;
-  color: #999;
-  font-weight: 400
-}
-
-.feed-back-list .feed-backs .content {
-  padding: 12px;
   font-size: 14px;
-  color: #333;
-  text-align: justify
+  align-items: center;
+  justify-content: space-between;
 }
-
-.feed-back-list .bottom-tip-feed {
-  position: absolute;
-  left: 0;
-  bottom: -24px;
-  width: 100%;
+.feed-name-text {
+  color: #323233;
+}
+.feed-status {
+  color: #f44;
+}
+.feed-name-time {
+  margin-top: 3px;
+  color: #969799;
   font-size: 12px;
-  color: #999;
-  text-align: center;
-  padding-bottom: 12px
+  border-bottom: 1px solid rgba(178,186,194,.15);
+  padding-bottom: 12px;
+}
+.feed-content {
+  text-align: left;
+  padding-top: 16px;
+  font-size: 14px;
+  color: #2c3e50;
+}
+.feed-reason {
+  margin-top: 12px;
+  color: #b2bac2;
+  font-size: 12px;
 }
 .tabs {
   position: fixed !important;
@@ -102,15 +58,4 @@ page {
 .tab {
   width: auto !important;
   padding: 0 12px !important;
-}
-.refuse {
-  text-decoration: line-through;
-}
-.refuse-reason {
-  font-size: 12px;
-  color: #999;
-  font-weight: 400;
-  background-color: #f5f5f5;
-  text-align: left;
-  padding: 12px;
 }

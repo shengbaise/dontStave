@@ -7,11 +7,11 @@ Page({
     loaded: false,
     newFeedBacks: [],
     feedBacks: [],
-    statusColor: {
+    status: {
       // 0 待处理 1 已处理 2 不予处理
-      0: '#909399',
-      1: '#67c23a',
-      2: '#f56c6c'
+      0: '待处理',
+      1: '已处理',
+      2: '不予处理'
     },
     tabs: [
       {
