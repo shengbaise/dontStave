@@ -1,37 +1,37 @@
 const arr = {
   'MODEL_TYPES': [
     {
-      tabImgUrl: '/static/img/home/entry-icon-chacter.png',
+      tabImgUrl: '/static/img/home/home_1.png',
       name: '人物',
       toPath: 'heroIntro',
       type: 'hero'
     }, {
-      tabImgUrl: '/static/img/home/entry-icon-thing.png',
+      tabImgUrl: '/static/img/home/home_2.png',
       name: '科技',
       toPath: 'science',
       type: 'materials?version=DST'
     }, {
-      tabImgUrl: '/static/img/home/entry-icon_food.png',
+      tabImgUrl: '/static/img/home/home_3.png',
       name: '食谱',
       toPath: 'recipe',
       type: 'food?version=DST'
     }, {
-      tabImgUrl: '/static/img/home/entry-icon_anim.png',
+      tabImgUrl: '/static/img/home/home_anim.png',
       name: '生物',
       toPath: 'animInfo',
       type: 'anim?version=DST'
     }, {
-      tabImgUrl: '/static/img/home/entry-icon_nature.png',
+      tabImgUrl: '/static/img/home/home_6.png',
       name: '自然',
       toPath: 'natureInfo',
       type: 'nature?version=DST'
     }, {
-      tabImgUrl: '/static/img/home/entry-icon_rule.png',
+      tabImgUrl: '/static/img/home/home_9.png',
       name: '机制',
       toPath: 'gameMechanism',
       type: ''
     }, {
-      tabImgUrl: '/static/img/home/map_intro.png',
+      tabImgUrl: '/static/img/home/home_8.png',
       name: '地理',
       toPath: 'geography',
       type: ''

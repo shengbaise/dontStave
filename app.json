@@ -30,9 +30,9 @@
     "backgroundColor": "#1a2933"
   },
   "tabBar": {
-    "color": "#b2bac2",
-    "backgroundColor": "#009688",
-    "selectedColor": "white",
+    "color": "#999",
+    "backgroundColor": "#f5f5f5",
+    "selectedColor": "#d81e06",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -44,13 +44,13 @@
         "pagePath": "pages/findFriend/main",
         "text": "找饥友",
         "iconPath": "static/icon/find.png",
-        "selectedIconPath": "/static/icon/find-selected.png"
+        "selectedIconPath": "/static/icon/find_1.png"
       },
       {
         "pagePath": "pages/mine/main",
         "text": "我的",
         "iconPath": "static/icon/mine.png",
-        "selectedIconPath": "static/icon/mine-selected.png"
+        "selectedIconPath": "static/icon/mine_1.png"
       }
     ]
   },
