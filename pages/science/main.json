@@ -1,6 +1,6 @@
 {
   "usingComponents": {
     "common-good": "../../components/commonGood/commonGood",
-    "ds-tabs": "../../components/dsTabs/ds-tabs"
+    "ds-tabs-col": "../../components/dsTabsCol/ds-tabs-col"
   }
 }

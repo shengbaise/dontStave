@@ -1,5 +1,4 @@
 const app = getApp()
-import regeneratorRuntime from '../../utils/runtime'
 
 Page({
   data: {

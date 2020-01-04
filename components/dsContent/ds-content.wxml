@@ -1,4 +1,4 @@
-<view class="science-technology">
+<view class="ds-content">
   <ds-tabs-col bind:selectTab="selectTab" currentTab="{{currentTab}}" tabs="{{tabs}}"></ds-tabs-col>
   <scroll-view scroll-top="{{scrollTop}}" class="view" scroll-y>
     <common-good wx:if="{{currentGoods.length > 0}}" bind:click="toDetail" wx:for="{{currentGoods}}" good="{{item}}" wx:key="{{item._id}}" type="science">

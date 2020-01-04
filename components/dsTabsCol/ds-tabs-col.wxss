@@ -1,0 +1,23 @@
+.ds-tab-selected {
+  color: #dc242e;
+  border-left: 2px solid #dc242e;
+  background-color: #fff;
+}
+
+.ds-tabs-col {
+  font-size: 14px;
+  background-color: #f8f8f8;
+  color: #7d7e80;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow: aoto;
+  margin-right: 16px;
+}
+
+.ds-tabs-col .ds-tab {
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  white-space: nowrap
+}
